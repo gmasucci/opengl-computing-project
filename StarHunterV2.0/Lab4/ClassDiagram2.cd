@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Camera" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACBAAAAAAAAAAAQACAAAACAAAAAAgQAQAAAIAEAAA=</HashCode>
+      <FileName>Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="game" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAAAAAAAAnAJSAADQAAAAMAAQAGCgAKspMgAAQQEDEM=</HashCode>
+      <FileName>game.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gameObject" Collapsed="true">
+    <Position X="1.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAgECIDAABAEEAgVIAAAAAkQAJAAASAgABAAAQhQA=</HashCode>
+      <FileName>gameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="loaders" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgBAAAAAAgIAAABAAgAAEAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>loaders.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyTBatch" Collapsed="true">
+    <Position X="17" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAIAAKCAAAAAAkAQAAAgABAAQAAAAAABAhBgAAAABAA=</HashCode>
+      <FileName>MyTBatch.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="numbers" Collapsed="true">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAEAAAAIAAAAAAAAAAAAABgAQAQBAA=</HashCode>
+      <FileName>numbers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="objectManager" Collapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAACAAAQABAgCgAAAAAhAwQCAgQEAAQAQACEAgAQA=</HashCode>
+      <FileName>objectManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="overlay" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAEAACAAEAAAYAQIAAIBAAAAAAAAAAAAABAAASAAA=</HashCode>
+      <FileName>overlay.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="player" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAREADAAAAOAIAQAIoAAQkACBAIAAQBYASAAABQAAg=</HashCode>
+      <FileName>player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shader" Collapsed="true">
+    <Position X="22.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgAAgAAAAIAAAECAAUAAAQAAACACABAQBAAAAAAAhQA=</HashCode>
+      <FileName>Shader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="skybox" Collapsed="true">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACCAAABAgECAAAEAAAIAAAIAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>skybox.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="soundManager" Collapsed="true">
+    <Position X="18.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABQCAAAICAAQAAACChAAAAQAAAIAAAAAQ=</HashCode>
+      <FileName>soundManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="staticModel" Collapsed="true">
+    <Position X="2.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EIAAAIAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>staticModel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="terrain" Collapsed="true">
+    <Position X="20.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAiAAAgAEBAEEogYIAAAoCAAACwAAQAAAAgABAhQw=</HashCode>
+      <FileName>terrain.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="tree" Collapsed="true">
+    <Position X="2.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAgAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>tree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vec3" Collapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAABgAQEAAAA=</HashCode>
+      <FileName>Vec3.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA::DA_MD5Model" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="DA::DA_MD5Model::Vertex" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DA_MD5Model.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="DA::DA_MD5Model::Joint" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DA_MD5Model.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="DA::DA_MD5Model::Frame" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DA_MD5Model.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="DA::DA_MD5Model::Exception" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DA_MD5Model.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="DA::DA_MD5Model::JointInformation" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DA_MD5Model.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="DA::DA_MD5Model::Triangle" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DA_MD5Model.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="DA::DA_MD5Model::Weight" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DA_MD5Model.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="DA::DA_MD5Model::Animation" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DA_MD5Model.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="DA::DA_MD5Model::Mesh" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DA_MD5Model.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Enum Name="DA::DA_MD5Model::TOKENS" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DA_MD5Model.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>KEKAAYAIAEBBAHMwCCBQAYECAEBEMICiBCMgEAAQAQQ=</HashCode>
+      <FileName>DA_MD5Model.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DA::Quaternion" Collapsed="true">
+    <Position X="20.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAIAICAAAAAEAAAQAAgAEAAAABAAAxAAAwAAI=</HashCode>
+      <FileName>Quaternion.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="__unnamed_struct_0001_3" Collapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEKACIAQAAAAAAEAAAAAAAAAAAAAAAADAAIACCgQ=</HashCode>
+      <FileName>Bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0001_10" Collapsed="true">
+    <Position X="10.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAACAAAAAAAAAAAAAAAABAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="BASS_SAMPLE" Collapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_FXECHO" Collapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

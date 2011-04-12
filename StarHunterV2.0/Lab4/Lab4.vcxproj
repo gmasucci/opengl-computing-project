@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F1755CDA-183B-4FB2-B8C9-29515F3D4F0F}</ProjectGuid>
+    <RootNamespace>Lab4</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>LIBCMT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DA_MD5Model.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="loaders.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyTBatch.cpp" />
+    <ClCompile Include="numbers.cpp" />
+    <ClCompile Include="objectManager.cpp" />
+    <ClCompile Include="overlay.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="skybox.cpp" />
+    <ClCompile Include="soundManager.cpp" />
+    <ClCompile Include="staticModel.cpp" />
+    <ClCompile Include="terrain.cpp" />
+    <ClCompile Include="tree.cpp" />
+    <ClCompile Include="Vec3.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Bass.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="DA_MD5Model.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="gameObject.h" />
+    <ClInclude Include="grid.h" />
+    <ClInclude Include="loaders.h" />
+    <ClInclude Include="MyTBatch.h" />
+    <ClInclude Include="numbers.h" />
+    <ClInclude Include="objectManager.h" />
+    <ClInclude Include="overlay.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="skybox.h" />
+    <ClInclude Include="soundManager.h" />
+    <ClInclude Include="staticModel.h" />
+    <ClInclude Include="terrain.h" />
+    <ClInclude Include="tree.h" />
+    <ClInclude Include="Vec3.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Bass.lib" />
+    <Library Include="freeglut.lib" />
+    <Library Include="freeglut_static.lib" />
+    <Library Include="gltools.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bass.dll" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="noSpec.frag" />
+    <None Include="noSpec.vert" />
+    <None Include="overlay.frag" />
+    <None Include="overlay.vert" />
+    <None Include="phong.frag" />
+    <None Include="phong.vert" />
+    <None Include="reflect.frag" />
+    <None Include="reflect.vert" />
+    <None Include="texonly.frag" />
+    <None Include="texonly.vert" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
