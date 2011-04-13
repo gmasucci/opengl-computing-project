@@ -31,7 +31,7 @@ numbers::numbers(GLuint *texIN)
 
 	}
 
-	myShader = gltLoadShaderPairWithAttributes("overlay.vert", "overlay.frag", 
+	myShader = gltLoadShaderPairWithAttributes("Shaders/overlay.vert", "Shaders/overlay.frag", 
 			2, GLT_ATTRIBUTE_VERTEX, "vVertex", GLT_ATTRIBUTE_TEXTURE0, "vTexCoord");
                  
 

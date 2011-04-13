@@ -7,7 +7,7 @@ tree::tree(int numtrees,GLuint *tex,terrain *map,GLGeometryTransform *pGLGTin,	C
 	clones = numtrees;
 	treeFrame = new GLFrame[clones];
 
-	char* fname = "tree.multi";
+	char* fname = "tree";
 	this->multi = true;
 	numParts = loaders::uwsmMultiCheck(fname);
 	mesh = new MyTBatch[numParts];
@@ -19,7 +19,7 @@ tree::tree(int numtrees,GLuint *tex,terrain *map,GLGeometryTransform *pGLGTin,	C
 	this->radius = 0.4f;
 	this->ptype = 0;
 	this->theCam = camIn;
-	myS = new Shader(camIn,"nospec.vert","nospec.frag",&myTex[0]);
+	myS = new Shader(camIn,"Shaders/nospec.vert","Shaders/nospec.frag",&myTex[0]);
 	setup();
 }
 

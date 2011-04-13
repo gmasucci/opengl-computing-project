@@ -13,47 +13,47 @@ soundManager::soundManager(void)
 	deathHSPLD = false;
 	winHSPLD = false;
 
-	LPSTR m = ".\\music.mp3\0";
+	LPSTR m = ".\\Sounds\\music.mp3\0";
 	music = BASS_SampleLoad(false,m,0,0,1,0);
 	if (!music)
 		MessageBox(NULL, "Couldn't load sound file.", m, MB_OK|MB_ICONEXCLAMATION);
 	
-	m=".\\leftfoot.wav\0";
+	m=".\\Sounds\\leftfoot.wav\0";
 	footleft = BASS_SampleLoad(false,m,0,0,1,0);
 	if (!footleft)
 		MessageBox(NULL, "Couldn't load sound file.", m, MB_OK|MB_ICONEXCLAMATION);
 	
-	m=".\\rightfoot.wav\0";
+	m=".\\Sounds\\rightfoot.wav\0";
 	footright = BASS_SampleLoad(false,m,0,0,1,0);
 	if (!footright)
 		MessageBox(NULL, "Couldn't load sound file.", m, MB_OK|MB_ICONEXCLAMATION);
 	
-	m=".\\heart.mp3\0";
+	m=".\\Sounds\\heart.mp3\0";
 	heart= BASS_SampleLoad(false,m,0,0,1,0);
 	if (!heart)
 		MessageBox(NULL, "Couldn't load sound file.", m, MB_OK|MB_ICONEXCLAMATION);
 	
-	m=".\\star.wav\0";
+	m=".\\Sounds\\star.wav\0";
 	starPing = BASS_SampleLoad(false,m,0,0,1,0);
 	if (!starPing)
 		MessageBox(NULL, "Couldn't load sound file.", m, MB_OK|MB_ICONEXCLAMATION);
 	
-	m=".\\doh1.wav\0";
+	m=".\\Sounds\\doh1.wav\0";
 	pain = BASS_SampleLoad(false,m,0,0,1,0);
 	if (!pain)
 		MessageBox(NULL, "Couldn't load sound file.", m , MB_OK|MB_ICONEXCLAMATION);
 	
-	m=".\\loading.mp3";
+	m=".\\Sounds\\loading.mp3";
 	loading = BASS_SampleLoad(false,m,0,0,1,0);
 	if (!loading)
 		MessageBox(NULL, "Couldn't load sound file.", m, MB_OK|MB_ICONEXCLAMATION);
 	
-	m=".\\death.mp3";
+	m=".\\Sounds\\death.mp3";
 	death = BASS_SampleLoad(false,m,0,0,1,0);
 	if (!death)
 		MessageBox(NULL, "Couldn't load sound file.", m, MB_OK|MB_ICONEXCLAMATION);
 	
-	m=".\\win.mp3";
+	m=".\\Sounds\\win.mp3";
 	win = BASS_SampleLoad(false,m,0,0,1,0);
 	if (!win)
 		MessageBox(NULL, "Couldn't load sound file.", m, MB_OK|MB_ICONEXCLAMATION);
