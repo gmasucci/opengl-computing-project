@@ -24,7 +24,7 @@ objectManager::objectManager(GLGeometryTransform *pGLGTin,
 	thePlayer->setPos(tmp);
 	thePlayer->setAngle(235.0f);
 
-	aStar = new staticModel("house.multi",hearttex,pGLGT,camIn);
+	aStar = new staticModel("house",hearttex,pGLGT,camIn);
 	M3DVector3f p;
 	p[0] = p[2] = 50.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);

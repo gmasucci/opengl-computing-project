@@ -27,7 +27,7 @@ staticModel::staticModel	(
 	this->radius = 0.4f;
 	this->ptype = 0;
 	this->theCam = camIn;
-	myS = new Shader(camIn,"nospec.vert","nospec.frag",&myTex[0]);
+	myS = new Shader(camIn,"Shaders/nospec.vert","Shaders/nospec.frag",&myTex[0]);
 
 }
 

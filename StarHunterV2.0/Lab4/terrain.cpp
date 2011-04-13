@@ -4,13 +4,18 @@ using namespace std;
 
 terrain::terrain(char* fname,float scaleIn,GLuint*tex,GLGeometryTransform *pGLGTin)
 {
+
+	string loadIt = "Textures/PGM/";
+	loadIt = loadIt.append(fname);
+
+
 	this->pGLGT=pGLGTin;
 	this->myTex=tex;
 	scale=scaleIn;
 	ifstream::pos_type fsize;
 	char * memblock;
 	
-	ifstream file (fname, ios::in|ios::binary|ios::ate);
+	ifstream file (loadIt.c_str(), ios::in|ios::binary|ios::ate);
 	if (file.is_open())
 	{
 		fsize = file.tellg();
@@ -87,7 +92,7 @@ terrain::terrain(char* fname,float scaleIn,GLuint*tex,GLGeometryTransform *pGLGT
 			<< "Indices in terrain   = " << myTri.GetIndexCount() << endl
 			<< "Vertices in terrain  = " << myTri.GetVertexCount() << endl;
 
-	grassShader = gltLoadShaderPairWithAttributes("noSpec.vert", "noSpec.frag", 3, GLT_ATTRIBUTE_VERTEX, "vVertex",
+	grassShader = gltLoadShaderPairWithAttributes("Shaders/noSpec.vert", "Shaders/noSpec.frag", 3, GLT_ATTRIBUTE_VERTEX, "vVertex",
 			GLT_ATTRIBUTE_NORMAL, "vNormal", GLT_ATTRIBUTE_TEXTURE0, "vTexture0");
 
 	locAmbient = glGetUniformLocation(grassShader, "ambientColor");

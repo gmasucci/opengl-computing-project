@@ -6,18 +6,18 @@ skybox::skybox()
 	//initial operations
 	gltMakeCube(skyCube, 20.0f);
 	
-	filenames[0]="pos_x.tga";
-	filenames[1]="neg_x.tga";
-	filenames[2]="pos_y.tga";
-	filenames[3]="neg_y.tga";
-	filenames[4]="pos_z.tga";
-	filenames[5]="neg_z.tga";
+	filenames[0]="Textures/Skybox/pos_x.tga";
+	filenames[1]="Textures/Skybox/neg_x.tga";
+	filenames[2]="Textures/Skybox/pos_y.tga";
+	filenames[3]="Textures/Skybox/neg_y.tga";
+	filenames[4]="Textures/Skybox/pos_z.tga";
+	filenames[5]="Textures/Skybox/neg_z.tga";
 
 	//load textures using loaders library.
 	loaders::cubemap(filenames,&skyTexture);
 
 	//load&compile shaders
-	skyboxShader = gltLoadShaderPairWithAttributes("texonly.vert", "texonly.frag", 2, 
+	skyboxShader = gltLoadShaderPairWithAttributes("Shaders/texonly.vert", "Shaders/texonly.frag", 2, 
                                                 GLT_ATTRIBUTE_VERTEX, "vVertex",
                                                 GLT_ATTRIBUTE_NORMAL, "vNormal");
 	

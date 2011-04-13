@@ -34,7 +34,7 @@ player::player(GLuint *tex,GLGeometryTransform *pGLGTin,terrain *mapIn,Camera *c
 	pain = false;
 	winner=false;
 	
-	myShader = gltLoadShaderPairWithAttributes("phong.vert", "phong.frag", 3, GLT_ATTRIBUTE_VERTEX, "vVertex",
+	myShader = gltLoadShaderPairWithAttributes("Shaders/phong.vert", "Shaders/phong.frag", 3, GLT_ATTRIBUTE_VERTEX, "vVertex",
 			GLT_ATTRIBUTE_NORMAL, "vNormal", GLT_ATTRIBUTE_TEXTURE0, "vTexture0");
 
 	locAmbient = glGetUniformLocation(myShader, "ambientColor");

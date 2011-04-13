@@ -8,10 +8,14 @@ void loaders::tex(char *fname, GLuint *texID){
 	GLint width, height, components;
 	GLenum format;
 	GLbyte *pBytes;
+
+	string loadIt = "Textures/";
+	loadIt = loadIt.append(fname);
+
 	// load file - using GLTools library
-    pBytes = gltReadTGABits(fname, &width, &height, &components, &format);
+    pBytes = gltReadTGABits(loadIt.c_str(), &width, &height, &components, &format);
 	if (pBytes == NULL){
-		pBytes = gltReadTGABits("e.tga", &width, &height, &components, &format);
+		pBytes = gltReadTGABits("Textures/e.tga", &width, &height, &components, &format);
 		success = false;
 	}
 
@@ -63,8 +67,7 @@ void loaders::cubemap(char **files,GLuint *cubeTexture){
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);       
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         
-  
-    // Load Cube Map images
+	// Load Cube Map images
     for(i = 0; i < 6; i++)
         {        
         // Load this texture map
@@ -113,10 +116,13 @@ void loaders::normGen(float *v[3], float* normal)				// Calculates Normal For A 
 }
 void loaders::uwsm(char *fname, GLTriangleBatch *obj){
 	
+	string loadIt = "Models/UWSM/";
+	loadIt = loadIt.append(fname);
+
 	ifstream::pos_type size;
 	char * memblock;
 
-	ifstream file (fname, ios::in|ios::binary|ios::ate);
+	ifstream file (loadIt.c_str(), ios::in|ios::binary|ios::ate);
 	if (file.is_open())
 	{
 		size = file.tellg();
@@ -206,7 +212,10 @@ void loaders::uwsm(char *fname, MyTBatch *obj){
 	ifstream::pos_type size;
 	char * memblock;
 
-	ifstream file (fname, ios::in|ios::binary|ios::ate);
+	string loadIt = "Models/UWSM/";
+	loadIt = loadIt.append(fname);
+
+	ifstream file (loadIt.c_str(), ios::in|ios::binary|ios::ate);
 	if (file.is_open())
 	{
 		size = file.tellg();
@@ -293,10 +302,19 @@ void loaders::uwsm(char *fname, MyTBatch *obj){
 }
 int loaders::uwsmMultiCheck(char *fname){
 
-	ifstream::pos_type size;
-	char * memblock;
+	int numParts=0;
 
-	ifstream file (fname, ios::in|ios::binary|ios::ate);
+	ifstream::pos_type size;
+	char * memblock = NULL;
+	
+
+	string loadIt = "./Models/UWSM/Multipart/";
+	loadIt = loadIt.append(fname);
+	loadIt = loadIt.append("/");
+	loadIt = loadIt.append(fname);
+	loadIt = loadIt.append(".multi");
+
+	ifstream file (loadIt.c_str(), ios::in|ios::binary|ios::ate);
 	if (file.is_open())
 	{
 		size = file.tellg();
@@ -305,33 +323,43 @@ int loaders::uwsmMultiCheck(char *fname){
 		file.read (memblock, size);
 		file.close();
 		cout << "Checking " << fname << " for list of files...";
+
+		stringstream strstream(memblock); 	// Copy file into a stringstream
+
+		string check;					// Basic check: is this a uwsm file?
+		
+
+		strstream >> check;
+		if (check.compare(0,9,"multiUWSM")!=0)
+		{	
+			cout << endl;
+		}else{
+			strstream >> numParts;
+			cout << "Success!" << endl;
+		}
+		delete[] memblock;
 	}
 	else
 	{	// Creates empty triangle mesh if file fails to load
 		cerr  << endl << "Unable to open list of files.\nLoading Empty mesh instead of " << fname << endl;
 	}
 	
-	stringstream strstream(memblock); 	// Copy file into a stringstream
-
-	string check;					// Basic check: is this a uwsm file?
-	int numParts=0;
-
-	strstream >> check;
-	if (check.compare(0,9,"multiUWSM")!=0)
-	{	
-		cout << endl;
-	}else{
-		strstream >> numParts;
-		cout << "Success!" << endl;
-	}
-	delete[] memblock;
+	
 	return numParts;
 }
 void loaders::uwsmMultiLoad(char *fname, MyTBatch *obj){
 	ifstream::pos_type size;
 	char * memblock;
 
-	ifstream file (fname, ios::in|ios::binary|ios::ate);
+	string loadIt = "./Models/UWSM/Multipart/";
+	loadIt = loadIt.append(fname);
+	loadIt = loadIt.append("/");
+	string name = loadIt;
+	string nameTmp = name;
+	loadIt = loadIt.append(fname);
+	loadIt = loadIt.append(".multi");
+
+	ifstream file (loadIt.c_str(), ios::in|ios::binary|ios::ate);
 	if (file.is_open())
 	{
 		size = file.tellg();
@@ -340,41 +368,142 @@ void loaders::uwsmMultiLoad(char *fname, MyTBatch *obj){
 		file.read (memblock, size);
 		file.close();
 		cout << "Loading individual meshes..." << endl;
+
+		stringstream strstream(memblock);
+
+		string temp;
+		int number;
+		string filename;
+		//char *name;
+		
+		strstream >> temp >> number;
+	
+		for(int i=0;i<number;i++){
+			strstream >> filename;
+			//name = new char[filename.length()];
+			//strcpy(name,filename.c_str());
+			nameTmp.append(filename);
+			cout << "     ";
+			loaders::uwsmComponent(nameTmp.c_str(),&obj[i]);
+			nameTmp = name;
+		}
+		delete[] memblock;
+	
 	}
 	else
 	{	// Creates empty triangle mesh if file fails to load
 		cerr << "Unable to open list of bodyparts.\nLoading Empty mesh instead of " << fname << endl;
 	}
 	
-	stringstream strstream(memblock);
-
-	string temp;
-	int number;
-	string filename;
-	char *name;
-	strstream >> temp >> number;
+	//delete[] name;
 	
-	for(int i=0;i<number;i++){
-		strstream >> filename;
-		name = new char[filename.length()];
-		strcpy(name,filename.c_str());
-		cout << "     ";
-		loaders::uwsm(name,&obj[i]);
+}
+void loaders::uwsmComponent(char *fname, MyTBatch *obj){
+	
+	ifstream::pos_type size;
+	char * memblock;
+
+	string loadIt = "";
+	loadIt = loadIt.append(fname);
+
+	ifstream file (loadIt.c_str(), ios::in|ios::binary|ios::ate);
+	if (file.is_open())
+	{
+		size = file.tellg();
+		memblock = new char [size];
+		file.seekg (0, ios::beg);
+		file.read (memblock, size);
+		file.close();
+	}
+	else
+	{	// Creates empty triangle mesh if file fails to load
+		cerr << "Unable to open file.\nLoading Empty mesh instead of " << fname << endl;
+		obj->BeginMesh(0);
+		obj->End();
+		return;
 	}
 	
-	//delete[] name;
-	delete[] memblock;
+	stringstream strstream(memblock); 	// Copy file into a stringstream
 
+	string magicnumber;					// Basic check: is this a uwsm file?
+	strstream >> magicnumber;
+	if (magicnumber.compare(0,4,"uwsm")!=0)
+	{	// could also use the version number, but not doing that just now
+		cerr << "File " << fname << " is not a uwsm file.\nLoading Empty mesh." << endl;
+		obj->BeginMesh(0);
+		obj->End();
+		return;
+	}
+
+	// Read geometry
+	int i, count; //count is number of floats, ie verts x 3
+	strstream >> count;
+	M3DVector3f *vertices = new M3DVector3f[count/3];
+	for (i=0;i<count/3;i++){
+		strstream >> vertices[i][0] >> vertices[i][1] >> vertices[i][2];
+
+	}
+	// Read normals
+	strstream >> count; // how many normals? normally will be same as vertices
+	M3DVector3f *normals = new M3DVector3f[count/3];
+		for (i=0;i<count/3;i++){
+			strstream >> normals[i][0] >> normals[i][1] >> normals[i][2];	
+
+		}
+	// Read texture coordinates
+	strstream >> count; // how many texture coords? need not be same as vertices
+	M3DVector2f *uv = new M3DVector2f[count/2];
+	if (count > 0)	// model has UV coordinates
+		for (i=0;i<count/2;i++)
+			strstream >> uv[i][0] >> uv[i][1];
+	
+	int triangles;
+	strstream >> triangles; // how many *triangles* in mesh?
+
+	obj->BeginMesh(triangles*3); 
+	int v0, v1, v2, t0, t1, t2;
+	M3DVector3f triangleVerts[3], triangleNorms[3]; 
+	M3DVector2f triangleTex[3];
+	for (i=0;i<triangles;i++)
+	{
+		// vertex & texture indices for one triangle
+		strstream >> v0 >> t0 >> v1 >> t1 >> v2 >> t2;
+
+		m3dCopyVector3(triangleVerts[0],vertices[v0]);
+		m3dCopyVector3(triangleVerts[1],vertices[v1]);
+		m3dCopyVector3(triangleVerts[2],vertices[v2]);
+
+		m3dCopyVector3(triangleNorms[0],normals[v0]);
+		m3dCopyVector3(triangleNorms[1],normals[v1]);
+		m3dCopyVector3(triangleNorms[2],normals[v2]);
+
+		m3dCopyVector2(triangleTex[0],uv[t0]);
+		m3dCopyVector2(triangleTex[1],uv[t1]);
+		m3dCopyVector2(triangleTex[2],uv[t2]);
+		obj->AddTriangle(triangleVerts,triangleNorms,triangleTex);
+	}
+
+	obj->End();
+
+	delete [] memblock;
+	delete [] vertices; 
+	delete [] normals;
+	delete [] uv;
+	cout << "Model component " << fname << " loaded." << endl;
 }
+
 void loaders::overlay(char *fname,GLuint *texID){
 
 
 	GLbyte *pBits;
 	int nWidth, nHeight, nComponents;
 	GLenum eFormat;
+
+	string loadIt = "Textures/Overlays/";
+	loadIt = loadIt.append(fname);
 	
 	// Read the texture bits
-	pBits = gltReadTGABits(fname, &nWidth, &nHeight, &nComponents, &eFormat);
+	pBits = gltReadTGABits(loadIt.c_str(), &nWidth, &nHeight, &nComponents, &eFormat);
 	if(pBits == NULL) 
 	{
 		cerr << "Something went wrong loading texture " << fname << endl;
@@ -403,7 +532,10 @@ void *loaders::sound(char *fname){
 	int len;
 	void *data;
 
-	fp = fopen(fname,"rb");
+	string loadIt = "Sounds/";
+	loadIt = loadIt.append(fname);
+
+	fp = fopen(loadIt.c_str(),"rb");
 	fseek(fp,0,SEEK_END);
 	len = ftell(fp);
 	data = malloc(len);
