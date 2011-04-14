@@ -15,7 +15,8 @@ staticModel::staticModel	(
 	multi = mult;
 	myTex=tex;
 	Vec3 tmax,tmin;
-
+	drawBounds = false;
+	spinning = false;
 	//std::cout << "tmin.x = " << tmin.x << ", min.y = " << min->y << std::endl;
 	if(multi){
 		numParts = loaders::uwsmMultiCheck(fname);
@@ -54,10 +55,13 @@ void staticModel::render(GLMatrixStack *pMVM, bool spcblnd){
 	}
 
 	//myFrame->RotateLocalY(0.01);
+	if(spinning){
+		myFrame->RotateLocalY(0.02f);
+	}
 
 	pMVM->PushMatrix();
 	pMVM->MultMatrix(*myFrame);
-
+	
 	pMVM->Scale(scaleValue,scaleValue,scaleValue);
 
 	if(multi){

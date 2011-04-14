@@ -214,6 +214,7 @@ void loaders::uwsm(char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin){
 
 	string loadIt = "Models/UWSM/";
 	loadIt = loadIt.append(fname);
+	loadIt.append(".uwsm");
 
 	ifstream file (loadIt.c_str(), ios::in|ios::binary|ios::ate);
 	if (file.is_open())
