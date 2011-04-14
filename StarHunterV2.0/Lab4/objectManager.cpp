@@ -4,9 +4,9 @@ using namespace std;
 objectManager::objectManager(GLGeometryTransform *pGLGTin,
 				player *playerIn,
 				terrain *map,
-				GLuint *startex,
-				GLuint *hearttex,
-				GLuint *baddietex,
+				GLuint *treetex,
+				GLuint *housetex,
+				GLuint *keytex,
 				Camera *camIn,
 				soundManager *sndManPtr)
 
@@ -24,15 +24,19 @@ objectManager::objectManager(GLGeometryTransform *pGLGTin,
 	thePlayer->setPos(tmp);
 	thePlayer->setAngle(235.0f);
 
-	staticM = new staticModel("house",hearttex,pGLGT,camIn);
+	smHouse = new staticModel("house",housetex,pGLGT,camIn);
+	smKey = new staticModel("key",keytex,pGLGT,camIn,false);
+	smKey->setSpinning(true);
 	M3DVector3f p;
 	p[0] = p[2] = 50.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
-	staticM->setPos(p);
+	smHouse->setPos(p);
+	p[0] = p[2] = 20.0f;
+	p[1] = theTerrain->getHeightAt(p[0],p[2]);
+	smKey->setPos(p);
 	int numtrees = 100;
-	t = new tree(numtrees,startex,map,pGLGT,camIn);
-	staticM->setDrawBounds(true);
-
+	t = new tree(numtrees,treetex,map,pGLGT,camIn);
+	
 }
 
 void objectManager::loadPositions(char *fname){
@@ -81,7 +85,9 @@ void objectManager::loadPositions(char *fname){
 }
 void objectManager::renderAllObjects(GLMatrixStack *pMVM){
 	
-	staticM ->render(pMVM);
+	smHouse ->render(pMVM);
+	smKey->render(pMVM);
+
 	t->render(pMVM);
 
 }
@@ -95,7 +101,7 @@ void objectManager::updateAllObjects(){
 	thePlayer->getPos(tmp,ang);
 	tmp[1]=1.0+theTerrain->getHeightAt(tmp[0],tmp[2]);
 	thePlayer->setPos(tmp);
-	if(thePlayer->isColliding(staticM)){
+	if(thePlayer->isColliding(smHouse)){
 		std::cout << "asdjh"<<std::endl;
 	}
 

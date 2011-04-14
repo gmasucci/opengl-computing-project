@@ -13,7 +13,8 @@ private:
 	tree *t;
 	soundManager	*psndMan;
 	GLGeometryTransform *pGLGT;
-	staticModel		*staticM;
+	staticModel		*smHouse;
+	staticModel		*smKey;
 	player			*thePlayer;
 	terrain			*theTerrain;
 	M3DVector3f		*starpositions;
@@ -31,9 +32,9 @@ private:
 public:
 	objectManager(GLGeometryTransform *pGLGTin,player *playerIn,
 				terrain *map,
-				GLuint *startex,
-				GLuint *hearttex,
-				GLuint *baddietex,
+				GLuint *treetex,
+				GLuint *housetex,
+				GLuint *keytex,
 				Camera *camIn,
 				soundManager *sndManPtr);
 

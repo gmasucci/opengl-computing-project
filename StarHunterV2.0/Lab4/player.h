@@ -13,6 +13,7 @@ private:
 		bool a;
 		bool d;
 		bool s;
+		bool e;
 		bool k;
 		bool l;
 	};
@@ -23,7 +24,7 @@ private:
 
 	terrain *map;
 	float velocity;
-	int stars,health;
+	int stars,health,doorkey;
 	bool pain;
 	bool winner;
 	soundManager *sm;
