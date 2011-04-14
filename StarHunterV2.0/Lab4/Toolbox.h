@@ -3,7 +3,7 @@
 	This was originally a class file
 	to draw a makeshift grid,
 	but somehow evolved into 
-	holding a lot of includes
+	holding a lot of includes and defines
 	It really needs to be cleaned up
 */
 #define WIN32

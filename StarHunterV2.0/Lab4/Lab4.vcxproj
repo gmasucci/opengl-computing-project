@@ -63,6 +63,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Camerak.cpp" />
+    <ClCompile Include="Controls.cpp" />
     <ClCompile Include="DA_MD5Model.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameObject.cpp" />
@@ -87,10 +89,12 @@
   <ItemGroup>
     <ClInclude Include="Bass.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Camerak.h" />
+    <ClInclude Include="Controls.h" />
     <ClInclude Include="DA_MD5Model.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
-    <ClInclude Include="grid.h" />
+    <ClInclude Include="Toolbox.h" />
     <ClInclude Include="loaders.h" />
     <ClInclude Include="MyTBatch.h" />
     <ClInclude Include="numbers.h" />

@@ -9,8 +9,9 @@ game *mygame = 0;
 void reshape(GLint w, GLint h){ mygame->reshape(w,h); }
 void display(void){	mygame->display(); }
 void init(void){ mygame->init(); }
-void keyboard(unsigned char key, int x, int y){	mygame->keys(key,x,y); }
-void keyup(unsigned char key, int x, int y){	mygame->keysup(key,x,y); }
+void keyboard(unsigned char key, int x, int y){	mygame->keysDn(key,x,y); }
+void keyup(unsigned char key, int x, int y){	mygame->keysUp(key,x,y); }
+void mouseMove(int x, int y){ mygame->mouseMove(x,y); }
 
 //small func to shift the console window, I hate not being able to see it;
 void moveConsole(){
@@ -26,6 +27,7 @@ int main(int argc, char* argv[])
 		mygame = new game(argc,argv);	//call constructor for main GLUT setup;
 		glutReshapeFunc(reshape);		//feed in the callbacks;
 		glutDisplayFunc(display);
+		glutPassiveMotionFunc(mouseMove);
 		glutKeyboardFunc(keyboard);
 		glutKeyboardUpFunc(keyup);
 		mygame->gameMain();				//Bam, into openGL

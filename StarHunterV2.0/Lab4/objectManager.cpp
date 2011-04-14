@@ -22,7 +22,7 @@ objectManager::objectManager(GLGeometryTransform *pGLGTin,
 	tmp[0] = tmp[2] = 30.0f;
 	tmp[1]=theTerrain->getHeightAt(tmp[0],tmp[2]);
 	thePlayer->setPos(tmp);
-	thePlayer->setAngle(235.0f);
+	//thePlayer->setAngle(235.0f);
 
 	smHouse = new staticModel("house",housetex,pGLGT,camIn);
 	smKey = new staticModel("key",keytex,pGLGT,camIn,false);

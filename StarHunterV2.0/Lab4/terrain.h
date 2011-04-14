@@ -1,7 +1,7 @@
 #pragma once
-#include "grid.h"
+#include "Toolbox.h"
 #include "loaders.h"
-#include "Camera.h"
+#include "Camerak.h"
 #include "MyTBatch.h"
 
 typedef unsigned char byte;
@@ -39,7 +39,7 @@ public:
 	float getHeightAt(float x, float z);
 	void avgNormals();
 	void drawV(const int x,const int z);
-	void drawMe(Camera *camIn);
+	void drawMe(Camerak *camIn);
 	void getCPAt(float*result,float x, float z);
 	~terrain();
 
