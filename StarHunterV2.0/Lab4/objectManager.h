@@ -13,7 +13,7 @@ private:
 	tree *t;
 	soundManager	*psndMan;
 	GLGeometryTransform *pGLGT;
-	staticModel		*aStar;
+	staticModel		*staticM;
 	player			*thePlayer;
 	terrain			*theTerrain;
 	M3DVector3f		*starpositions;

@@ -24,14 +24,14 @@ objectManager::objectManager(GLGeometryTransform *pGLGTin,
 	thePlayer->setPos(tmp);
 	thePlayer->setAngle(235.0f);
 
-	aStar = new staticModel("house",hearttex,pGLGT,camIn);
+	staticM = new staticModel("house",hearttex,pGLGT,camIn);
 	M3DVector3f p;
 	p[0] = p[2] = 50.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
-	aStar->setPos(p);
+	staticM->setPos(p);
 	int numtrees = 100;
 	t = new tree(numtrees,startex,map,pGLGT,camIn);
-
+	staticM->setDrawBounds(true);
 
 }
 
@@ -81,7 +81,7 @@ void objectManager::loadPositions(char *fname){
 }
 void objectManager::renderAllObjects(GLMatrixStack *pMVM){
 	
-	aStar ->render(pMVM);
+	staticM ->render(pMVM);
 	t->render(pMVM);
 
 }
@@ -95,7 +95,9 @@ void objectManager::updateAllObjects(){
 	thePlayer->getPos(tmp,ang);
 	tmp[1]=1.0+theTerrain->getHeightAt(tmp[0],tmp[2]);
 	thePlayer->setPos(tmp);
-
+	if(thePlayer->isColliding(staticM)){
+		std::cout << "asdjh"<<std::endl;
+	}
 
 }
 void objectManager::colliding(int type,GLFrame *obj){

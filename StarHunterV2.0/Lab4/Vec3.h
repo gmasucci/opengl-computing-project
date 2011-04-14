@@ -1,6 +1,7 @@
 #ifndef VEC3_H
 #define VEC3_H
 #include <cmath>
+#include <math3d.h>
 
 class Vec3
 {
@@ -19,6 +20,8 @@ public:
 	const Vec3& operator=(const Vec3 &rhs);
 	const Vec3& operator+=(const Vec3 &rhs);
 	const Vec3 operator*(const double rhs) const;
+	void fromM3D(M3DVector3f m);
+	void toM3D(float *m);
 };
 
 #endif

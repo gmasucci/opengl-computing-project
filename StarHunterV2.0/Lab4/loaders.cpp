@@ -207,7 +207,7 @@ void loaders::uwsm(char *fname, GLTriangleBatch *obj){
 	delete [] uv;
 	cout << "Model " << fname << " loaded." << endl;
 }
-void loaders::uwsm(char *fname, MyTBatch *obj){
+void loaders::uwsm(char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin){
 	
 	ifstream::pos_type size;
 	char * memblock;
@@ -347,7 +347,7 @@ int loaders::uwsmMultiCheck(char *fname){
 	
 	return numParts;
 }
-void loaders::uwsmMultiLoad(char *fname, MyTBatch *obj){
+void loaders::uwsmMultiLoad(char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin){
 	ifstream::pos_type size;
 	char * memblock;
 
@@ -384,7 +384,7 @@ void loaders::uwsmMultiLoad(char *fname, MyTBatch *obj){
 			//strcpy(name,filename.c_str());
 			nameTmp.append(filename);
 			cout << "     ";
-			loaders::uwsmComponent(nameTmp.c_str(),&obj[i]);
+			loaders::uwsmComponent(nameTmp.c_str(),&obj[i],cmax,cmin);
 			nameTmp = name;
 		}
 		delete[] memblock;
@@ -398,7 +398,7 @@ void loaders::uwsmMultiLoad(char *fname, MyTBatch *obj){
 	//delete[] name;
 	
 }
-void loaders::uwsmComponent(char *fname, MyTBatch *obj){
+void loaders::uwsmComponent(const char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin){
 	
 	ifstream::pos_type size;
 	char * memblock;
@@ -441,7 +441,12 @@ void loaders::uwsmComponent(char *fname, MyTBatch *obj){
 	M3DVector3f *vertices = new M3DVector3f[count/3];
 	for (i=0;i<count/3;i++){
 		strstream >> vertices[i][0] >> vertices[i][1] >> vertices[i][2];
-
+		if(vertices[i][0] > cmax->x){cmax->x = (double) vertices[i][0];}
+		if(vertices[i][1] > cmax->y){cmax->y = (double)vertices[i][1];}
+		if(vertices[i][2] > cmax->z){cmax->z = (double)vertices[i][2];}
+		if(vertices[i][0] < cmin->x){cmin->x = (double)vertices[i][0];}
+		if(vertices[i][1] < cmin->y){cmin->y = (double)vertices[i][1];}
+		if(vertices[i][2] < cmin->z){cmin->z = (double)vertices[i][2];}
 	}
 	// Read normals
 	strstream >> count; // how many normals? normally will be same as vertices
