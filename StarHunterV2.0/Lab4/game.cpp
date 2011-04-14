@@ -1,6 +1,6 @@
 #pragma once
 #include "game.h"
-#include "grid.h"
+#include "Toolbox.h"
 #include <GLFrame.h>
 #include "loaders.h"
 
@@ -37,8 +37,10 @@ game::game(int argc,char* argv[]){
 
 void game::init(){
 	
-	p=1;
-	this->sndMan = new soundManager(); //deleted
+//	p=1;
+	this->sndMan = new soundManager(); 
+	
+
 	glAlphaFunc(GL_GREATER, 0.5);
 	glEnable(GL_ALPHA_TEST);
 
@@ -83,7 +85,7 @@ void game::init(){
 	oWinner = new overlay(&textures[11],400,200,200,300);
 	counters = new numbers(&textures[6]);
 	myCam = new Camera(&modelViewMatrix);
-
+	theRealCam = new Camerak(&modelViewMatrix);
 	hm = new terrain ("h4.pgm",3,&textures[3],&transformPipeline);
 	
 	mySky = new skybox();
@@ -107,7 +109,7 @@ void game::init(){
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);	
-		
+	//glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH)*0.5,glutGet(GLUT_WINDOW_HEIGHT)*0.5);
 	transformPipeline.SetMatrixStacks(modelViewMatrix, projectionMatrix);
 	modelViewMatrix.LoadIdentity();
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
@@ -117,17 +119,35 @@ void game::init(){
 	//sndMan->play(SM_MUSIC,1);
 }
 void game::update(){
-	//system("cls");
-	M3DVector3f tpos,tang,temp;
-	if(p==1)
-	{
-		mySM->updateAllObjects();
-		hayden->getPos(tpos,tang);
-		myCam->update(tpos,tang);
-		
+	
+	mySM->updateAllObjects();
+	//theRealCam->update(Vec3(20,hm->getHeightAt(20,20),20));
+	if(input.getKeyState(27)){
+		glutLeaveMainLoop();
+	}
+	if(input.getKeyState('q')){
+		int breakpoint;
+		breakpoint = 1;
+	}
+	if(input.getKeyState('w')){
+		theRealCam->moveForward();
+	}
+	if( input.getMouseX() == glutGet(GLUT_WINDOW_WIDTH)*0.5 &&
+		input.getMouseY() == glutGet(GLUT_WINDOW_HEIGHT)*0.5 ){
+			//do feck all
 	}else{
-		hayden->getPos(tpos,tang);
-		std::cout << tpos[0] << ", " << tpos[1] << ", " << tpos[2] << std::endl;
+	lastMouseX =(float) mouseX;
+	lastMouseY =(float) mouseY;
+	mouseX = (float)input.getMouseX();
+	mouseY = (float)input.getMouseY();
+	float dtx,dty;
+	dtx = (float)(lastMouseX - mouseX);
+	dty = (float)(lastMouseY - mouseY);
+	dtx*=0.02;
+	dty*=0.02;
+	theRealCam->rotateAntiClockWise(dtx);
+	theRealCam->rotateUp(dty);
+	//glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH)*0.5,glutGet(GLUT_WINDOW_HEIGHT)*0.5);
 	}
 }
 
@@ -145,17 +165,17 @@ void game::display(){
 	
 	// Skybox
 	//***********
-	myCam->pushMatrix(true);	//true for skybox only
+	theRealCam->PushMatrix(true);	//true for skybox only
 	mySky->draw(&transformPipeline);
-	myCam->popcam();	//pop off the rotation only transform for the camera
+	theRealCam->PopMatrix();	//pop off the rotation only transform for the camera
 	//***********
 
-	myCam->pushMatrix();//no params, means standard transforms (ie not rotation only)
+	theRealCam->PushMatrix();//no params, means standard transforms (ie not rotation only)
 
-		hm->drawMe(myCam);
+		hm->drawMe(theRealCam);
 		mySM->renderAllObjects(&modelViewMatrix);
 	
-	myCam->popcam();		//last pop. for cam matrix
+	theRealCam->PopMatrix();		//last pop. for cam matrix
 
 
 	//render overlays
@@ -179,83 +199,15 @@ void game::updateOverlays(){
 
 	temp = hayden->getHealth();
 	//counters->render(temp,0,0);
-	if(p==0){
-		
-	}else{
-	
-	}
+
 
 }
-void game::keys(unsigned char key, int x, int y){
-	
-	hayden->keys(key);
 
-	if(key==27){
-	glutLeaveMainLoop();
+void game::mouseMove(int x,int y){input.mouseMotion(x,y);}
+void game::keysUp(unsigned char key, int x, int y){input.keyboardRelease(key,x,y);}
+void game::keysDn(unsigned char key, int x, int y){input.keyboardPress(key,x,y);}
 
 
-	}else{
-		
-	switch(key){
-	
-	case 'w':
-		w = 1;	
-		break;
-	case 's':
-		s = 1;
-		break;
-	case 'a':
-		a=1;
-		break;
-	case 'd':
-		d=1;
-		break;
-	case 'k':
-		k=1;
-		break;
-	case 'l':
-		l=1;
-		break;
-	case 'p':
-		if(p==1)
-			p=0;
-		else
-			p=1;
-		break;
-	default:
-		break;
-	}
-	}
-}
-void game::keysup(unsigned char key, int x, int y){
-
-	hayden->keysUp(key);
-
-	switch(key){
-
-	case 'w':
-		w = 0;	
-		break;
-	case 's':
-		s = 0;
-		break;
-	case 'a':
-		a=0;
-		break;
-	case 'd':
-		d=0;
-		break;
-	case 'k':
-		k=0;
-		break;
-	case 'l':
-		l=0;
-		break;
-	case 'p':
-		break;
-
-	}
-}
 void game::reshape(int w,int h){
 	glViewport(0, 0, w, h);
 	viewFrustum.SetPerspective(60.0f, float(w) / float(h), 0.1f, 1000.0f);

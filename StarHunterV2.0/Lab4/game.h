@@ -7,7 +7,8 @@
 #include "baddie.h"
 #include "soundManager.h"
 #include <StopWatch.h>
-
+#include "Controls.h"
+#include "Camerak.h"
 
 
 
@@ -41,15 +42,12 @@ private:
 	numbers				*counters;
 	HSAMPLE				music;
 	HCHANNEL			musicChannel;
-
-	GLint w;
-	GLint s;
-	GLint a;
-	GLint d;
-	GLint k;
-	GLint l;
-	GLint p;
-
+	Controls			input;
+	Camerak				*theRealCam;
+	int lastMouseX;
+	int lastMouseY;
+	int mouseX;
+	int mouseY;
 
 public:
 	game(int argc,char*argv[]);
@@ -59,8 +57,10 @@ public:
 	void updateOverlays();
 	void reshape(int w,int h);
 	void gameMain();
-	void keys(unsigned char key, int x, int y);
-	void keysup(unsigned char key, int x, int y);
+	void mouseMove(int x,int y);
+	void keysUp(unsigned char key, int x, int y);
+	void keysDn(unsigned char key, int x, int y);
+
 	~game();
 
 };

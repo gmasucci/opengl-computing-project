@@ -314,7 +314,7 @@ void terrain::drawV(const int x,const int z){
 
 }
 
-void terrain::drawMe(Camera *camIn){
+void terrain::drawMe(Camerak *camIn){
 		
 	M3DVector4f vEyeLight,vLight = {128.0f, 128.0f, -128.0f ,1.0f};
 	M3DMatrix44f *mx;

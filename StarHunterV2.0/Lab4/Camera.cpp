@@ -25,12 +25,11 @@ void Camera::popcam(){
 }
 void Camera::update(float*ppos,float*pang){
 	cam.SetOrigin(ppos);
-	cam.SetForwardVector(pang);
-	
-	//cam.RotateLocalY(this->rot);
-	//cam.MoveForward(-0.8f);
+	//cam.SetForwardVector(pang);
 	cam.MoveUp(0.5f);
-	//cam.MoveRight(0.5f);
+
+		
+	
 }
 void Camera::spin(){
 	rot-=0.01;

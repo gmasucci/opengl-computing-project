@@ -72,7 +72,19 @@ void player::keyboardUpdater(){
 	if(kp.k){myFrame->RotateWorld(0.03,0.0,1.0,0.0);}
 	if(kp.l){myFrame->RotateWorld(-0.03,0.0,1.0,0.0);}
 	
-static float interp = 0.0;
+
+
+
+	//myFrame->RotateLocalX(0.01);
+
+//	m3dCrossProduct3(
+
+
+
+
+
+
+	static float interp = 0.0;
 	static double current_time = 0;
 	static double last_time = 0;
 	float dt;
