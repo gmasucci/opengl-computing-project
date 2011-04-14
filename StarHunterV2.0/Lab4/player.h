@@ -1,8 +1,9 @@
 #pragma once
-#include "gameobject.h"
+#include "staticModel.h"
 #include "DA_MD5Model.h"
 #include "terrain.h"
 #include "soundManager.h"
+
 
 class player :	public gameObject
 {
@@ -53,6 +54,8 @@ public:
 	bool isWinner(){return winner;}
 	void setWinner(bool win){this->winner = win;}
 	~player();
+
+	bool isColliding(staticModel *m);
 
 };
 

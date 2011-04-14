@@ -11,7 +11,9 @@ tree::tree(int numtrees,GLuint *tex,terrain *map,GLGeometryTransform *pGLGTin,	C
 	this->multi = true;
 	numParts = loaders::uwsmMultiCheck(fname);
 	mesh = new MyTBatch[numParts];
-	loaders::uwsmMultiLoad(fname,mesh);
+	Vec3 tmax,tmin;
+	loaders::uwsmMultiLoad(fname,mesh,&tmax,&tmin);
+
 	theTerrain = map;
 	this->pGLGT = pGLGTin;
 	this->myTex = tex;

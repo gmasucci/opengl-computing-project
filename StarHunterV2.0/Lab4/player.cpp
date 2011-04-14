@@ -169,3 +169,36 @@ player::~player(){
 	//
 	//delete me;
 }
+
+bool player::isColliding(staticModel *m){
+	
+	player *p = this;
+	bool tmp = false;
+	//collisions.
+
+	//check how far away we are.
+	//TODO: if close, do more detailed collisions
+	M3DVector3f Apos,Aang,Bpos;
+	p->getPos(Apos,Aang);
+	m->getPos(Bpos);
+	Vec3 max,min;
+	m->getColInfo(&max,&min); 
+	//get the max, min points in space.
+	//Make sure its WORLD coords (i.e add the position to the max/min)
+
+	if	(Apos[0] < max.x && Apos[1] < max.y && Apos[2] < max.z){	
+		if( Apos[0] > min.x && Apos[1] > min.y && Apos[2] > min.z){
+			//youre inside the box. Get out!
+
+			tmp=true;
+			system("cls");
+			//std::cout << "in da house" << std::endl;
+
+		}
+	}
+
+
+
+	return tmp; //fttb;
+		
+}
