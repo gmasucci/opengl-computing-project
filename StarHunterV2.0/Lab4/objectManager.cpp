@@ -1,14 +1,14 @@
 #include "objectManager.h"
 using namespace std;
 
-objectManager::objectManager(GLGeometryTransform *pGLGTin,
-				player *playerIn,
-				terrain *map,
+ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
+				Player *playerIn,
+				Terrain *map,
 				GLuint *treetex,
 				GLuint *housetex,
 				GLuint *keytex,
 				Camera *camIn,
-				soundManager *sndManPtr)
+				SoundManager *sndManPtr)
 
 {
 	psndMan = sndManPtr;
@@ -24,8 +24,8 @@ objectManager::objectManager(GLGeometryTransform *pGLGTin,
 	thePlayer->setPos(tmp);
 	//thePlayer->setAngle(235.0f);
 
-	smHouse = new staticModel("house",housetex,pGLGT,camIn);
-	smKey = new staticModel("key",keytex,pGLGT,camIn,false);
+	smHouse = new StaticModel("house",housetex,pGLGT,camIn);
+	smKey = new StaticModel("key",keytex,pGLGT,camIn,false);
 	smKey->setSpinning(true);
 	M3DVector3f p;
 	p[0] = p[2] = 50.0f;
@@ -35,11 +35,11 @@ objectManager::objectManager(GLGeometryTransform *pGLGTin,
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smKey->setPos(p);
 	int numtrees = 100;
-	t = new tree(numtrees,treetex,map,pGLGT,camIn);
+	t = new Tree(numtrees,treetex,map,pGLGT,camIn);
 	
 }
 
-void objectManager::loadPositions(char *fname){
+void ObjectManager::loadPositions(char *fname){
 
 	ifstream::pos_type size;
 	char * memblock;
@@ -83,7 +83,7 @@ void objectManager::loadPositions(char *fname){
 
 
 }
-void objectManager::renderAllObjects(GLMatrixStack *pMVM){
+void ObjectManager::renderAllObjects(GLMatrixStack *pMVM){
 	
 	smHouse ->render(pMVM);
 	smKey->render(pMVM);
@@ -92,9 +92,9 @@ void objectManager::renderAllObjects(GLMatrixStack *pMVM){
 
 }
 
-int objectManager::getStars(){return numStars;}
+int ObjectManager::getStars(){return numStars;}
 
-void objectManager::updateAllObjects(){
+void ObjectManager::updateAllObjects(){
 
 	thePlayer->keyboardUpdater();
 	M3DVector3f tmp,ang;
@@ -106,7 +106,7 @@ void objectManager::updateAllObjects(){
 	}
 
 }
-void objectManager::colliding(int type,GLFrame *obj){
+void ObjectManager::colliding(int type,GLFrame *obj){
 	
 	switch(type){
 	case 0:
@@ -134,7 +134,7 @@ void objectManager::colliding(int type,GLFrame *obj){
 }
 
 
-objectManager::~objectManager(void)
+ObjectManager::~ObjectManager(void)
 {
 	//delete[] starpositions;
 	//delete[] heartpositions;

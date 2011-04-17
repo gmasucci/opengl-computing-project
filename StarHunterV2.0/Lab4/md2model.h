@@ -155,7 +155,7 @@ class md2model
 {
 public:
 	md2model();
-	md2model(const char *filename,soundManager *smIn);
+	md2model(const char *filename,SoundManager *smIn);
 	~md2model();
 	int ReadMD2Model(const char *filename);
 	void FreeModel();
@@ -169,7 +169,7 @@ public:
 
 private:
 	md2_model_t mdl;
-	soundManager *sm;
+	SoundManager *sm;
 	int currentAnim;
 	int currentFrame;
 	int nextFrame;

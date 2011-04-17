@@ -7,16 +7,16 @@
 #include "Bass.h"
 #include "soundManager.h"
 
-class objectManager
+class ObjectManager
 {
 private:
-	tree *t;
-	soundManager	*psndMan;
+	Tree *t;
+	SoundManager	*psndMan;
 	GLGeometryTransform *pGLGT;
-	staticModel		*smHouse;
-	staticModel		*smKey;
-	player			*thePlayer;
-	terrain			*theTerrain;
+	StaticModel		*smHouse;
+	StaticModel		*smKey;
+	Player			*thePlayer;
+	Terrain			*theTerrain;
 	M3DVector3f		*starpositions;
 	M3DVector3f		*heartpositions;
 	M3DVector3f		*baddiepositions;
@@ -30,13 +30,13 @@ private:
 
 
 public:
-	objectManager(GLGeometryTransform *pGLGTin,player *playerIn,
-				terrain *map,
+	ObjectManager(GLGeometryTransform *pGLGTin,Player *playerIn,
+				Terrain *map,
 				GLuint *treetex,
 				GLuint *housetex,
 				GLuint *keytex,
 				Camera *camIn,
-				soundManager *sndManPtr);
+				SoundManager *sndManPtr);
 
 	void loadPositions(char *fname);
 	void renderAllObjects(GLMatrixStack *pMVM);
@@ -44,6 +44,6 @@ public:
 	void colliding(int type,GLFrame *obj);
 	int getStars();
 
-	~objectManager(void);
+	~ObjectManager(void);
 };
 

@@ -1,19 +1,19 @@
 #include "gameObject.h"
 
-gameObject::gameObject(){}
-gameObject::gameObject(GLGeometryTransform *pGLGTin)
+GameObject::GameObject(){}
+GameObject::GameObject(GLGeometryTransform *pGLGTin)
 {
 	pGLGT=pGLGTin;
 }
 
-void gameObject::getPos(float*pos){myFrame->GetOrigin(pos);}
-void gameObject::setPos(float*pos){myFrame->SetOrigin(pos);}
-void gameObject::getAngle(float*pos){myFrame->GetForwardVector(pos);}
-void gameObject::setAngle(float*pos){myFrame->SetForwardVector(pos);}
-void gameObject::setAngle(float degrees){myFrame->RotateLocalY((PI/180)*degrees);}
+void GameObject::getPos(float*pos){myFrame->GetOrigin(pos);}
+void GameObject::setPos(float*pos){myFrame->SetOrigin(pos);}
+void GameObject::getAngle(float*pos){myFrame->GetForwardVector(pos);}
+void GameObject::setAngle(float*pos){myFrame->SetForwardVector(pos);}
+void GameObject::setAngle(float degrees){myFrame->RotateLocalY((PI/180)*degrees);}
 
 
-void gameObject::render(GLMatrixStack *pMVM, GLGeometryTransform *pGLGTin){
+void GameObject::render(GLMatrixStack *pMVM, GLGeometryTransform *pGLGTin){
 	pMVM->PushMatrix();
 	pMVM->MultMatrix(*myFrame);
 
@@ -27,9 +27,9 @@ void gameObject::render(GLMatrixStack *pMVM, GLGeometryTransform *pGLGTin){
 	pMVM->PopMatrix();
 }
 
-float gameObject::getRad(){return radius;}
-int gameObject::getType(){return this->ptype;}
-gameObject::~gameObject(void){
+float GameObject::getRad(){return radius;}
+int GameObject::getType(){return this->ptype;}
+GameObject::~GameObject(void){
 	//if multi
 	//delete[] mesh;
 	//else

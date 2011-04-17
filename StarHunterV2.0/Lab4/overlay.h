@@ -2,7 +2,7 @@
 #include "Toolbox.h"
 #include "loaders.h"
 
-class overlay
+class Overlay
 {
 protected:
 	GLBatch rect;
@@ -13,9 +13,9 @@ protected:
 	GLint	locRectMVP;
 	GLint	locRectTexture;
 public:
-	overlay();
-	overlay(GLuint *texIN,int wd,int ht,int xIn, int yIn);
+	Overlay();
+	Overlay(GLuint *texIN,int wd,int ht,int xIn, int yIn);
 	void render();
-	~overlay(void);
+	~Overlay(void);
 
 };

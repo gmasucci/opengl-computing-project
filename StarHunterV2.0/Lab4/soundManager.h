@@ -11,7 +11,7 @@
 #define SM_DEAD 7
 #define SM_WIN 8
 
-class soundManager
+class SoundManager
 {
 private:
 	HSAMPLE loading;
@@ -29,7 +29,7 @@ private:
 public:
 	void play(int sound,int loop = 0);
 	void stop(int sound);
-	soundManager(void);
-	~soundManager(void);
+	SoundManager(void);
+	~SoundManager(void);
 };
 

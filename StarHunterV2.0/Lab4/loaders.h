@@ -1,7 +1,7 @@
 #pragma once
 #include "Toolbox.h"
 
-class loaders //contains static functions to load textures & models
+class Loaders //contains static functions to load textures & models
 {
 public:
 	//loads a tga texture
@@ -13,7 +13,7 @@ public:
 	static void uwsm(char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin);
 	static void normGen(M3DVector3f v[3], M3DVector3f out);
 	static void normGen(float *v[3], float* normal);
-	static Vec3 loaders::normGen(Vec3 v[3]);
+	static Vec3 normGen(Vec3 v[3]);
 	
 	static int uwsmMultiCheck(char *fname);
 	static void uwsmMultiLoad(char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin);

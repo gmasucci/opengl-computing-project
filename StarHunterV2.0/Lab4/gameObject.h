@@ -1,7 +1,7 @@
 #pragma once
 #include "Shader.h"
 
-class gameObject
+class GameObject
 {
 protected:
 	GLGeometryTransform *pGLGT;
@@ -34,10 +34,10 @@ public:
 	void setAngle(float degrees);
 	void setPos(float*pos);
 	void render(GLMatrixStack *pMVM,GLGeometryTransform *pGLGTin);
-	gameObject();
-	gameObject(GLGeometryTransform*pGLGTin);
+	GameObject();
+	GameObject(GLGeometryTransform*pGLGTin);
 	float getRad();
 	int getType();
-	~gameObject(void);
+	~GameObject(void);
 };
 

@@ -32,7 +32,7 @@ public:
 	void moveForward();
 	void moveBackward();
 	inline void rotateAntiClockWise(float irotationrate){cam.RotateWorld(irotationrate,0,1,0);};
-	inline void rotateUp(float irotationrate){cam.RotateLocalX(-irotationrate);};
+	inline void rotateUp(float irotationrate){	cam.RotateLocalX(-irotationrate);};//{ if ((currentAngle>0) && currentAngle < (maxAngle+irotationrate)) {	cam.RotateLocalX(-irotationrate); currentAngle+=-irotationrate;	} else if ((currentAngle<0) && currentAngle > (-maxAngle+irotationrate)) {cam.RotateLocalX(-irotationrate); currentAngle-=-irotationrate;}	};
 	inline void resetForwardVector(){cam.SetForwardVector(0,0,-1);};
 	inline void resetUpVector(){cam.SetUpVector(0,1,0);};
 
@@ -60,5 +60,18 @@ private:
 	float movement_rate;
 	float rotation_rate;
 	int camera_mode;				// Used to specify first-peron, third-person or free-roaming camera
+
+	//  limiter stuff
+private:
+	float maxAngle;
+	float currentAngle;
+	
+public:
+	void setMaxAngle(float theta)		{	maxAngle = theta;	}
+	float getMaxAngle()					{	return maxAngle;	}
+	float getCurrentAngle()				{	return currentAngle;}
+	void adjustCurrentAngle(float  angleMod)	{	currentAngle+=angleMod;	}
+	void setCurrentAngle(float theta)			{	currentAngle+=theta;	}
+	
 };
 #endif

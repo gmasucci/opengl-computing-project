@@ -2,7 +2,7 @@
 
 using namespace std;
 
-terrain::terrain(char* fname,float scaleIn,GLuint*tex,GLGeometryTransform *pGLGTin)
+Terrain::Terrain(char* fname,float scaleIn,GLuint*tex,GLGeometryTransform *pGLGTin)
 {
 
 	string loadIt = "Textures/PGM/";
@@ -106,13 +106,13 @@ terrain::terrain(char* fname,float scaleIn,GLuint*tex,GLGeometryTransform *pGLGT
 
 }
 
-float terrain::getHeight(float x, float z){
+float Terrain::getHeight(float x, float z){
 	return yscale*(this->heights[int(z +(x*size))]);
 }
 #define LERP(a,b,t)   a + ((b-a)*t)
 
 
-float terrain::getHeightAt(float x, float z){
+float Terrain::getHeightAt(float x, float z){
 
 	float BL= getHeight(int(x/scale),int(z/scale));
 	float BR= getHeight(int(x/scale),int((z+1)/scale));
@@ -133,7 +133,7 @@ float terrain::getHeightAt(float x, float z){
 
 }
 
-void terrain::getCPAt(float*result,float x, float z){
+void Terrain::getCPAt(float*result,float x, float z){
 	float BL= getHeight(int(x/scale),int(z/scale));
 	float BR= getHeight(int(x/scale),int((z+1)/scale));
 	float TL= getHeight(int((x+1)/scale),int(z/scale));
@@ -162,7 +162,7 @@ void terrain::getCPAt(float*result,float x, float z){
 
 }
 
-void terrain::avgNormals(){
+void Terrain::avgNormals(){
 	//private function to average out the normals in the terrain.
 	//per vertex
 	//	work out what indexes would be where.
@@ -185,7 +185,7 @@ void terrain::avgNormals(){
 			tris[1] = vertex[BR];
 			tris[2] = vertex[TL];
 			
-			tmpNorm = loaders::normGen(tris);
+			tmpNorm = Loaders::normGen(tris);
 			
 			normal[BL] = tmpNorm;
 			normal[BR] = tmpNorm;
@@ -195,7 +195,7 @@ void terrain::avgNormals(){
 			tris[1] = vertex[BR];
 			tris[2] = vertex[TR];
 			
-			tmpNorm = loaders::normGen(tris);
+			tmpNorm = Loaders::normGen(tris);
 
 			normal[TL] = tmpNorm;
 			normal[BR] = tmpNorm;
@@ -237,7 +237,7 @@ void terrain::avgNormals(){
 
 
 
-void terrain::drawV(const int x,const int z){
+void Terrain::drawV(const int x,const int z){
 				M3DVector3f verts[3],norms[3],temp;
 				M3DVector2f tex[3];
 				
@@ -314,7 +314,7 @@ void terrain::drawV(const int x,const int z){
 
 }
 
-void terrain::drawMe(Camerak *camIn){
+void Terrain::drawMe(Camerak *camIn){
 		
 	M3DVector4f vEyeLight,vLight = {128.0f, 128.0f, -128.0f ,1.0f};
 	M3DMatrix44f *mx;
@@ -341,6 +341,6 @@ void terrain::drawMe(Camerak *camIn){
 	
 	
 }
-terrain::~terrain(){
+Terrain::~Terrain(){
 	delete[] heights;
 }

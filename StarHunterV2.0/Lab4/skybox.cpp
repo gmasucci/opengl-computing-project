@@ -1,7 +1,7 @@
 #include "skybox.h"
 
 
-skybox::skybox()
+Skybox::Skybox()
 {
 	//initial operations
 	gltMakeCube(skyCube, 20.0f);
@@ -14,7 +14,7 @@ skybox::skybox()
 	filenames[5]="Textures/Skybox/neg_z.tga";
 
 	//load textures using loaders library.
-	loaders::cubemap(filenames,&skyTexture);
+	Loaders::cubemap(filenames,&skyTexture);
 
 	//load&compile shaders
 	skyboxShader = gltLoadShaderPairWithAttributes("Shaders/texonly.vert", "Shaders/texonly.frag", 2, 
@@ -26,7 +26,7 @@ skybox::skybox()
 
 }
 
-void skybox::draw(GLGeometryTransform *pGLGT){
+void Skybox::draw(GLGeometryTransform *pGLGT){
 	glDisable(GL_DEPTH_TEST);
 	glUseProgram(skyboxShader);
 	glUniformMatrix4fv(locMVPSkyBox, 1, GL_FALSE, pGLGT->GetModelViewProjectionMatrix());
@@ -34,7 +34,7 @@ void skybox::draw(GLGeometryTransform *pGLGT){
 	glEnable(GL_DEPTH_TEST);
 }
 
-skybox::~skybox()
+Skybox::~Skybox()
 {
 	glDeleteTextures(1, &skyTexture);
 }

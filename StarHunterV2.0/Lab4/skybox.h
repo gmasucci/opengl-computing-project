@@ -2,12 +2,12 @@
 #include "loaders.h"
 #include "Toolbox.h"
 
-class skybox
+class Skybox
 {
 public:
-	skybox();
+	Skybox();
 	void draw(GLGeometryTransform *pGLGT);
-	~skybox();
+	~Skybox();
 
 private:
 	GLFrame myFrame;

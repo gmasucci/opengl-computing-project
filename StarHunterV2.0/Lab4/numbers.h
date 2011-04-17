@@ -1,6 +1,6 @@
 #pragma once
 #include "overlay.h"
-class numbers :	public overlay
+class Numbers :	public Overlay
 {
 private:
 	GLBatch			*theNumbers;
@@ -8,8 +8,8 @@ private:
 	float			x,y,z;
 
 public:
-	numbers(GLuint *texIN);
+	Numbers(GLuint *texIN);
 	void render(int numberToRender,int x,int y);
-	~numbers(void);
+	~Numbers(void);
 };
 

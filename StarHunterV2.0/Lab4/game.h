@@ -13,10 +13,10 @@
 
 
 
-class game{
+class Game{
 private:
 
-	soundManager		*sndMan;
+	SoundManager		*sndMan;
 	GLMatrixStack		projectionMatrix;
 	GLFrustum			viewFrustum;
 	GLMatrixStack		modelViewMatrix;
@@ -28,18 +28,18 @@ private:
 	GLuint				house[4];
 	CStopWatch			updater;
 	Camera				*myCam;
-	skybox				*mySky;
-	objectManager		*mySM;
+	Skybox				*mySky;
+	ObjectManager		*mySM;
 	GLuint				skyTex[6];
-	terrain				*hm;
-	player				*hayden;
-	overlay				*loading;
-	overlay				*loaded;
-	overlay				*oHeart;
-	overlay				*oStar;
-	overlay				*oGameOver;
-	overlay				*oWinner;
-	numbers				*counters;
+	Terrain				*hm;
+	Player				*hayden;
+	Overlay				*loading;
+	Overlay				*loaded;
+	Overlay				*oHeart;
+	Overlay				*oStar;
+	Overlay				*oGameOver;
+	Overlay				*oWinner;
+	Numbers				*counters;
 	HSAMPLE				music;
 	HCHANNEL			musicChannel;
 	Controls			input;
@@ -50,17 +50,17 @@ private:
 	int mouseY;
 
 public:
-	game(int argc,char*argv[]);
+	Game(int argc,char*argv[]);
 	void display();
 	void init();
 	void update();
 	void updateOverlays();
 	void reshape(int w,int h);
 	void gameMain();
-	void mouseMove(int x,int y);
-	void keysUp(unsigned char key, int x, int y);
-	void keysDn(unsigned char key, int x, int y);
+	void mouseMove(int x,int y)						{input.mouseMotion(x,y);}
+	void keysUp(unsigned char key, int x, int y)	{input.keyboardRelease(key,x,y);}
+	void keysDn(unsigned char key, int x, int y)	{input.keyboardPress(key,x,y);}
 
-	~game();
+	~Game();
 
 };

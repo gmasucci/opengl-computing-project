@@ -1,6 +1,8 @@
 #pragma once
 #include "gameObject.h"
-class staticModel : public gameObject
+
+
+class StaticModel : public GameObject
 {
 private:
 	GLint locInvertCam;
@@ -15,8 +17,8 @@ protected:
 
 public:
 	Vec3 max,min;
-	staticModel();
-	staticModel(
+	StaticModel();
+	StaticModel(
 		char* fname,
 		GLuint *tex,
 		GLGeometryTransform *pGLGT,
@@ -26,6 +28,6 @@ public:
 	void getColInfo(Vec3 *max,Vec3 *min);
 	void setDrawBounds(bool b = false){drawBounds = b;}
 	void setSpinning(bool b = false){spinning = b;}
-	~staticModel(void);
+	~StaticModel(void);
 };
 

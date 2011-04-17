@@ -5,7 +5,7 @@
 #include "player.h"
 #include "terrain.h"
 
-class baddie : public gameObject
+class baddie : public GameObject
 {
 private:
 	GLTriangleBatch *bodypart;
