@@ -5,7 +5,7 @@
 #include "soundManager.h"
 
 
-class player :	public gameObject
+class Player :	public GameObject
 {
 private:
 	struct keyList{
@@ -22,20 +22,20 @@ private:
 	//md2model *me;
 	DA::DA_MD5Model *me;
 
-	terrain *map;
+	Terrain *map;
 	float velocity;
 	int stars,health,doorkey;
 	bool pain;
 	bool winner;
-	soundManager *sm;
+	SoundManager *sm;
 
 public:
-	player();
-	player(GLuint *tex,
+	Player();
+	Player(GLuint *tex,
 		GLGeometryTransform *pGLGT,
-		terrain *mapIn,
+		Terrain *mapIn,
 		Camera *camIn,
-		soundManager *smIn);
+		SoundManager *smIn);
 	void setAnim(int n);
 	void keys(unsigned char key);
 	void keysUp(unsigned char key);
@@ -54,9 +54,9 @@ public:
 	void setPain(){pain = true;}
 	bool isWinner(){return winner;}
 	void setWinner(bool win){this->winner = win;}
-	~player();
+	~Player();
 
-	bool isColliding(staticModel *m);
+	bool isColliding(StaticModel *m);
 
 };
 

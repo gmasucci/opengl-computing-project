@@ -1,7 +1,7 @@
 #include "numbers.h"
 
 
-numbers::numbers(GLuint *texIN)
+Numbers::Numbers(GLuint *texIN)
 {
 	this->tex=texIN;
 
@@ -42,7 +42,7 @@ numbers::numbers(GLuint *texIN)
 
 }
 
-void numbers::render(int numberToRender,int x,int y){
+void Numbers::render(int numberToRender,int x,int y){
 
 	m3dTranslationMatrix44(this->translate,x,y,this->z);
 	M3DMatrix44f temp;
@@ -76,6 +76,6 @@ void numbers::render(int numberToRender,int x,int y){
 	glEnable(GL_DEPTH_TEST);
 }
 
-numbers::~numbers(void)
+Numbers::~Numbers(void)
 {
 }

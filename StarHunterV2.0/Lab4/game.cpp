@@ -6,7 +6,7 @@
 
 
 
-game::game(int argc,char* argv[]){
+Game::Game(int argc,char* argv[]){
 	vWhite[0]=1.0f;
 	vWhite[1]=1.0f;
 	vWhite[2]=1.0f;
@@ -35,10 +35,10 @@ game::game(int argc,char* argv[]){
 	this->init();
 }
 
-void game::init(){
+void Game::init(){
 	
 //	p=1;
-	this->sndMan = new soundManager(); 
+	this->sndMan = new SoundManager(); 
 	
 
 	glAlphaFunc(GL_GREATER, 0.5);
@@ -46,52 +46,52 @@ void game::init(){
 
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 	glGenTextures(15,textures);
-	loaders::overlay("load.tga",&textures[9]);
-	loaders::overlay("loading.tga",&textures[12]);
+	Loaders::overlay("load.tga",&textures[9]);
+	Loaders::overlay("loading.tga",&textures[12]);
 	//loading screen;
 	//sndMan->play(SM_FLOPPY,1);	
 
-	loading = new overlay(&textures[9],800,600,0,600);
-	loaded = new overlay(&textures[12],300,100,250,350);
+	loading = new Overlay(&textures[9],800,600,0,600);
+	loaded = new Overlay(&textures[12],300,100,250,350);
 	loading->render();
 	
 	glutPostRedisplay();
 	glutSwapBuffers();
 
-	loaders::tex("skin.tga",&textures[0]);
-	loaders::tex("star.tga" ,&textures[1]);
-	loaders::tex("grass.tga",&textures[3]);
-	loaders::tex("beast.tga",&textures[4]);
-	loaders::tex("heart.tga",&textures[5]);
-	loaders::overlay("font.tga",&textures[6]);
-	loaders::overlay("starOver.tga",&textures[7]);
-	loaders::overlay("heartOver.tga",&textures[8]);
-	loaders::overlay("GO.tga",&textures[10]);
-	loaders::overlay("WIN.tga",&textures[11]);
+	Loaders::tex("skin.tga",&textures[0]);
+	Loaders::tex("star.tga" ,&textures[1]);
+	Loaders::tex("grass.tga",&textures[3]);
+	Loaders::tex("beast.tga",&textures[4]);
+	Loaders::tex("heart.tga",&textures[5]);
+	Loaders::overlay("font.tga",&textures[6]);
+	Loaders::overlay("starOver.tga",&textures[7]);
+	Loaders::overlay("heartOver.tga",&textures[8]);
+	Loaders::overlay("GO.tga",&textures[10]);
+	Loaders::overlay("WIN.tga",&textures[11]);
 	
 
 	glGenTextures(2,treetex);
-	loaders::tex("trunk.tga",&treetex[0]);
-	loaders::tex("leaf.tga",&treetex[1]);
+	Loaders::tex("trunk.tga",&treetex[0]);
+	Loaders::tex("leaf.tga",&treetex[1]);
 	
 	glGenTextures(3,house);
-	loaders::tex("brick.tga",&house[0]);
-	loaders::tex("roof.tga",&house[1]);
-	loaders::tex("door.tga",&house[2]);
+	Loaders::tex("brick.tga",&house[0]);
+	Loaders::tex("roof.tga",&house[1]);
+	Loaders::tex("door.tga",&house[2]);
 
-	oHeart = new overlay(&textures[8],128,128,0,600);
-	oStar = new overlay(&textures[7],128,128,672,600);
-	oGameOver = new overlay(&textures[10],400,200,200,400);
-	oWinner = new overlay(&textures[11],400,200,200,300);
-	counters = new numbers(&textures[6]);
+	oHeart = new Overlay(&textures[8],128,128,0,600);
+	oStar = new Overlay(&textures[7],128,128,672,600);
+	oGameOver = new Overlay(&textures[10],400,200,200,400);
+	oWinner = new Overlay(&textures[11],400,200,200,300);
+	counters = new Numbers(&textures[6]);
 	myCam = new Camera(&modelViewMatrix);
 	theRealCam = new Camerak(&modelViewMatrix);
-	hm = new terrain ("h4.pgm",3,&textures[3],&transformPipeline);
+	hm = new Terrain ("h4.pgm",3,&textures[3],&transformPipeline);
 	
-	mySky = new skybox();
-	hayden = new player(&textures[4],&transformPipeline,hm,myCam,sndMan);
+	mySky = new Skybox();
+	hayden = new Player(&textures[4],&transformPipeline,hm,myCam,sndMan);
 
-	mySM = new objectManager(
+	mySM = new ObjectManager(
 		&transformPipeline,
 		hayden,
 		hm,
@@ -118,7 +118,7 @@ void game::init(){
 	
 	//sndMan->play(SM_MUSIC,1);
 }
-void game::update(){
+void Game::update(){
 	
 	mySM->updateAllObjects();
 	//theRealCam->update(Vec3(20,hm->getHeightAt(20,20),20));
@@ -144,14 +144,14 @@ void game::update(){
 	dtx = (float)(lastMouseX - mouseX);
 	dty = (float)(lastMouseY - mouseY);
 	dtx*=0.02;
-	dty*=0.02;
+	dty*=0.002;
 	theRealCam->rotateAntiClockWise(dtx);
 	theRealCam->rotateUp(dty);
 	//glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH)*0.5,glutGet(GLUT_WINDOW_HEIGHT)*0.5);
 	}
 }
 
-void game::display(){
+void Game::display(){
 	//sqRot++; 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	float t = this->updater.GetElapsedSeconds();
@@ -188,7 +188,7 @@ void game::display(){
 }
 
 
-void game::updateOverlays(){
+void Game::updateOverlays(){
 	int temp;
 	temp = hayden->getStars();
 	if(temp>9){
@@ -203,20 +203,18 @@ void game::updateOverlays(){
 
 }
 
-void game::mouseMove(int x,int y){input.mouseMotion(x,y);}
-void game::keysUp(unsigned char key, int x, int y){input.keyboardRelease(key,x,y);}
-void game::keysDn(unsigned char key, int x, int y){input.keyboardPress(key,x,y);}
 
 
-void game::reshape(int w,int h){
+
+void Game::reshape(int w,int h){
 	glViewport(0, 0, w, h);
 	viewFrustum.SetPerspective(60.0f, float(w) / float(h), 0.1f, 1000.0f);
 	projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
 }
-void game::gameMain(){
+void Game::gameMain(){
 	glutMainLoop();
 }
-game::~game(){
+Game::~Game(){
 //for future deletions.
 	delete oHeart;
 	delete oStar;

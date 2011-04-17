@@ -1,7 +1,7 @@
 #include "loaders.h"
 using namespace std;
 
-void loaders::tex(char *fname, GLuint *texID){
+void Loaders::tex(char *fname, GLuint *texID){
 
 	// texture dimensions and data buffer
 	bool success = true;
@@ -37,7 +37,7 @@ void loaders::tex(char *fname, GLuint *texID){
 		cout << "Texture " << fname << " loaded" << endl;
 	}
 }
-void loaders::cubemap(char **files,GLuint *cubeTexture){
+void Loaders::cubemap(char **files,GLuint *cubeTexture){
 
 	GLenum  cube[6] = {  GL_TEXTURE_CUBE_MAP_POSITIVE_X,
                      GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
@@ -84,7 +84,7 @@ void loaders::cubemap(char **files,GLuint *cubeTexture){
 
 	cout << "Skybox textures loaded." << endl;
 }
-void loaders::normGen(M3DVector3f v[3], M3DVector3f normal)				// Calculates Normal For A triangle Using 3 Points
+void Loaders::normGen(M3DVector3f v[3], M3DVector3f normal)				// Calculates Normal For A triangle Using 3 Points
 {
 	M3DVector3f v1,v2;			
 		
@@ -99,7 +99,7 @@ void loaders::normGen(M3DVector3f v[3], M3DVector3f normal)				// Calculates Nor
 	m3dCrossProduct3(normal,v1,v2);
 	m3dNormalizeVector3(normal);
 }
-void loaders::normGen(float *v[3], float* normal)				// Calculates Normal For A triangle Using 3 Points
+void Loaders::normGen(float *v[3], float* normal)				// Calculates Normal For A triangle Using 3 Points
 {
 	M3DVector3f v1,v2;			
 		
@@ -114,7 +114,7 @@ void loaders::normGen(float *v[3], float* normal)				// Calculates Normal For A 
 	m3dCrossProduct3(normal,v1,v2);
 	m3dNormalizeVector3(normal);
 }
-void loaders::uwsm(char *fname, GLTriangleBatch *obj){
+void Loaders::uwsm(char *fname, GLTriangleBatch *obj){
 	
 	string loadIt = "Models/UWSM/";
 	loadIt = loadIt.append(fname);
@@ -207,7 +207,7 @@ void loaders::uwsm(char *fname, GLTriangleBatch *obj){
 	delete [] uv;
 	cout << "Model " << fname << " loaded." << endl;
 }
-void loaders::uwsm(char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin){
+void Loaders::uwsm(char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin){
 	
 	ifstream::pos_type size;
 	char * memblock;
@@ -301,7 +301,7 @@ void loaders::uwsm(char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin){
 	delete [] uv;
 	cout << "Model " << fname << " loaded." << endl;
 }
-int loaders::uwsmMultiCheck(char *fname){
+int Loaders::uwsmMultiCheck(char *fname){
 
 	int numParts=0;
 
@@ -348,7 +348,7 @@ int loaders::uwsmMultiCheck(char *fname){
 	
 	return numParts;
 }
-void loaders::uwsmMultiLoad(char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin){
+void Loaders::uwsmMultiLoad(char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin){
 	ifstream::pos_type size;
 	char * memblock;
 
@@ -385,7 +385,7 @@ void loaders::uwsmMultiLoad(char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin){
 			//strcpy(name,filename.c_str());
 			nameTmp.append(filename);
 			cout << "     ";
-			loaders::uwsmComponent(nameTmp.c_str(),&obj[i],cmax,cmin);
+			Loaders::uwsmComponent(nameTmp.c_str(),&obj[i],cmax,cmin);
 			nameTmp = name;
 		}
 		delete[] memblock;
@@ -399,7 +399,7 @@ void loaders::uwsmMultiLoad(char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin){
 	//delete[] name;
 	
 }
-void loaders::uwsmComponent(const char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin){
+void Loaders::uwsmComponent(const char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin){
 	
 	ifstream::pos_type size;
 	char * memblock;
@@ -498,7 +498,7 @@ void loaders::uwsmComponent(const char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *c
 	cout << "Model component " << fname << " loaded." << endl;
 }
 
-void loaders::overlay(char *fname,GLuint *texID){
+void Loaders::overlay(char *fname,GLuint *texID){
 
 
 	GLbyte *pBits;
@@ -532,7 +532,7 @@ void loaders::overlay(char *fname,GLuint *texID){
 	cout << "Overlay " << fname << " loaded." << endl;
 
 }
-void *loaders::sound(char *fname){
+void *Loaders::sound(char *fname){
 	
 	FILE *fp;
 	int len;
@@ -551,7 +551,7 @@ void *loaders::sound(char *fname){
 	return data;
 }
 
-Vec3 loaders::normGen(Vec3 v[3]){
+Vec3 Loaders::normGen(Vec3 v[3]){
 	M3DVector3f v1,v2,normal;			
 	Vec3 rNorm;
 

@@ -3,7 +3,7 @@
 using namespace std;
 
 //Globals
-game *mygame = 0;
+Game *mygame = 0;
 
 //callback functions, point to the game class
 void reshape(GLint w, GLint h){ mygame->reshape(w,h); }
@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 	int x;
 	moveConsole(); //shift that;
 
-		mygame = new game(argc,argv);	//call constructor for main GLUT setup;
+		mygame = new Game(argc,argv);	//call constructor for main GLUT setup;
 		glutReshapeFunc(reshape);		//feed in the callbacks;
 		glutDisplayFunc(display);
 		glutPassiveMotionFunc(mouseMove);

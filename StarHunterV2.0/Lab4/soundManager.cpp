@@ -1,7 +1,7 @@
 #include "soundManager.h"
 
 
-soundManager::soundManager(void)
+SoundManager::SoundManager(void)
 {
 	if (!BASS_Init(-1, 44100, BASS_DEVICE_NOTHREAD, NULL))
 	{
@@ -62,7 +62,7 @@ soundManager::soundManager(void)
 	
 }
 
-void soundManager::play(int sound,int loop){
+void SoundManager::play(int sound,int loop){
 	switch(sound){
 	case 0:
 		BASS_SamplePlayEx(loading,(DWORD)0,-1,50,-1,loop);
@@ -105,7 +105,7 @@ void soundManager::play(int sound,int loop){
 		break;
 	}
 }
-void soundManager::stop(int sound){
+void SoundManager::stop(int sound){
 
 switch(sound){
 	case 0:
@@ -140,7 +140,7 @@ switch(sound){
 	}
 
 }
-soundManager::~soundManager(void)
+SoundManager::~SoundManager(void)
 {
 	BASS_SampleStop(loading);
 	BASS_SampleStop(music);

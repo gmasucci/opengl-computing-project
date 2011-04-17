@@ -1,15 +1,15 @@
 #include "staticModel.h"
 
 
-staticModel::staticModel(){}
+StaticModel::StaticModel(){}
 
-staticModel::staticModel	(
+StaticModel::StaticModel	(
 			char* fname,
 			GLuint *tex,
 			GLGeometryTransform *pGLGTin,
 			Camera *camIn,
 			bool mult
-			):gameObject(pGLGTin)
+			):GameObject(pGLGTin)
 {
 	myFrame = new GLFrame();
 	multi = mult;
@@ -19,12 +19,12 @@ staticModel::staticModel	(
 	spinning = false;
 	//std::cout << "tmin.x = " << tmin.x << ", min.y = " << min->y << std::endl;
 	if(multi){
-		numParts = loaders::uwsmMultiCheck(fname);
+		numParts = Loaders::uwsmMultiCheck(fname);
 		mesh = new MyTBatch[numParts];
-		loaders::uwsmMultiLoad(fname,mesh,&tmax,&tmin);
+		Loaders::uwsmMultiLoad(fname,mesh,&tmax,&tmin);
 	}else{
 		mesh = new MyTBatch();
-		loaders::uwsm(fname,mesh,&tmax,&tmin);
+		Loaders::uwsm(fname,mesh,&tmax,&tmin);
 	}
 
 	max.x = tmax.x;
@@ -47,7 +47,7 @@ staticModel::staticModel	(
 	tbminframe.TranslateWorld(min.x,0.0f,min.z);
 }
 
-void staticModel::render(GLMatrixStack *pMVM, bool spcblnd){
+void StaticModel::render(GLMatrixStack *pMVM, bool spcblnd){
 
 	if(spcblnd){
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE);// < good ghost effect :)
@@ -93,7 +93,7 @@ void staticModel::render(GLMatrixStack *pMVM, bool spcblnd){
 
 }
 
-staticModel::~staticModel(void){
+StaticModel::~StaticModel(void){
 	if(multi){
 		delete[] mesh;
 	}else{
@@ -104,7 +104,7 @@ staticModel::~staticModel(void){
 	//other objects reference only, do not delete!
 }
 
-void staticModel::getColInfo(Vec3 *cmax,Vec3 *cmin){
+void StaticModel::getColInfo(Vec3 *cmax,Vec3 *cmin){
 
 	M3DVector3f m;
 	this->myFrame->GetOrigin(m);

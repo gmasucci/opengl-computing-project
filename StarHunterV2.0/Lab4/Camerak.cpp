@@ -8,6 +8,10 @@ Camerak::Camerak(GLMatrixStack *pMVMin)
 	cam.SetOrigin(0,0,0);
 	camMx = new M3DMatrix44f[1];
 	camera_mode = FIRST_PERSON;
+
+	//	limiter stuff
+	maxAngle= 179.0f;
+	currentAngle=0.0f;
 }
 
 Camerak::~Camerak(void)

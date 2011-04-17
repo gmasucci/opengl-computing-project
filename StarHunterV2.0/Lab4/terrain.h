@@ -6,7 +6,7 @@
 
 typedef unsigned char byte;
 
-class terrain
+class Terrain
 {
 private:
 	GLGeometryTransform *pGLGT;
@@ -34,14 +34,14 @@ private:
 	GLint locTexture;
 
 public:
-	terrain(char *fname,float scaleIn,GLuint *tex,GLGeometryTransform *pGLGTin);
+	Terrain(char *fname,float scaleIn,GLuint *tex,GLGeometryTransform *pGLGTin);
 	float getHeight(float x, float z);
 	float getHeightAt(float x, float z);
 	void avgNormals();
 	void drawV(const int x,const int z);
 	void drawMe(Camerak *camIn);
 	void getCPAt(float*result,float x, float z);
-	~terrain();
+	~Terrain();
 
 };
 

@@ -1,8 +1,8 @@
 #include "overlay.h"
 
-overlay::overlay(){}
+Overlay::Overlay(){}
 
-overlay::overlay(GLuint *texIN,int wd,int ht,int x, int y)
+Overlay::Overlay(GLuint *texIN,int wd,int ht,int x, int y)
 {
 	tex=texIN;
 	m3dMakeOrthographicMatrix(screenspace,0.0f,800,0.0f,600,-1.0f,1.0f);
@@ -33,7 +33,7 @@ overlay::overlay(GLuint *texIN,int wd,int ht,int x, int y)
 
 
 
-void overlay::render(){
+void Overlay::render(){
 
 	glEnable(GL_BLEND);
 	glDisable(GL_DEPTH_TEST);
@@ -45,6 +45,6 @@ void overlay::render(){
 	this->rect.Draw();
 	glEnable(GL_DEPTH_TEST);
 }
-overlay::~overlay(void)
+Overlay::~Overlay(void)
 {
 }

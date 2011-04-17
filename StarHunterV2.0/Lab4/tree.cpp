@@ -2,17 +2,17 @@
 
 
 
-tree::tree(int numtrees,GLuint *tex,terrain *map,GLGeometryTransform *pGLGTin,	Camera *camIn)
+Tree::Tree(int numtrees,GLuint *tex,Terrain *map,GLGeometryTransform *pGLGTin,	Camera *camIn)
 {
 	clones = numtrees;
 	treeFrame = new GLFrame[clones];
 
 	char* fname = "tree";
 	this->multi = true;
-	numParts = loaders::uwsmMultiCheck(fname);
+	numParts = Loaders::uwsmMultiCheck(fname);
 	mesh = new MyTBatch[numParts];
 	Vec3 tmax,tmin;
-	loaders::uwsmMultiLoad(fname,mesh,&tmax,&tmin);
+	Loaders::uwsmMultiLoad(fname,mesh,&tmax,&tmin);
 
 	theTerrain = map;
 	this->pGLGT = pGLGTin;
@@ -25,7 +25,7 @@ tree::tree(int numtrees,GLuint *tex,terrain *map,GLGeometryTransform *pGLGTin,	C
 	setup();
 }
 
-void tree::setup()
+void Tree::setup()
 {
 
 	for(int i = 0;i<clones;i++){
@@ -68,7 +68,7 @@ void tree::setup()
 	}
 }
 
-void tree::render(GLMatrixStack *pMVM)
+void Tree::render(GLMatrixStack *pMVM)
 {
 	for(int j=0;j<clones;j++){
 		pMVM->PushMatrix();
@@ -92,6 +92,6 @@ void tree::render(GLMatrixStack *pMVM)
 		
 }
 
-tree::~tree(void)
+Tree::~Tree(void)
 {
 }

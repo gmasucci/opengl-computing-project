@@ -1,9 +1,9 @@
 #include "player.h"
 
 
-player::player(){}
+Player::Player(){}
 
-player::player(GLuint *tex,GLGeometryTransform *pGLGTin,terrain *mapIn,Camera *camIn,soundManager *smIn):gameObject(pGLGTin)
+Player::Player(GLuint *tex,GLGeometryTransform *pGLGTin,Terrain *mapIn,Camera *camIn,SoundManager *smIn):GameObject(pGLGTin)
 {
 	myTex=tex;
 	pGLGT = pGLGTin;
@@ -47,10 +47,10 @@ player::player(GLuint *tex,GLGeometryTransform *pGLGTin,terrain *mapIn,Camera *c
 	locTexture = glGetUniformLocation(myShader, "colorMap");
 
 }
-void player::setAnim(int n){
+void Player::setAnim(int n){
 	//me->setAnim(n);
 }
-void player::keys(unsigned char key){
+void Player::keys(unsigned char key){
 	if(key=='w'){kp.w=true;this->setAnim(1);}
 	if(key=='a')kp.a=true;
 	if(key=='s'){
@@ -63,7 +63,7 @@ void player::keys(unsigned char key){
 	if(key=='l')kp.l=true;
 }
 
-void player::keyboardUpdater(){
+void Player::keyboardUpdater(){
 	
 	if(kp.w){myFrame->MoveForward(velocity);}
 	if(kp.s){myFrame->MoveForward(-velocity);}
@@ -100,7 +100,7 @@ void player::keyboardUpdater(){
 	//	me->animate(dt);
 }
 
-void player::keysUp(unsigned char key){
+void Player::keysUp(unsigned char key){
 	if(key=='w'){
 		kp.w=false;
 		//this->setAnim(0);
@@ -115,22 +115,22 @@ void player::keysUp(unsigned char key){
 	if(key=='k')kp.k=false;
 	if(key=='l')kp.l=false;
 }
-void player::setPos(float*ppos){
+void Player::setPos(float*ppos){
 	myFrame->SetOrigin(ppos[0],ppos[1]+0.46,ppos[2]);
 }
 
 
-void player::setPos(float x, float y,float z){
+void Player::setPos(float x, float y,float z){
 
 	myFrame->SetOrigin(x,y+0.46,z);
 }
 
-void player::getPos(float*ret,float*ang){
+void Player::getPos(float*ret,float*ang){
 	myFrame->GetOrigin(ret); 
 	myFrame->GetForwardVector(ang);
 }
 
-void player::render(GLMatrixStack *pMVM){
+void Player::render(GLMatrixStack *pMVM){
 
 	M3DMatrix44f rotx;
 	m3dRotationMatrix44(rotx,PI/2,-1.0f,0.0f,0.0f);
@@ -177,14 +177,14 @@ void player::render(GLMatrixStack *pMVM){
 
 }
 
-player::~player(){
+Player::~Player(){
 	//
 	//delete me;
 }
 
-bool player::isColliding(staticModel *m){
+bool Player::isColliding(StaticModel *m){
 	
-	player *p = this;
+	Player *p = this;
 	bool tmp = false;
 	//collisions.
 
