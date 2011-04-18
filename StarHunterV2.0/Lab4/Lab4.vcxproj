@@ -62,7 +62,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="baddie.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Camerak.cpp" />
     <ClCompile Include="Controls.cpp" />
@@ -88,7 +87,6 @@
     <ClCompile Include="Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="baddie.h" />
     <ClInclude Include="Bass.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Camerak.h" />
@@ -123,16 +121,16 @@
     <None Include="Bass.dll" />
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
-    <None Include="noSpec.frag" />
-    <None Include="noSpec.vert" />
-    <None Include="overlay.frag" />
-    <None Include="overlay.vert" />
-    <None Include="phong.frag" />
-    <None Include="phong.vert" />
-    <None Include="reflect.frag" />
-    <None Include="reflect.vert" />
-    <None Include="texonly.frag" />
-    <None Include="texonly.vert" />
+    <None Include="Shaders\noSpec.frag" />
+    <None Include="Shaders\noSpec.vert" />
+    <None Include="Shaders\overlay.frag" />
+    <None Include="Shaders\overlay.vert" />
+    <None Include="Shaders\phong.frag" />
+    <None Include="Shaders\phong.vert" />
+    <None Include="Shaders\reflect.frag" />
+    <None Include="Shaders\reflect.vert" />
+    <None Include="Shaders\texonly.frag" />
+    <None Include="Shaders\texonly.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
