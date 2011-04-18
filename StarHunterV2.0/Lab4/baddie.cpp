@@ -12,9 +12,9 @@ Baddie::Baddie(GLuint *tex,GLGeometryTransform *pGLGTin,Camera *camIn)
 	this->ptype = 2;
 	this->theCam=camIn;
 
-	numParts = loaders::uwsmMultiCheck("beast.multi");
+	numParts = Loaders::uwsmMultiCheck("beast.multi");
 	bodypart = new GLTriangleBatch[numParts];
-	loaders::uwsmMultiLoad("beast.multi",bodypart);
+	Loaders::uwsmMultiLoad("beast.multi",bodypart);
 
 	myShader = gltLoadShaderPairWithAttributes("phong.vert", "phong.frag", 3, GLT_ATTRIBUTE_VERTEX, "vVertex",
 			GLT_ATTRIBUTE_NORMAL, "vNormal", GLT_ATTRIBUTE_TEXTURE0, "vTexture0");
