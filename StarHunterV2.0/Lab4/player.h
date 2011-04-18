@@ -43,6 +43,7 @@ public:
 	void setPos(float*pos);
 	void setPos(float x,float y,float z);
 	void setAng(float* ang);
+
 	void getPos(float*ret,float*ang);
 	void addStar()	{stars++;}
 	void addHealth(){health++;}

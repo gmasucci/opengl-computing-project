@@ -25,11 +25,12 @@ void Camera::popcam(){
 }
 void Camera::update(float*ppos,float*pang){
 	cam.SetOrigin(ppos);
-	//cam.SetForwardVector(pang);
-	cam.MoveUp(0.5f);
-
-		
-	
+	M3DVector3f t;
+	t[0] = pang[0];
+	t[2] = pang[2];
+	t[1] = 0;
+	m3dNormalizeVector3(t);
+	cam.SetForwardVector(t);
 }
 void Camera::spin(){
 	rot-=0.01;
