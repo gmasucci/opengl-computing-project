@@ -113,6 +113,7 @@ void Game::init(){
 	transformPipeline.SetMatrixStacks(modelViewMatrix, projectionMatrix);
 	modelViewMatrix.LoadIdentity();
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
+	glutSetCursor(GLUT_CURSOR_NONE);
 	//sndMan->stop(SM_FLOPPY);
 
 	
@@ -121,33 +122,47 @@ void Game::init(){
 void Game::update(){
 	
 	mySM->updateAllObjects();
-	//theRealCam->update(Vec3(20,hm->getHeightAt(20,20),20));
+	M3DVector3f v,fv;
+	theRealCam->getFrame().GetOrigin(v);
+	theRealCam->getFrame().GetForwardVector(fv);
+	v[1] = hm->getHeightAt(v[0],v[2]) + 1;
+	theRealCam->setOrigin(v);
+	hayden->setPos(v);
+	hayden->setAng(fv);
+	myCam->update(v,fv);
+
 	if(input.getKeyState(27)){
 		glutLeaveMainLoop();
 	}
 	if(input.getKeyState('q')){
-		int breakpoint;
-		breakpoint = 1;
+		
 	}
-	if(input.getKeyState('w')){
-		theRealCam->moveForward();
+
+	if(input.getKeyState('w')){theRealCam->moveForward();}
+	if(input.getKeyState('a')){theRealCam->strafeLeft();}
+	if(input.getKeyState('s')){theRealCam->moveBackward();}
+	if(input.getKeyState('d')){theRealCam->strafeRight();}
+	if(input.getKeyState('e')){/*use button*/}
+
+	int xcentre = glutGet(GLUT_WINDOW_WIDTH) / 2;		// stores the current horizontal centre iof the screen
+	int ycentre = glutGet(GLUT_WINDOW_HEIGHT) / 2;		// stores the current vertical centre of the screen
+	
+	float tempx = input.getMouseX();
+	float tempy = input.getMouseY();
+	float offset = 0;
+	if(tempx < xcentre - 1 || tempx > xcentre + 1)				// provides a dead zone in the centre of the screen
+	{
+		offset = (xcentre - tempx) * 0.003f;
+		theRealCam->rotateAntiClockWise(offset);
 	}
-	if( input.getMouseX() == glutGet(GLUT_WINDOW_WIDTH)*0.5 &&
-		input.getMouseY() == glutGet(GLUT_WINDOW_HEIGHT)*0.5 ){
-			//do feck all
-	}else{
-	lastMouseX =(float) mouseX;
-	lastMouseY =(float) mouseY;
-	mouseX = (float)input.getMouseX();
-	mouseY = (float)input.getMouseY();
-	float dtx,dty;
-	dtx = (float)(lastMouseX - mouseX);
-	dty = (float)(lastMouseY - mouseY);
-	dtx*=0.02;
-	dty*=0.002;
-	theRealCam->rotateAntiClockWise(dtx);
-	theRealCam->rotateUp(dty);
-	//glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH)*0.5,glutGet(GLUT_WINDOW_HEIGHT)*0.5);
+	if(tempy < ycentre - 1 || tempy > ycentre + 1)				// provides a dead zone in the centre of the screen
+	{
+		offset = (ycentre - tempy) * 0.003f;
+		theRealCam->rotateUp(offset);
+	}
+	if(offset != 0)
+	{
+		glutWarpPointer((int)xcentre, (int)ycentre);
 	}
 }
 

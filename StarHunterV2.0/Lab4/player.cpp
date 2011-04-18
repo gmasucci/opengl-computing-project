@@ -124,7 +124,15 @@ void Player::setPos(float x, float y,float z){
 
 	myFrame->SetOrigin(x,y+0.46,z);
 }
+void Player::setAng(float* ang){
+	M3DVector3f t;
+	t[0] = ang[0];
+	t[2] = ang[2];
+	t[1] = 0.0f;
+	m3dNormalizeVector3(t);
+	myFrame->SetForwardVector(t);
 
+}
 void Player::getPos(float*ret,float*ang){
 	myFrame->GetOrigin(ret); 
 	myFrame->GetForwardVector(ang);

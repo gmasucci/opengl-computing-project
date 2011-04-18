@@ -73,6 +73,6 @@ public:
 	float getCurrentAngle()				{	return currentAngle;}
 	void adjustCurrentAngle(float  angleMod)	{	currentAngle+=angleMod;	}
 	void setCurrentAngle(float theta)			{	currentAngle+=theta;	}
-	
+	void setOrigin(M3DVector3f m){cam.SetOrigin(m);}
 };
 #endif
