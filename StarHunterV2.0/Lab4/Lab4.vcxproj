@@ -62,6 +62,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="baddie.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Camerak.cpp" />
     <ClCompile Include="Controls.cpp" />
@@ -87,11 +88,13 @@
     <ClCompile Include="Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="baddie.h" />
     <ClInclude Include="Bass.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Camerak.h" />
     <ClInclude Include="Controls.h" />
     <ClInclude Include="DA_MD5Model.h" />
+    <ClInclude Include="DA_Utils.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="Toolbox.h" />
