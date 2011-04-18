@@ -5,18 +5,18 @@
 #include "player.h"
 #include "terrain.h"
 
-class baddie : public GameObject
+class Baddie : public GameObject
 {
 private:
 	GLTriangleBatch *bodypart;
 	int numParts;
 
 public:
-	baddie();
+	Baddie();
 	void render(GLMatrixStack *pMVM);
-	baddie(GLuint *tex,GLGeometryTransform *pGLGTin,Camera *camIn);
+	Baddie(GLuint *tex,GLGeometryTransform *pGLGTin,Camera *camIn);
 	void setup(GLuint *tex,GLGeometryTransform *pGLGTin);
 	void renderMultiple(GLMatrixStack *pMVM,GLFrame &theFrame);
-	~baddie();
+	~Baddie();
 };
 

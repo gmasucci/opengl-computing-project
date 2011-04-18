@@ -1,9 +1,9 @@
 #include "baddie.h"
 
 
-baddie::baddie(){}
+Baddie::Baddie(){}
 
-baddie::baddie(GLuint *tex,GLGeometryTransform *pGLGTin,Camera *camIn)
+Baddie::Baddie(GLuint *tex,GLGeometryTransform *pGLGTin,Camera *camIn)
 {
 	this->myTex = tex;
 	scaleValue = 0.01;
@@ -29,7 +29,7 @@ baddie::baddie(GLuint *tex,GLGeometryTransform *pGLGTin,Camera *camIn)
 	locTexture = glGetUniformLocation(myShader, "colorMap");
 }
 
-void baddie::render(GLMatrixStack *pMVM){
+void Baddie::render(GLMatrixStack *pMVM){
 
 	pMVM->Scale(scaleValue,scaleValue,scaleValue);
 
@@ -59,7 +59,7 @@ void baddie::render(GLMatrixStack *pMVM){
 
 }
 
-void baddie::renderMultiple(GLMatrixStack *pMVM,GLFrame &theFrame){
+void Baddie::renderMultiple(GLMatrixStack *pMVM,GLFrame &theFrame){
 	pMVM->PushMatrix();
 	pMVM->MultMatrix(theFrame);
 	
@@ -68,11 +68,11 @@ void baddie::renderMultiple(GLMatrixStack *pMVM,GLFrame &theFrame){
 	pMVM->PopMatrix();
 }
 
-void baddie::setup(GLuint *tex,GLGeometryTransform *pGLGTin){
+void Baddie::setup(GLuint *tex,GLGeometryTransform *pGLGTin){
 	this->myTex=tex;
 	this->pGLGT = pGLGTin;
 }
 
-baddie::~baddie(void)
+Baddie::~Baddie(void)
 {
 }
