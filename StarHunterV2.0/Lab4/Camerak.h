@@ -32,7 +32,8 @@ public:
 	void moveForward();
 	void moveBackward();
 	inline void rotateAntiClockWise(float irotationrate){cam.RotateWorld(irotationrate,0,1,0);};
-	inline void rotateUp(float irotationrate){	cam.RotateLocalX(-irotationrate);};//{ if ((currentAngle>0) && currentAngle < (maxAngle+irotationrate)) {	cam.RotateLocalX(-irotationrate); currentAngle+=-irotationrate;	} else if ((currentAngle<0) && currentAngle > (-maxAngle+irotationrate)) {cam.RotateLocalX(-irotationrate); currentAngle-=-irotationrate;}	};
+	inline void rotateUp(float irotationrate){	cam.RotateLocalX(-irotationrate);};
+	//{ if ((currentAngle>0) && currentAngle < (maxAngle+irotationrate)) {	cam.RotateLocalX(-irotationrate); currentAngle+=-irotationrate;	} else if ((currentAngle<0) && currentAngle > (-maxAngle+irotationrate)) {cam.RotateLocalX(-irotationrate); currentAngle-=-irotationrate;}	};
 	inline void resetForwardVector(){cam.SetForwardVector(0,0,-1);};
 	inline void resetUpVector(){cam.SetUpVector(0,1,0);};
 
