@@ -78,9 +78,6 @@
     <ClCompile Include="Controls.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="baddie.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -152,9 +149,6 @@
     <ClInclude Include="DA_Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="baddie.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="gltools.lib" />
@@ -163,38 +157,38 @@
     <Library Include="freeglut_static.lib" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="noSpec.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="overlay.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="phong.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="texonly.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="noSpec.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="overlay.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="phong.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="texonly.vert">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="Bass.dll" />
     <None Include="ClassDiagram1.cd" />
-    <None Include="reflect.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="reflect.vert">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="ClassDiagram2.cd" />
+    <None Include="Shaders\noSpec.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\noSpec.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\overlay.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\overlay.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\phong.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\phong.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\reflect.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\reflect.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\texonly.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\texonly.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
