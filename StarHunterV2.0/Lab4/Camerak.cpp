@@ -10,7 +10,8 @@ Camerak::Camerak(GLMatrixStack *pMVMin)
 	camera_mode = FIRST_PERSON;
 
 	//	limiter stuff
-	maxAngle= 179.0f;
+	maxAngle= 89.0f;
+	minAngle= -89.0f;
 	currentAngle=0.0f;
 }
 

@@ -101,11 +101,36 @@ void ObjectManager::updateAllObjects(){
 	thePlayer->getPos(tmp,ang);
 	tmp[1]=1.0+theTerrain->getHeightAt(tmp[0],tmp[2]);
 	thePlayer->setPos(tmp);
-	if(thePlayer->isColliding(smHouse)){
-		std::cout << "asdjh"<<std::endl;
-	}
 
+	bool hitAlready=false;
+	static int ignoreMoreHits=0;
+	if(thePlayer->isColliding(smHouse)){
+		int wiper=0;
+		
+			if (!hitAlready)	{	std::cout << "Damnit, don't crash!!"; 	hitAlready=true;	for (wiper; wiper < 21; wiper++) std::cout <<"\b";	}
+			if (hitAlready && (ignoreMoreHits==0))		{
+				std::cout << "OI! I told you already! Look where you are going!!!";
+				for (wiper; wiper < 21; wiper++) std::cout <<"\b";
+				ignoreMoreHits++;
+			}
+			else if (hitAlready && (ignoreMoreHits > 0)){
+				ignoreMoreHits++;
+				if (ignoreMoreHits > 100)
+				{
+					hitAlready=false;
+					ignoreMoreHits=0;
+					std::cout << endl;
+				}
+			}
+	}
+	if (thePlayer->isColliding(smKey)){
+		float newpos[] = {0.0f, -20.0f, 0.0f};
+		smKey->setPos(newpos);
+		std::cout << "GOT A KEY!!!\n";
+	}
 }
+
+
 void ObjectManager::colliding(int type,GLFrame *obj){
 	
 	switch(type){

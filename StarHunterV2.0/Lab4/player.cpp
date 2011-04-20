@@ -191,15 +191,13 @@ Player::~Player(){
 }
 
 bool Player::isColliding(StaticModel *m){
-	
-	Player *p = this;
-	bool tmp = false;
+
+	bool retVal = false;
 	//collisions.
 
 	//check how far away we are.
-	
 	M3DVector3f Apos,Aang,Bpos;
-	p->getPos(Apos,Aang);
+	this->getPos(Apos,Aang);
 	m->getPos(Bpos);
 	Vec3 max,min;
 	m->getColInfo(&max,&min); 
@@ -211,12 +209,8 @@ bool Player::isColliding(StaticModel *m){
 	if	(Apos[0] < max.x && Apos[1] < max.y && Apos[2] < max.z){	
 		if( Apos[0] > min.x && Apos[1] > min.y && Apos[2] > min.z){
 			//youre inside the box. Get out!
-			tmp=true;
+			retVal=true;
 		}
 	}
-
-
-
-	return tmp; 
-		
+	return retVal; 	
 }
