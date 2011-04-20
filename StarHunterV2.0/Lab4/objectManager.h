@@ -14,8 +14,11 @@ private:
 	Tree *t;
 	SoundManager	*psndMan;
 	GLGeometryTransform *pGLGT;
+
 	StaticModel		*smHouse;
 	StaticModel		*smKey;
+	StaticModel		*smStump;
+
 	Player			*thePlayer;
 	Terrain			*theTerrain;
 	M3DVector3f		*starpositions;
@@ -37,6 +40,7 @@ public:
 				GLuint *treetex,
 				GLuint *housetex,
 				GLuint *keytex,
+				GLuint *stumpTex,
 				Camera *camIn,
 				Camerak *camK,
 				Controls *ctrl,

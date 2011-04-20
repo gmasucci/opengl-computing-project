@@ -7,6 +7,7 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 				GLuint *treetex,
 				GLuint *housetex,
 				GLuint *keytex,
+				GLuint *stumpTex,
 				Camera *camIn,
 				Camerak *camKin,
 				Controls *pInputIn,
@@ -32,6 +33,7 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 
 	smHouse = new StaticModel("house",housetex,pGLGT,camIn);
 	smKey = new StaticModel("key",keytex,pGLGT,camIn,false);
+	smStump = new StaticModel("stump",stumpTex,pGLGT,camIn);
 	smKey->setSpinning(true);
 	M3DVector3f p;
 	p[0] = p[2] = 50.0f;
@@ -40,7 +42,11 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	p[0] = p[2] = 30.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smKey->setPos(p);
-	int numtrees = 100;
+	p[0] = p[2] = 40.0f;
+	p[1] = theTerrain->getHeightAt(p[0],p[2]);
+	smStump->setPos(p);
+
+	int numtrees = 200;
 	t = new Tree(numtrees,treetex,map,pGLGT,camIn);
 	
 }
@@ -93,6 +99,7 @@ void ObjectManager::renderAllObjects(GLMatrixStack *pMVM){
 	
 	smHouse ->render(pMVM);
 	smKey->render(pMVM);
+	smStump->render(pMVM);
 
 	t->render(pMVM);
 
@@ -111,15 +118,23 @@ void ObjectManager::updateAllObjects(){
 	bool hitAlready=false;
 	static int ignoreMoreHits=0;
 	if(thePlayer->isColliding(smHouse)){
-		if(pInput->getKeyState('w')){ camK->allowMove[Camerak::Forward] = false;}
-		if(pInput->getKeyState('s')){ camK->allowMove[Camerak::Back] = false; }
-		if(pInput->getKeyState('a')){ camK->allowMove[Camerak::Left] = false; }
-		if(pInput->getKeyState('d')){ camK->allowMove[Camerak::Right] = false; }
-	}else{
-		if(pInput->getKeyState('w')){ camK->allowMove[Camerak::Forward] = true;}
-		if(pInput->getKeyState('s')){ camK->allowMove[Camerak::Back] = true; }
-		if(pInput->getKeyState('a')){ camK->allowMove[Camerak::Left] = true; }
-		if(pInput->getKeyState('d')){ camK->allowMove[Camerak::Right] = true; }
+		camK->collisionResponse();
+
+		if(pInput->getKeyState('w')){ camK->moveBackward();}
+		if(pInput->getKeyState('s')){ camK->moveBackward(); }
+		if(pInput->getKeyState('a')){ camK->strafeRight(); }
+		if(pInput->getKeyState('d')){ camK->strafeRight(); }
+	
+	}
+
+	if(thePlayer->isColliding(smStump)){
+		camK->collisionResponse();
+
+		if(pInput->getKeyState('w')){ camK->moveBackward();}
+		if(pInput->getKeyState('s')){ camK->moveBackward(); }
+		if(pInput->getKeyState('a')){ camK->strafeRight(); }
+		if(pInput->getKeyState('d')){ camK->strafeRight(); }
+	
 	}
 	if (thePlayer->isColliding(smKey)){
 		float newpos[] = {0.0f, -20.0f, 0.0f};

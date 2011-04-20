@@ -36,7 +36,7 @@ StaticModel::StaticModel	(
 	min.z = tmin.z;
 
 
-	scaleValue=0.2;
+	scaleValue=1;
 	this->radius = 0.4f;
 	this->ptype = 0;
 	this->theCam = camIn;
