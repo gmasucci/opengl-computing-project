@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Bass.h"
 #include "soundManager.h"
+#include "Controls.h"
 
 class ObjectManager
 {
@@ -22,7 +23,8 @@ private:
 	M3DVector3f		*baddiepositions;
 	M3DVector3f		*idlePoints;
 	bool			*needNewPoint;
-
+	Controls		*pInput;
+	Camerak			*camK;
 
 	int numStars,numHearts,numBaddies;
 	float verticalPos;
@@ -36,6 +38,8 @@ public:
 				GLuint *housetex,
 				GLuint *keytex,
 				Camera *camIn,
+				Camerak *camK,
+				Controls *ctrl,
 				SoundManager *sndManPtr);
 
 	void loadPositions(char *fname);

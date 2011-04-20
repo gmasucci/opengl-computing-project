@@ -13,6 +13,8 @@ Camerak::Camerak(GLMatrixStack *pMVMin)
 	maxAngle= 89.0f;
 	minAngle= -89.0f;
 	currentAngle=0.0f;
+	allowMove = new bool[4];
+	for(int i=0;i<4;i++){allowMove[i] = true;}
 }
 
 Camerak::~Camerak(void)
@@ -22,23 +24,27 @@ Camerak::~Camerak(void)
 // This function alows the camera to move along the worlds z axis regardless of the cameras own orientation
 void Camerak::moveForward()
 {
+	if(allowMove[Forward]){
 	M3DVector3f temp;
 	cam.GetForwardVector(temp);
 	float x = cam.GetOriginX() + (temp[0] * movement_rate);
 	float y = cam.GetOriginY();
 	float z = cam.GetOriginZ() + (temp[2] * movement_rate);
 	cam.SetOrigin(x,y,z);
+	}
 }
 
 // This function alows the camera to move along the worlds z axis regardless of the cameras own orientation
 void Camerak::moveBackward()
 {
+	if(allowMove[Back]){
 	M3DVector3f temp;
 	cam.GetForwardVector(temp);
 	float x = cam.GetOriginX() + (temp[0] * -movement_rate);
 	float y = cam.GetOriginY();
 	float z = cam.GetOriginZ() + (temp[2] * -movement_rate);
 	cam.SetOrigin(x,y,z);
+	}
 }
 
 
@@ -85,6 +91,7 @@ void Camerak::setCameraMode(int imode, Vec3 iorigin, float iorientation)  // the
 void Camerak::update(Vec3 iorigin){
 		cam.SetOrigin(iorigin.x , iorigin.y + 0.75f, iorigin.z);	
 }
+
 
 M3DMatrix44f *Camerak::getMx(bool sky){
 	if(sky){

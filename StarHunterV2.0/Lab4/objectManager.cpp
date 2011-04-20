@@ -8,6 +8,8 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 				GLuint *housetex,
 				GLuint *keytex,
 				Camera *camIn,
+				Camerak *camKin,
+				Controls *pInputIn,
 				SoundManager *sndManPtr)
 
 {
@@ -16,12 +18,16 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	this->theTerrain= map;
 	this->thePlayer=playerIn;
 	this->verticalPos=0.0f;
-	
+	this->pInput = pInputIn;
+	this->camK = camKin;
 	M3DVector3f tmp,ang;
-	thePlayer->getPos(tmp,ang);
-	tmp[0] = tmp[2] = 30.0f;
+	
+	tmp[0] = tmp[2] = 20.0f;
 	tmp[1]=theTerrain->getHeightAt(tmp[0],tmp[2]);
-	thePlayer->setPos(tmp);
+	Vec3 pos;
+	pos.fromM3D(tmp);
+	camK->update(pos);
+
 	//thePlayer->setAngle(235.0f);
 
 	smHouse = new StaticModel("house",housetex,pGLGT,camIn);
@@ -31,7 +37,7 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	p[0] = p[2] = 50.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smHouse->setPos(p);
-	p[0] = p[2] = 20.0f;
+	p[0] = p[2] = 30.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smKey->setPos(p);
 	int numtrees = 100;
@@ -105,29 +111,39 @@ void ObjectManager::updateAllObjects(){
 	bool hitAlready=false;
 	static int ignoreMoreHits=0;
 	if(thePlayer->isColliding(smHouse)){
-		int wiper=0;
-		
-			if (!hitAlready)	{	std::cout << "Damnit, don't crash!!"; 	hitAlready=true;	for (wiper; wiper < 21; wiper++) std::cout <<"\b";	}
-			if (hitAlready && (ignoreMoreHits==0))		{
-				std::cout << "OI! I told you already! Look where you are going!!!";
-				for (wiper; wiper < 21; wiper++) std::cout <<"\b";
-				ignoreMoreHits++;
-			}
-			else if (hitAlready && (ignoreMoreHits > 0)){
-				ignoreMoreHits++;
-				if (ignoreMoreHits > 100)
-				{
-					hitAlready=false;
-					ignoreMoreHits=0;
-					std::cout << endl;
-				}
-			}
+		if(pInput->getKeyState('w')){ camK->allowMove[Camerak::Forward] = false;}
+		if(pInput->getKeyState('s')){ camK->allowMove[Camerak::Back] = false; }
+		if(pInput->getKeyState('a')){ camK->allowMove[Camerak::Left] = false; }
+		if(pInput->getKeyState('d')){ camK->allowMove[Camerak::Right] = false; }
+	}else{
+		if(pInput->getKeyState('w')){ camK->allowMove[Camerak::Forward] = true;}
+		if(pInput->getKeyState('s')){ camK->allowMove[Camerak::Back] = true; }
+		if(pInput->getKeyState('a')){ camK->allowMove[Camerak::Left] = true; }
+		if(pInput->getKeyState('d')){ camK->allowMove[Camerak::Right] = true; }
 	}
 	if (thePlayer->isColliding(smKey)){
 		float newpos[] = {0.0f, -20.0f, 0.0f};
 		smKey->setPos(newpos);
 		std::cout << "GOT A KEY!!!\n";
 	}
+	//M3DVector3f playerPos, keyPos;
+	//M3DVector3f angle;
+	//thePlayer->getPos(playerPos, angle);
+	//smKey->getPos(keyPos);
+	//float playerDist=0;
+	//float keyDist=0;
+	//float diffDist=0;
+	//for (int i=0; i<3; i++)
+	//{
+	//	playerDist+= playerPos[i] * playerPos[i];
+	//	keyDist+=	keyPos[i] * keyPos[i];
+	//}
+	//diffDist = playerDist - keyDist;
+	//if (diffDist < 4)
+	//{
+	//	std::cout << "GOT A KEY!!!\n";
+	//}
+
 }
 
 
