@@ -79,6 +79,11 @@ void Game::init(){
 	Loaders::tex("roof.tga",&house[1]);
 	Loaders::tex("door.tga",&house[2]);
 
+	glGenTextures(1,stumpTex);
+	Loaders::tex("stump.tga",&stumpTex[1]);
+	stumpTex[0] = treetex[0];//already loaded so copy uint so GL uses that texture
+
+
 	oHeart = new Overlay(&textures[8],128,128,0,600);
 	oStar = new Overlay(&textures[7],128,128,672,600);
 	oGameOver = new Overlay(&textures[10],400,200,200,400);
@@ -99,6 +104,7 @@ void Game::init(){
 		treetex,
 		house,
 		&textures[4],
+		stumpTex,
 		myCam,
 		theRealCam,
 		&input,
@@ -128,17 +134,17 @@ void Game::update(){
 	M3DVector3f v,fv;
 	theRealCam->getFrame().GetOrigin(v);
 	theRealCam->getFrame().GetForwardVector(fv);
-	v[1] = hm->getHeightAt(v[0],v[2]) + 1;
+	v[1] = hm->getHeightAt(v[0],v[2]) + 1.3;
 	theRealCam->setOrigin(v);
 	hayden->setPos(v);
 	hayden->setAng(fv);
 	myCam->update(v,fv);
 
-	if(input.getKeyState(27)){
-		glutLeaveMainLoop();
-	}
+	if(input.getKeyState(27)){glutLeaveMainLoop();}
 	if(input.getKeyState('q')){
-		
+		M3DVector3f p,a;
+		hayden->getPos(p,a);
+		std::cout << "pos = " << p[0] << ", " << p[1] << ", " << p[2] << std::endl;
 	}
 
 	if(input.getKeyState('w')){theRealCam->moveForward();}
@@ -207,16 +213,6 @@ void Game::display(){
 
 
 void Game::updateOverlays(){
-	int temp;
-	temp = hayden->getStars();
-	if(temp>9){
-		//counters->render(temp,484,0);
-	}else{
-		//counters->render(temp,514,0);
-	}
-
-	temp = hayden->getHealth();
-	//counters->render(temp,0,0);
 
 
 }

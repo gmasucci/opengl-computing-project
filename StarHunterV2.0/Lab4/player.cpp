@@ -191,7 +191,7 @@ Player::~Player(){
 }
 
 bool Player::isColliding(StaticModel *m){
-	M3DVector
+
 	bool retVal = false;
 	//collisions.
 
@@ -206,9 +206,8 @@ bool Player::isColliding(StaticModel *m){
 	
 	//TODO: do more detailed collisions only if close.
 	// this so far may be quite cpu hungry.
-	if(	Apos[0] < max.x && Apos[2] < max.z){	
-	if( Apos[0] > min.x && Apos[2] > min.z){
-			//youre inside the box. Get out!
+	if(	Apos[0] < max.x && Apos[0] > min.x ){	
+		if( Apos[2] < max.z && Apos[2] > min.z){
 			retVal=true;
 		}
 	}

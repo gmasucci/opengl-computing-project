@@ -23,9 +23,12 @@ private:
 	GLGeometryTransform	transformPipeline;
 	GLfloat				vLightPos[3];
 	GLfloat				vWhite[4];
+	
 	GLuint				textures[15];
 	GLuint				treetex[2];
 	GLuint				house[4];
+	GLuint				stumpTex[2];
+
 	CStopWatch			updater;
 	Camera				*myCam;
 	Skybox				*mySky;

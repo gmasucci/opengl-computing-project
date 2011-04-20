@@ -18,6 +18,15 @@
 
 class Camerak
 {
+
+private:
+	GLFrame cam;
+	GLMatrixStack *pMVM;
+	M3DMatrix44f *camMx;
+	float movement_rate;
+	float rotation_rate;
+	Vec3 lastPos;
+
 public:
 	// Constuctor and destructor
 	Camerak(GLMatrixStack *pMVMin);
@@ -27,20 +36,14 @@ public:
 	// the cameraFrame.
 	inline void moveIn(){cam.MoveForward(movement_rate);}
 	inline void moveOut(){cam.MoveForward(-movement_rate);}
-	inline void strafeLeft(){if(allowMove[Left]){cam.MoveRight(movement_rate);}}
-	inline void strafeRight(){if(allowMove[Right]){cam.MoveRight(-movement_rate);}}
+	
+	void strafeLeft();
+	void strafeRight();
 	void moveForward();
 	void moveBackward();
+	
 	inline void rotateAntiClockWise(float irotationrate){cam.RotateWorld(irotationrate,0,1,0);};
 	inline void rotateUp(float irotationrate){	cam.RotateLocalX(-irotationrate);}
-	//{ 
-	//	if (currentAngle < (maxAngle*0.01745)-irotationrate) {	
-	//		cam.RotateLocalX(-irotationrate); 
-	//		currentAngle+=irotationrate;	} 
-	//	else if (currentAngle > (minAngle*0.01745)+irotationrate) {
-	//		cam.RotateLocalX(-irotationrate); 
-	//		currentAngle+=irotationrate;}
-	//};
 	inline void resetForwardVector(){cam.SetForwardVector(0,0,-1);};
 	inline void resetUpVector(){cam.SetUpVector(0,1,0);};
 
@@ -48,58 +51,16 @@ public:
 	
 	void PushMatrix(bool sky = false);
 	void PopMatrix(){pMVM->PopMatrix();}
-	// This function is used to switch between thirs-person, first-person and free-roaming cameras.
-	// These are all available in code but the actual game has no option to switch between them due
-	// to strange behaviour when switching between multiple modes.
-	void setCameraMode(int imode, Vec3 iorigin, float iorientation);
-
+	
 	// The update is used to ensure the camera remains remains in the correct position in relation to the player.
 	void update(Vec3 iorigin);
-
+	void collisionResponse();
 	// Functions for accessing and manipulating private or protected attributes
-	inline GLFrame getFrame(){return cam;};
-	inline int getCameraMode(){return camera_mode;};
-	M3DMatrix44f *Camerak::getMx(bool sky = false);
-
-private:
-	GLFrame cam;
-	GLMatrixStack *pMVM;
-	M3DMatrix44f *camMx;
-	float movement_rate;
-	float rotation_rate;
-	int camera_mode;				// Used to specify first-peron, third-person or free-roaming camera
-
-
-	//  limiter stuff
-private:
-	float minAngle;
-	float maxAngle;
-	float currentAngle;
-
+	inline GLFrame getFrame(){return cam;}
 	
-public:
-	enum {
-		MAX = 0,
-		MIN
-	}Angles;
-
-	bool *allowMove;
-	static enum {
-		Forward = 0,
-		Back,
-		Left,
-		Right
-	}Moves;
-	void setAngle(float theta, int minMax){	
-		if (minMax== 0)			maxAngle = theta;
-		else if (minMax== 1)	minAngle = theta;
-		else std::cout <<"Need to set either min or max angle.\n";
-	}
-	float getMaxAngle()					{	return maxAngle;	}
-	float getMinAngle()					{	return minAngle;	}
-	float getCurrentAngle()				{	return currentAngle;}
-	void adjustCurrentAngle(float  angleMod)	{	currentAngle+=angleMod;	}
-	void setCurrentAngle(float theta)			{	currentAngle=theta;	}
+	M3DMatrix44f *Camerak::getMx(bool sky = false);
+	
 	void setOrigin(M3DVector3f newOrigin){cam.SetOrigin(newOrigin);}
+				// Used to specify first-peron, third-person or free-roaming camera
 };
 #endif
