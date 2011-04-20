@@ -89,6 +89,7 @@ void Game::init(){
 	hm = new Terrain ("h4.pgm",3,&textures[3],&transformPipeline);
 	
 	mySky = new Skybox();
+
 	hayden = new Player(&textures[4],&transformPipeline,hm,myCam,sndMan);
 
 	mySM = new ObjectManager(
@@ -99,10 +100,12 @@ void Game::init(){
 		house,
 		&textures[4],
 		myCam,
+		theRealCam,
+		&input,
 		sndMan
 	);
 	
-
+	
 	
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f ); // white background
 	glEnable(GL_DEPTH_TEST);

@@ -25,10 +25,10 @@ public:
 
 	// Functions that control the movement and rotation of the camera.  These generally work by manipulating 
 	// the cameraFrame.
-	inline void moveIn(){cam.MoveForward(movement_rate);};
-	inline void moveOut(){cam.MoveForward(-movement_rate);};
-	inline void strafeLeft(){cam.MoveRight(movement_rate);};
-	inline void strafeRight(){cam.MoveRight(-movement_rate);};
+	inline void moveIn(){cam.MoveForward(movement_rate);}
+	inline void moveOut(){cam.MoveForward(-movement_rate);}
+	inline void strafeLeft(){if(allowMove[Left]){cam.MoveRight(movement_rate);}}
+	inline void strafeRight(){if(allowMove[Right]){cam.MoveRight(-movement_rate);}}
 	void moveForward();
 	void moveBackward();
 	inline void rotateAntiClockWise(float irotationrate){cam.RotateWorld(irotationrate,0,1,0);};
@@ -69,6 +69,7 @@ private:
 	float rotation_rate;
 	int camera_mode;				// Used to specify first-peron, third-person or free-roaming camera
 
+
 	//  limiter stuff
 private:
 	float minAngle;
@@ -81,6 +82,14 @@ public:
 		MAX = 0,
 		MIN
 	}Angles;
+
+	bool *allowMove;
+	static enum {
+		Forward = 0,
+		Back,
+		Left,
+		Right
+	}Moves;
 	void setAngle(float theta, int minMax){	
 		if (minMax== 0)			maxAngle = theta;
 		else if (minMax== 1)	minAngle = theta;
