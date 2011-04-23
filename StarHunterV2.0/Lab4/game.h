@@ -38,10 +38,10 @@ private:
 	Player				*hayden;
 	Overlay				*loading;
 	Overlay				*loaded;
-	Overlay				*oHeart;
-	Overlay				*oStar;
-	Overlay				*oGameOver;
-	Overlay				*oWinner;
+	Overlay				*hud;
+	Overlay				*eHint;
+	Overlay				*startHelp;
+	Overlay				*menu;
 	Numbers				*counters;
 	HSAMPLE				music;
 	HCHANNEL			musicChannel;

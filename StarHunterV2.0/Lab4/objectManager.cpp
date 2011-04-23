@@ -34,6 +34,7 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	smHouse = new StaticModel("house",housetex,pGLGT,camIn);
 	smKey = new StaticModel("key",keytex,pGLGT,camIn,false);
 	smStump = new StaticModel("stump",stumpTex,pGLGT,camIn);
+	smLogs = new StaticModel("logs",stumpTex,pGLGT,camIn);
 	smKey->setSpinning(true);
 	M3DVector3f p;
 	p[0] = p[2] = 50.0f;
@@ -45,6 +46,11 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	p[0] = p[2] = 40.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smStump->setPos(p);
+	
+	p[0] = 30.0f;
+	p[2] = 40.0f;
+	p[1] = theTerrain->getHeightAt(p[0],p[2]);
+	smLogs->setPos(p);
 
 	int numtrees = 200;
 	t = new Tree(numtrees,treetex,map,pGLGT,camIn);
@@ -100,7 +106,7 @@ void ObjectManager::renderAllObjects(GLMatrixStack *pMVM){
 	smHouse ->render(pMVM);
 	smKey->render(pMVM);
 	smStump->render(pMVM);
-
+	smLogs->render(pMVM);
 	t->render(pMVM);
 
 }
@@ -136,57 +142,30 @@ void ObjectManager::updateAllObjects(){
 		if(pInput->getKeyState('d')){ camK->strafeRight(); }
 	
 	}
+
+	if(thePlayer->isColliding(smLogs)){
+		
+		camK->collisionResponse();
+		if(pInput->getKeyState('w')){ camK->moveBackward();}
+		if(pInput->getKeyState('s')){ camK->moveBackward(); }
+		if(pInput->getKeyState('a')){ camK->strafeRight(); }
+		if(pInput->getKeyState('d')){ camK->strafeRight(); }
+
+	}
+
 	if (thePlayer->isColliding(smKey)){
 		float newpos[] = {0.0f, -20.0f, 0.0f};
 		smKey->setPos(newpos);
 		std::cout << "GOT A KEY!!!\n";
 	}
-	//M3DVector3f playerPos, keyPos;
-	//M3DVector3f angle;
-	//thePlayer->getPos(playerPos, angle);
-	//smKey->getPos(keyPos);
-	//float playerDist=0;
-	//float keyDist=0;
-	//float diffDist=0;
-	//for (int i=0; i<3; i++)
-	//{
-	//	playerDist+= playerPos[i] * playerPos[i];
-	//	keyDist+=	keyPos[i] * keyPos[i];
-	//}
-	//diffDist = playerDist - keyDist;
-	//if (diffDist < 4)
-	//{
-	//	std::cout << "GOT A KEY!!!\n";
-	//}
+
 
 }
 
 
 void ObjectManager::colliding(int type,GLFrame *obj){
 	
-	switch(type){
-	case 0:
-		//add to current stars
-		
-		break;
-	case 1:
-		//heart/health
-		obj->SetOrigin(0,-10,0);
-		thePlayer->addHealth();
-		psndMan->play(SM_HEART);
 
-		break;
-	case 2:
-		//baddie
-		thePlayer->setPain();
-		thePlayer->removeHealth();
-		psndMan->play(SM_PAIN);
-		break;
-	default:
-		cerr << "Dunno what the hell youre colliding with!?!?" << endl;
-		MessageBox(NULL, "Dunno what the hell youre colliding with!?!?", "Fail!", MB_OK  | MB_ICONERROR);
-		break;
-	}
 }
 
 

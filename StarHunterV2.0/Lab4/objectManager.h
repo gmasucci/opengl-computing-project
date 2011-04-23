@@ -18,6 +18,7 @@ private:
 	StaticModel		*smHouse;
 	StaticModel		*smKey;
 	StaticModel		*smStump;
+	StaticModel		*smLogs;
 
 	Player			*thePlayer;
 	Terrain			*theTerrain;
