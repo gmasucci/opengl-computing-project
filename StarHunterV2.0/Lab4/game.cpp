@@ -47,12 +47,11 @@ void Game::init(){
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 	glGenTextures(15,textures);
 	Loaders::overlay("load.tga",&textures[9]);
-	Loaders::overlay("loading.tga",&textures[12]);
 	//loading screen;
 	//sndMan->play(SM_FLOPPY,1);	
 
 	loading = new Overlay(&textures[9],800,600,0,600);
-	loaded = new Overlay(&textures[12],300,100,250,350);
+	
 	loading->render();
 	
 	glutPostRedisplay();
@@ -64,10 +63,10 @@ void Game::init(){
 	Loaders::tex("beast.tga",&textures[4]);
 	Loaders::tex("heart.tga",&textures[5]);
 	Loaders::overlay("font.tga",&textures[6]);
-	Loaders::overlay("starOver.tga",&textures[7]);
-	Loaders::overlay("heartOver.tga",&textures[8]);
-	Loaders::overlay("GO.tga",&textures[10]);
-	Loaders::overlay("WIN.tga",&textures[11]);
+	Loaders::overlay("hint.tga",&textures[7]);
+	Loaders::overlay("overlay.tga",&textures[8]);
+	Loaders::overlay("start help.tga",&textures[10]);
+	Loaders::overlay("start.tga",&textures[11]);
 	
 
 	glGenTextures(2,treetex);
@@ -84,10 +83,10 @@ void Game::init(){
 	stumpTex[0] = treetex[0];//already loaded so copy uint so GL uses that texture
 
 
-	oHeart = new Overlay(&textures[8],128,128,0,600);
-	oStar = new Overlay(&textures[7],128,128,672,600);
-	oGameOver = new Overlay(&textures[10],400,200,200,400);
-	oWinner = new Overlay(&textures[11],400,200,200,300);
+	hud = new Overlay(&textures[8],800,50,0,50);
+	eHint = new Overlay(&textures[7],200,100,500,200);
+	startHelp = new Overlay(&textures[10],800,600,0,600);
+	menu = new Overlay(&textures[11],800,600,0,600);
 	counters = new Numbers(&textures[6]);
 	myCam = new Camera(&modelViewMatrix);
 	theRealCam = new Camerak(&modelViewMatrix);
@@ -214,6 +213,7 @@ void Game::display(){
 
 void Game::updateOverlays(){
 
+	//eHint->render();
 
 }
 
@@ -222,7 +222,7 @@ void Game::updateOverlays(){
 
 void Game::reshape(int w,int h){
 	glViewport(0, 0, w, h);
-	viewFrustum.SetPerspective(60.0f, float(w) / float(h), 0.1f, 1000.0f);
+	viewFrustum.SetPerspective(60.0f, float(w) / float(h), 0.001f, 1000.0f);
 	projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
 }
 void Game::gameMain(){
@@ -230,10 +230,10 @@ void Game::gameMain(){
 }
 Game::~Game(){
 //for future deletions.
-	delete oHeart;
-	delete oStar;
-	delete oGameOver;
-	delete oWinner;
+	delete hud;
+	delete eHint;
+	delete startHelp;
+	delete menu;
 	delete counters;
 	delete myCam;
 	delete hm;
