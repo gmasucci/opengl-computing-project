@@ -258,6 +258,12 @@ void Loaders::uwsm(char *fname, MyTBatch *obj,Vec3 *cmax, Vec3 *cmin){
 		if(vertices[i][1] < cmin->y){cmin->y = (double)vertices[i][1];}
 		if(vertices[i][2] < cmin->z){cmin->z = (double)vertices[i][2];}
 	}
+
+	if(cmax->x-cmin->x < 0.1){
+		cmax->x +=0.2;
+		cmin->x -=0.2;
+	}
+
 	// Read normals
 	strstream >> count; // how many normals? normally will be same as vertices
 	M3DVector3f *normals = new M3DVector3f[count/3];

@@ -32,28 +32,26 @@ Game::Game(int argc,char* argv[]){
 	}
 
 
-	this->init();
+	glAlphaFunc(GL_GREATER, 0.5);
+	glEnable(GL_ALPHA_TEST);
+
+	this->sndMan = new SoundManager();
+
+	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_GLUTMAINLOOP_RETURNS);
+	glGenTextures(15,textures);
+	Loaders::overlay("start.tga",&textures[11]);
+	
+
+	sndMan->play(MUSIC_MENU,1);
+	menu = new Overlay(&textures[11],800,600,0,600);
+
+	CURRENT_STATE = MENU;
 }
 
 void Game::init(){
 	
-//	p=1;
-	this->sndMan = new SoundManager(); 
-	
-
-	glAlphaFunc(GL_GREATER, 0.5);
-	glEnable(GL_ALPHA_TEST);
-
-	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_GLUTMAINLOOP_RETURNS);
-	glGenTextures(15,textures);
-	Loaders::overlay("load.tga",&textures[9]);
-	//loading screen;
-	//sndMan->play(SM_FLOPPY,1);	
-
 	loading = new Overlay(&textures[9],800,600,0,600);
-	
 	loading->render();
-	
 	glutPostRedisplay();
 	glutSwapBuffers();
 
@@ -66,7 +64,7 @@ void Game::init(){
 	Loaders::overlay("hint.tga",&textures[7]);
 	Loaders::overlay("overlay.tga",&textures[8]);
 	Loaders::overlay("start help.tga",&textures[10]);
-	Loaders::overlay("start.tga",&textures[11]);
+	
 	
 
 	glGenTextures(2,treetex);
@@ -121,60 +119,85 @@ void Game::init(){
 	transformPipeline.SetMatrixStacks(modelViewMatrix, projectionMatrix);
 	modelViewMatrix.LoadIdentity();
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
-	glutSetCursor(GLUT_CURSOR_NONE);
+	//grabMouse = true;
+	//glutSetCursor(GLUT_CURSOR_NONE);
 	//sndMan->stop(SM_FLOPPY);
 
 	
 	//sndMan->play(SM_MUSIC,1);
 }
 void Game::update(){
-	
-	mySM->updateAllObjects();
-	M3DVector3f v,fv;
-	theRealCam->getFrame().GetOrigin(v);
-	theRealCam->getFrame().GetForwardVector(fv);
-	v[1] = hm->getHeightAt(v[0],v[2]) + 1.3;
-	theRealCam->setOrigin(v);
-	hayden->setPos(v);
-	hayden->setAng(fv);
-	myCam->update(v,fv);
-
-	if(input.getKeyState(27)){glutLeaveMainLoop();}
-	if(input.getKeyState('q')){
-		M3DVector3f p,a;
-		hayden->getPos(p,a);
-		std::cout << "pos = " << p[0] << ", " << p[1] << ", " << p[2] << std::endl;
-	}
-
-	if(input.getKeyState('w')){theRealCam->moveForward();}
-	if(input.getKeyState('a')){theRealCam->strafeLeft();}
-	if(input.getKeyState('s')){theRealCam->moveBackward();}
-	if(input.getKeyState('d')){theRealCam->strafeRight();}
-	if(input.getKeyState('e')){/*use button*/}
-
 	int xcentre = glutGet(GLUT_WINDOW_WIDTH) / 2;		// stores the current horizontal centre iof the screen
 	int ycentre = glutGet(GLUT_WINDOW_HEIGHT) / 2;		// stores the current vertical centre of the screen
 	
 	float tempx = input.getMouseX();
 	float tempy = input.getMouseY();
 	float offset = 0;
-	if(tempx < xcentre - 1 || tempx > xcentre + 1)				// provides a dead zone in the centre of the screen
-	{
-		offset = (xcentre - tempx) * 0.003f;
-		theRealCam->rotateAntiClockWise(offset);
+
+	switch(CURRENT_STATE){
+	case MENU:
+		//check for clicks
+		//get coords of clicks.
+		//case 0,1,2
+		//change gamemode
+		// if start then load all shit init();
+		// if about then display about ovetlay (TBC)
+		break;
+	case QUICKHELP:
+		break;
+	case PLAYING:
+
+			mySM->updateAllObjects();
+			M3DVector3f v,fv;
+			theRealCam->getFrame().GetOrigin(v);
+			theRealCam->getFrame().GetForwardVector(fv);
+			v[1] = hm->getHeightAt(v[0],v[2]) + 1.3;
+			theRealCam->setOrigin(v);
+			hayden->setPos(v);
+			hayden->setAng(fv);
+			myCam->update(v,fv);
+
+			if(input.getKeyState(27)){glutLeaveMainLoop();}
+			if(input.getKeyState('q')){
+				grabMouse=false;
+				glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);
+				M3DVector3f p,a;
+				hayden->getPos(p,a);
+				std::cout << "pos = " << p[0] << ", " << p[1] << ", " << p[2] << std::endl;
+			}
+
+			if(input.getKeyState('w')){theRealCam->moveForward();}
+			if(input.getKeyState('a')){theRealCam->strafeLeft();}
+			if(input.getKeyState('s')){theRealCam->moveBackward();}
+			if(input.getKeyState('d')){theRealCam->strafeRight();}
+			if(input.getKeyState('e')){/*use button*/}
+
+
+			if(tempx < xcentre - 1 || tempx > xcentre + 1)				// provides a dead zone in the centre of the screen
+			{
+				offset = (xcentre - tempx) * 0.003f;
+				theRealCam->rotateAntiClockWise(offset);
+			}
+			if(tempy < ycentre - 1 || tempy > ycentre + 1)				// provides a dead zone in the centre of the screen
+			{
+				offset = (ycentre - tempy) * 0.003f;
+				theRealCam->rotateUp(offset);
+			}
+			if(offset != 0 && grabMouse)
+			{
+				glutWarpPointer((int)xcentre, (int)ycentre);
+			}
+
+		break;
+	case ABOUT:
+		break;
 	}
-	if(tempy < ycentre - 1 || tempy > ycentre + 1)				// provides a dead zone in the centre of the screen
-	{
-		offset = (ycentre - tempy) * 0.003f;
-		theRealCam->rotateUp(offset);
-	}
-	if(offset != 0)
-	{
-		glutWarpPointer((int)xcentre, (int)ycentre);
-	}
+
+
 }
 
 void Game::display(){
+
 	//sqRot++; 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	float t = this->updater.GetElapsedSeconds();
@@ -183,9 +206,14 @@ void Game::display(){
 		this->updater.Reset();
 	}
 	
-	
+	switch(CURRENT_STATE){
+	case MENU:
+		menu->render();
+		break;
+	case QUICKHELP:
+		break;
+	case PLAYING:
 
-	
 	// Skybox
 	//***********
 	theRealCam->PushMatrix(true);	//true for skybox only
@@ -201,23 +229,16 @@ void Game::display(){
 	theRealCam->PopMatrix();		//last pop. for cam matrix
 
 
-	//render overlays
-	
-	updateOverlays();
+
+		break;
+	case ABOUT:
+		break;
+	}
 
 	glutPostRedisplay();
 	glutSwapBuffers();
 
 }
-
-
-void Game::updateOverlays(){
-
-	//eHint->render();
-
-}
-
-
 
 
 void Game::reshape(int w,int h){
@@ -230,17 +251,17 @@ void Game::gameMain(){
 }
 Game::~Game(){
 //for future deletions.
-	delete hud;
-	delete eHint;
-	delete startHelp;
-	delete menu;
-	delete counters;
-	delete myCam;
-	delete hm;
-	delete mySky;
-	delete hayden;
-	delete mySM;
-	delete sndMan;
+	//delete hud;
+	//delete eHint;
+	//delete startHelp;
+	//delete menu;
+	//delete counters;
+	//delete myCam;
+	//delete hm;
+	//delete mySky;
+	//delete hayden;
+	//delete mySM;
+	//delete sndMan;
 	
 
 

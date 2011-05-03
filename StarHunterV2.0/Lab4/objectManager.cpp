@@ -33,24 +33,29 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 
 	smHouse = new StaticModel("house",housetex,pGLGT,camIn);
 	smKey = new StaticModel("key",keytex,pGLGT,camIn,false);
-	smStump = new StaticModel("stump",stumpTex,pGLGT,camIn);
+	smStump = new StaticModel("gate",stumpTex,pGLGT,camIn,false);
+	smStump->setAngle(180.0f);
 	smLogs = new StaticModel("logs",stumpTex,pGLGT,camIn);
 	smKey->setSpinning(true);
+	
 	M3DVector3f p;
 	p[0] = p[2] = 50.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smHouse->setPos(p);
+	smHouse->setViewCollBox();
 	p[0] = p[2] = 30.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smKey->setPos(p);
+	smKey->setViewCollBox();
 	p[0] = p[2] = 40.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smStump->setPos(p);
-	
+	smStump->setViewCollBox();
 	p[0] = 30.0f;
 	p[2] = 40.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smLogs->setPos(p);
+	smLogs->setViewCollBox();
 
 	int numtrees = 200;
 	t = new Tree(numtrees,treetex,map,pGLGT,camIn);
@@ -121,15 +126,13 @@ void ObjectManager::updateAllObjects(){
 	tmp[1]=1.0+theTerrain->getHeightAt(tmp[0],tmp[2]);
 	thePlayer->setPos(tmp);
 
-	bool hitAlready=false;
-	static int ignoreMoreHits=0;
 	if(thePlayer->isColliding(smHouse)){
 		camK->collisionResponse();
 
 		if(pInput->getKeyState('w')){ camK->moveBackward();}
-		if(pInput->getKeyState('s')){ camK->moveBackward(); }
+		if(pInput->getKeyState('s')){ camK->moveForward(); }
 		if(pInput->getKeyState('a')){ camK->strafeRight(); }
-		if(pInput->getKeyState('d')){ camK->strafeRight(); }
+		if(pInput->getKeyState('d')){ camK->strafeLeft(); }
 	
 	}
 
@@ -137,9 +140,9 @@ void ObjectManager::updateAllObjects(){
 		camK->collisionResponse();
 
 		if(pInput->getKeyState('w')){ camK->moveBackward();}
-		if(pInput->getKeyState('s')){ camK->moveBackward(); }
+		if(pInput->getKeyState('s')){ camK->moveForward(); }
 		if(pInput->getKeyState('a')){ camK->strafeRight(); }
-		if(pInput->getKeyState('d')){ camK->strafeRight(); }
+		if(pInput->getKeyState('d')){ camK->strafeLeft(); }
 	
 	}
 
@@ -147,9 +150,9 @@ void ObjectManager::updateAllObjects(){
 		
 		camK->collisionResponse();
 		if(pInput->getKeyState('w')){ camK->moveBackward();}
-		if(pInput->getKeyState('s')){ camK->moveBackward(); }
+		if(pInput->getKeyState('s')){ camK->moveForward(); }
 		if(pInput->getKeyState('a')){ camK->strafeRight(); }
-		if(pInput->getKeyState('d')){ camK->strafeRight(); }
+		if(pInput->getKeyState('d')){ camK->strafeLeft(); }
 
 	}
 

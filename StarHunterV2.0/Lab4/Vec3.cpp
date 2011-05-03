@@ -5,6 +5,11 @@ const Vec3 Vec3::operator+(const Vec3 &rhs) const{
 	return tmp;
 }
 
+const Vec3 Vec3::operator-(const Vec3 &rhs) const{
+	Vec3 tmp(x-rhs.x,y-rhs.y,z-rhs.z);
+	return tmp;
+}
+
 const Vec3& Vec3::operator=(const Vec3 &rhs){
 	
 	Vec3 tmp(x=rhs.x,y=rhs.y,z=rhs.z);

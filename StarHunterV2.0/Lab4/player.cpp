@@ -21,12 +21,7 @@ Player::Player(GLuint *tex,GLGeometryTransform *pGLGTin,Terrain *mapIn,Camera *c
 	//me->loadAnim("walk7.md5anim");
 	//me->setAnim(0);
 
-	this->kp.w=false;
-	this->kp.a=false;
-	this->kp.d=false;
-	this->kp.s=false;
-	this->kp.k=false;
-	this->kp.l=false;
+
 	this->rev =false;
 	velocity=0.154;
 	this->scaleValue=0.005f;
@@ -51,69 +46,32 @@ void Player::setAnim(int n){
 	//me->setAnim(n);
 }
 void Player::keys(unsigned char key){
-	if(key=='w'){kp.w=true;this->setAnim(1);}
-	if(key=='a')kp.a=true;
-	if(key=='s'){
-		kp.s=true;
-		this->setAnim(1);
-		rev=true;
-	}
-	if(key=='d')kp.d=true;
-	if(key=='k')kp.k=true;
-	if(key=='l')kp.l=true;
+
 }
 
 void Player::keyboardUpdater(){
 	
-	if(kp.w){myFrame->MoveForward(velocity);}
-	if(kp.s){myFrame->MoveForward(-velocity);}
-	if(kp.d){myFrame->MoveRight(-velocity);}
-	if(kp.a){myFrame->MoveRight(velocity);}
-	if(kp.k){myFrame->RotateWorld(0.03,0.0,1.0,0.0);}
-	if(kp.l){myFrame->RotateWorld(-0.03,0.0,1.0,0.0);}
-	
+	//For giving the player an animated model.
+	// First person view, so not using this.
 
+	//static float interp = 0.0;
+	//static double current_time = 0;
+	//static double last_time = 0;
+	//float dt;
 
+	//last_time = current_time;
+	//current_time = (double)glutGet(GLUT_ELAPSED_TIME) / 100.0;
 
-	//myFrame->RotateLocalX(0.01);
-
-//	m3dCrossProduct3(
-
-
-
-
-
-
-	static float interp = 0.0;
-	static double current_time = 0;
-	static double last_time = 0;
-	float dt;
-
-	last_time = current_time;
-	current_time = (double)glutGet(GLUT_ELAPSED_TIME) / 100.0;
-
-	/* Animate model from frames 0 to num_frames-1 */
-	interp += (current_time - last_time);
-	dt = (current_time - last_time);
-	
-    //if ( me->countAnims() > 0 )
+	///* Animate model from frames 0 to num_frames-1 */
+	//interp += (current_time - last_time);
+	//dt = (current_time - last_time);
+	//
+	//if ( me->countAnims() > 0 )
 	//	me->animate(dt);
 }
 
 void Player::keysUp(unsigned char key){
-	if(key=='w'){
-		kp.w=false;
-		//this->setAnim(0);
-	}
-	if(key=='a')kp.a=false;
-	if(key=='s'){
-		kp.s=false;
-		//this->setAnim(0);
-		rev=false;
-	}
-	if(key=='d')kp.d=false;
-	if(key=='k')kp.k=false;
-	if(key=='l')kp.l=false;
+	
 }
 void Player::setPos(float*ppos){
 	myFrame->SetOrigin(ppos[0],ppos[1]+0.46,ppos[2]);
@@ -195,12 +153,13 @@ bool Player::isColliding(StaticModel *m){
 	bool retVal = false;
 	//collisions.
 
-	//check how far away we are.
 	M3DVector3f Apos,Aang,Bpos;
 	this->getPos(Apos,Aang);
 	m->getPos(Bpos);
 	Vec3 max,min;
 	m->getColInfo(&max,&min); 
+	Vec3 k;
+	k = max-min;
 	//get the max, min points in space.
 	//Make sure its WORLD coords (i.e add the position to the max/min)
 	

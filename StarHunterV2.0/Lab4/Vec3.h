@@ -17,6 +17,7 @@ public:
 	Vec3(Vec3 &vec){x = vec.x;y = vec.y;z = vec.z;}
 	double length(){return std::sqrt(x*x+y*y+z*z);}
 	const Vec3 operator+(const Vec3 &rhs) const;
+	const Vec3 operator-(const Vec3 &rhs) const;
 	const Vec3& operator=(const Vec3 &rhs);
 	const Vec3& operator+=(const Vec3 &rhs);
 	const Vec3 operator*(const double rhs) const;
