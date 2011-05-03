@@ -288,7 +288,7 @@ void Game::display(){
 
 void Game::reshape(int w,int h){
 	glViewport(0, 0, w, h);
-	viewFrustum.SetPerspective(60.0f, float(w) / float(h), 0.001f, 500.0f);
+	viewFrustum.SetPerspective(60.0f, float(w) / float(h), 0.1f, 5000.0f);
 	projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
 }
 void Game::gameMain(){
