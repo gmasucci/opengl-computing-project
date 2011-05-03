@@ -45,6 +45,7 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	p[0] = p[2] = 30.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smKey->setPos(p);
+	smKey->setScale(0.2);
 	p[0] = p[2] = 40.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smStump->setPos(p);

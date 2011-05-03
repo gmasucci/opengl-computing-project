@@ -33,6 +33,9 @@ public:
 	void setAngle(float*ang);
 	void setAngle(float degrees);
 	void setPos(float*pos);
+	float getScale(){return scaleValue;}
+	void setScale(float nScale){scaleValue = nScale;}
+
 	void render(GLMatrixStack *pMVM,GLGeometryTransform *pGLGTin);
 	GameObject();
 	GameObject(GLGeometryTransform*pGLGTin);
