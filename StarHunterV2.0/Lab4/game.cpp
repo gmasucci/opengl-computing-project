@@ -21,7 +21,7 @@ Game::Game(int argc,char* argv[]){
 	
 	glutInitWindowPosition(0,0);
 	glutInitWindowSize(800	,	600);
-	glutCreateWindow("Star Hunter - V1.2");
+	glutCreateWindow("Relic Hunter - V1.0");
 
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
@@ -77,7 +77,7 @@ void Game::init(){
 	stumpTex[0] = treetex[0];//already loaded so copy uint so GL uses that texture
 
 
-	hud = new Overlay(&textures[8],800,50,0,50);
+	hud = new Overlay(&textures[8],800,600,0,600);
 	eHint = new Overlay(&textures[7],200,100,600,200);
 	startHelp = new Overlay(&textures[10],800,600,0,600);
 	menu = new Overlay(&textures[11],800,600,0,600);
@@ -127,13 +127,6 @@ void Game::update(){
 
 	switch(CURRENT_STATE){
 	case MENU:
-		//check for clicks
-		//get coords of clicks.
-		//case 0,1,2
-		//change gamemode
-		// if start then load all shit: init();
-		//			switch to quickhelp, not playing.
-		// if about then display credits overlay (TBC)
 		if(input.getMouseActive()){
 
 			if(tempx > 682 && tempx < 775){
@@ -141,8 +134,9 @@ void Game::update(){
 					loading->render();
 					glutPostRedisplay();
 					glutSwapBuffers();
-
+					sndMan->play(FX_MENU_SELECT);
 					this->init();
+
 					sndMan->stop(MUSIC_MENU);
 					grabMouse = true;
 					glutSetCursor(GLUT_CURSOR_NONE);
@@ -153,6 +147,7 @@ void Game::update(){
 			
 			if(tempx > 676 && tempx < 782){
 				if(tempy > 458 && tempy < 488){
+					sndMan->play(FX_MENU_SELECT);
 					CURRENT_STATE = ABOUT;
 				}
 			}
@@ -168,6 +163,8 @@ void Game::update(){
 	case QUICKHELP:
 		if(input.getKeyState('e')){
 			CURRENT_STATE = PLAYING;
+			sndMan->play(FX_GAME_AMBIENT,1);
+			sndMan->play(MUSIC_GAME,1);
 		}
 		break;
 	case PLAYING:
@@ -191,10 +188,10 @@ void Game::update(){
 				std::cout << "pos = " << p[0] << ", " << p[1] << ", " << p[2] << std::endl;
 			}
 
-			if(input.getKeyState('w')){theRealCam->moveForward();}
-			if(input.getKeyState('a')){theRealCam->strafeLeft();}
-			if(input.getKeyState('s')){theRealCam->moveBackward();}
-			if(input.getKeyState('d')){theRealCam->strafeRight();}
+			if(input.getKeyState('w')){theRealCam->moveForward();sndMan->play(FX_WALK);}
+			if(input.getKeyState('a')){theRealCam->strafeLeft();sndMan->play(FX_WALK);}
+			if(input.getKeyState('s')){theRealCam->moveBackward();sndMan->play(FX_WALK);}
+			if(input.getKeyState('d')){theRealCam->strafeRight();sndMan->play(FX_WALK);}
 			if(input.getKeyState('e')){/*use button*/}
 
 
@@ -258,7 +255,7 @@ void Game::display(){
 		startHelp->render();
 		eHint->render();
 		break;
-		//note: deliberate omission of a break here;
+		
 	case PLAYING:
 
 	// Skybox
@@ -276,7 +273,7 @@ void Game::display(){
 	theRealCam->PopMatrix();		//last pop. for cam matrix
 
 	hud->render();
-	//render numbers(hayden->getKeys(),int,int)
+	counters->render(hayden->getNumKeys(),-110,-410);
 
 		break;
 	case ABOUT:
@@ -291,7 +288,7 @@ void Game::display(){
 
 void Game::reshape(int w,int h){
 	glViewport(0, 0, w, h);
-	viewFrustum.SetPerspective(60.0f, float(w) / float(h), 0.001f, 1000.0f);
+	viewFrustum.SetPerspective(60.0f, float(w) / float(h), 0.001f, 500.0f);
 	projectionMatrix.LoadMatrix(viewFrustum.GetProjectionMatrix());
 }
 void Game::gameMain(){

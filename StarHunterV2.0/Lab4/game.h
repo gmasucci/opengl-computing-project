@@ -53,7 +53,7 @@ private:
 	int mouseY;
 	bool grabMouse;
 	unsigned int CURRENT_STATE;
-	enum state {MENU=0,QUICKHELP,PLAYING,ABOUT};
+	enum state {MENU=0,QUICKHELP,PLAYING,ABOUT,PAUSED};
 
 public:
 	Game(int argc,char*argv[]);
