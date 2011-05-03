@@ -40,8 +40,9 @@ Game::Game(int argc,char* argv[]){
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 	glGenTextures(15,textures);
 	Loaders::overlay("start.tga",&textures[11]);
+	Loaders::overlay("load.tga",&textures[9]);
+	loading = new Overlay(&textures[9],800,600,0,600);
 	
-
 	sndMan->play(MUSIC_MENU,1);
 	menu = new Overlay(&textures[11],800,600,0,600);
 
@@ -50,11 +51,6 @@ Game::Game(int argc,char* argv[]){
 
 void Game::init(){
 	
-	loading = new Overlay(&textures[9],800,600,0,600);
-	loading->render();
-	glutPostRedisplay();
-	glutSwapBuffers();
-
 	Loaders::tex("skin.tga",&textures[0]);
 	Loaders::tex("star.tga" ,&textures[1]);
 	Loaders::tex("grass.tga",&textures[3]);
@@ -82,7 +78,7 @@ void Game::init(){
 
 
 	hud = new Overlay(&textures[8],800,50,0,50);
-	eHint = new Overlay(&textures[7],200,100,500,200);
+	eHint = new Overlay(&textures[7],200,100,600,200);
 	startHelp = new Overlay(&textures[10],800,600,0,600);
 	menu = new Overlay(&textures[11],800,600,0,600);
 	counters = new Numbers(&textures[6]);
@@ -119,13 +115,8 @@ void Game::init(){
 	transformPipeline.SetMatrixStacks(modelViewMatrix, projectionMatrix);
 	modelViewMatrix.LoadIdentity();
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
-	//grabMouse = true;
-	//glutSetCursor(GLUT_CURSOR_NONE);
-	//sndMan->stop(SM_FLOPPY);
-
-	
-	//sndMan->play(SM_MUSIC,1);
 }
+
 void Game::update(){
 	int xcentre = glutGet(GLUT_WINDOW_WIDTH) / 2;		// stores the current horizontal centre iof the screen
 	int ycentre = glutGet(GLUT_WINDOW_HEIGHT) / 2;		// stores the current vertical centre of the screen
@@ -140,10 +131,44 @@ void Game::update(){
 		//get coords of clicks.
 		//case 0,1,2
 		//change gamemode
-		// if start then load all shit init();
-		// if about then display about ovetlay (TBC)
+		// if start then load all shit: init();
+		//			switch to quickhelp, not playing.
+		// if about then display credits overlay (TBC)
+		if(input.getMouseActive()){
+
+			if(tempx > 682 && tempx < 775){
+				if(tempy > 370 && tempy < 396){
+					loading->render();
+					glutPostRedisplay();
+					glutSwapBuffers();
+
+					this->init();
+					sndMan->stop(MUSIC_MENU);
+					grabMouse = true;
+					glutSetCursor(GLUT_CURSOR_NONE);
+					CURRENT_STATE = QUICKHELP;
+					
+				}
+			}
+			
+			if(tempx > 676 && tempx < 782){
+				if(tempy > 458 && tempy < 488){
+					CURRENT_STATE = ABOUT;
+				}
+			}
+			if(tempx > 688 && tempx < 770){
+				if(tempy > 546 && tempy < 576){
+					glutLeaveMainLoop();
+				}
+			}
+
+		}
+
 		break;
 	case QUICKHELP:
+		if(input.getKeyState('e')){
+			CURRENT_STATE = PLAYING;
+		}
 		break;
 	case PLAYING:
 
@@ -190,6 +215,9 @@ void Game::update(){
 
 		break;
 	case ABOUT:
+		if(input.getMouseActive() || input.getMouseRightActive()){
+			CURRENT_STATE = MENU;
+		}
 		break;
 	}
 
@@ -211,7 +239,26 @@ void Game::display(){
 		menu->render();
 		break;
 	case QUICKHELP:
+		// Skybox
+		//***********
+		theRealCam->PushMatrix(true);	//true for skybox only
+		mySky->draw(&transformPipeline);
+		theRealCam->PopMatrix();	//pop off the rotation only transform for the camera
+		//***********
+
+		theRealCam->PushMatrix();//no params, means standard transforms (ie not rotation only)
+
+			hm->drawMe(theRealCam);
+			mySM->renderAllObjects(&modelViewMatrix);
+	
+		theRealCam->PopMatrix();		//last pop. for cam matrix
+
+		hud->render();
+
+		startHelp->render();
+		eHint->render();
 		break;
+		//note: deliberate omission of a break here;
 	case PLAYING:
 
 	// Skybox
@@ -228,7 +275,8 @@ void Game::display(){
 	
 	theRealCam->PopMatrix();		//last pop. for cam matrix
 
-
+	hud->render();
+	//render numbers(hayden->getKeys(),int,int)
 
 		break;
 	case ABOUT:
