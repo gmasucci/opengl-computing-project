@@ -51,13 +51,15 @@ private:
 	int lastMouseY;
 	int mouseX;
 	int mouseY;
+	bool grabMouse;
+	unsigned int CURRENT_STATE;
+	enum state {MENU=0,LOADING,QUICKHELP,PLAYING,ABOUT};
 
 public:
 	Game(int argc,char*argv[]);
 	void display();
 	void init();
 	void update();
-	void updateOverlays();
 	void reshape(int w,int h);
 	void gameMain();
 	void mouseMove(int x,int y)						{input.mouseMotion(x,y);}

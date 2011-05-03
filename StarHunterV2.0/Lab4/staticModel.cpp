@@ -14,10 +14,10 @@ StaticModel::StaticModel	(
 	myFrame = new GLFrame();
 	multi = mult;
 	myTex=tex;
+	scaleValue = 1;
 	Vec3 tmax,tmin;
-	drawBounds = false;
+	drawBounds = true;
 	spinning = false;
-	//std::cout << "tmin.x = " << tmin.x << ", min.y = " << min->y << std::endl;
 	if(multi){
 		numParts = Loaders::uwsmMultiCheck(fname);
 		mesh = new MyTBatch[numParts];
@@ -26,7 +26,7 @@ StaticModel::StaticModel	(
 		mesh = new MyTBatch();
 		Loaders::uwsm(fname,mesh,&tmax,&tmin);
 	}
-
+	//
 	max.x = tmax.x;
 	max.y = tmax.y;
 	max.z = tmax.z;
@@ -41,10 +41,16 @@ StaticModel::StaticModel	(
 	this->ptype = 0;
 	this->theCam = camIn;
 	myS = new Shader(camIn,"Shaders/nospec.vert","Shaders/nospec.frag",&myTex[0]);
-	gltMakeSphere(tbmax,scaleValue,6,6);
-	tbmaxframe.TranslateWorld(max.x,0.0f,max.z);
-	gltMakeSphere(tbmin,5,6,6);
-	tbminframe.TranslateWorld(min.x,0.0f,min.z);
+	
+
+}
+void StaticModel::setAngle(float degrees){myFrame->RotateLocalY(1.570795*degrees);}
+void StaticModel::setViewCollBox(){
+	computeColInfo(&max,&min);
+	gltMakeSphere(tbmax,0.1,6,6);
+	tbmaxframe.TranslateLocal(max.x,0.5f,max.z);
+	gltMakeSphere(tbmin,0.1,6,6);
+	tbminframe.TranslateLocal(min.x,0.5f,min.z);
 }
 
 void StaticModel::render(GLMatrixStack *pMVM, bool spcblnd){
@@ -54,7 +60,6 @@ void StaticModel::render(GLMatrixStack *pMVM, bool spcblnd){
 		//glBlendFunc(GL_SRC_ALPHA, GL_ZERO);
 	}
 
-	//myFrame->RotateLocalY(0.01);
 	if(spinning){
 		myFrame->RotateLocalY(0.02f);
 	}
@@ -77,20 +82,21 @@ void StaticModel::render(GLMatrixStack *pMVM, bool spcblnd){
 
 
 
+	
+	//pMVM->PopMatrix();
+	//if(drawBounds){
+	//	pMVM->PushMatrix();
+	//		pMVM->MultMatrix(tbmaxframe);
+	//		tbmax.Draw();
+	//	pMVM->PopMatrix();
+	//	pMVM->PushMatrix();
+	//		pMVM->MultMatrix(tbminframe);
+	//		tbmin.Draw();
+	//	pMVM->PopMatrix();
+	//}
+		
 	pMVM->PopMatrix();
-
-	if(drawBounds){
-		pMVM->PushMatrix();
-		pMVM->MultMatrix(tbmaxframe);
-		tbmax.Draw();
-		pMVM->PopMatrix();
-		pMVM->PushMatrix(tbminframe);
-		tbmin.Draw();
-		pMVM->PopMatrix();
-	}
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 StaticModel::~StaticModel(void){
@@ -104,7 +110,7 @@ StaticModel::~StaticModel(void){
 	//other objects reference only, do not delete!
 }
 
-void StaticModel::getColInfo(Vec3 *cmax,Vec3 *cmin){
+void StaticModel::computeColInfo(Vec3 *cmax,Vec3 *cmin){
 
 	M3DVector3f m;
 	this->myFrame->GetOrigin(m);
@@ -116,4 +122,16 @@ void StaticModel::getColInfo(Vec3 *cmax,Vec3 *cmin){
 	cmin->x = (min.x*scaleValue) + m[0];
 	cmin->y = (min.y*scaleValue) + m[1];
 	cmin->z = (min.z*scaleValue) + m[2];
+}
+
+void StaticModel::getColInfo(Vec3 *cmax,Vec3 *cmin){
+	
+	cmax->x = max.x;
+	cmax->y = max.y;
+	cmax->z = max.z;
+
+	cmin->x = min.x;
+	cmin->y = min.y;
+	cmin->z = min.z;
+		
 }

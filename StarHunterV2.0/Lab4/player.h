@@ -8,23 +8,14 @@
 class Player :	public GameObject
 {
 private:
-	struct keyList{
-		bool w;
-		bool a;
-		bool d;
-		bool s;
-		bool e;
-		bool k;
-		bool l;
-	};
+
 	bool rev;
-	keyList kp;
 	//md2model *me;
 	DA::DA_MD5Model *me;
 
 	Terrain *map;
 	float velocity;
-	int stars,health,doorkey;
+	int stars,health,numKeys;
 	bool pain;
 	bool winner;
 	SoundManager *sm;
@@ -47,6 +38,10 @@ public:
 	void getPos(float*ret,float*ang);
 	void addStar()	{stars++;}
 	void addHealth(){health++;}
+
+	void addKey(){numKeys++;}
+	void removeKey() {numKeys--;}
+
 	void removeHealth(){health--;}
 	int getStars()	{return stars;}
 	int getHealth()	{return health;}

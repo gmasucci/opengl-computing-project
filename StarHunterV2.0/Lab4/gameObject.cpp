@@ -10,7 +10,7 @@ void GameObject::getPos(float*pos){myFrame->GetOrigin(pos);}
 void GameObject::setPos(float*pos){myFrame->SetOrigin(pos);}
 void GameObject::getAngle(float*pos){myFrame->GetForwardVector(pos);}
 void GameObject::setAngle(float*pos){myFrame->SetForwardVector(pos);}
-void GameObject::setAngle(float degrees){myFrame->RotateLocalY((PI/180)*degrees);}
+void GameObject::setAngle(float degrees){myFrame->RotateLocalY(1.570795*degrees);}
 
 
 void GameObject::render(GLMatrixStack *pMVM, GLGeometryTransform *pGLGTin){
