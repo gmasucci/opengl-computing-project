@@ -53,7 +53,7 @@ private:
 	int mouseY;
 	bool grabMouse;
 	unsigned int CURRENT_STATE;
-	enum state {MENU=0,LOADING,QUICKHELP,PLAYING,ABOUT};
+	enum state {MENU=0,QUICKHELP,PLAYING,ABOUT};
 
 public:
 	Game(int argc,char*argv[]);
@@ -65,7 +65,7 @@ public:
 	void mouseMove(int x,int y)						{input.mouseMotion(x,y);}
 	void keysUp(unsigned char key, int x, int y)	{input.keyboardRelease(key,x,y);}
 	void keysDn(unsigned char key, int x, int y)	{input.keyboardPress(key,x,y);}
-
+	void mouseClick(int button,int state,int x,int y){ input.mouseClick(button,state,x,y);}
 	~Game();
 
 };

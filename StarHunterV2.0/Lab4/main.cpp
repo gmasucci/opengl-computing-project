@@ -12,6 +12,7 @@ void init(void){ mygame->init(); }
 void keyboard(unsigned char key, int x, int y){	mygame->keysDn(key,x,y); }
 void keyup(unsigned char key, int x, int y){	mygame->keysUp(key,x,y); }
 void mouseMove(int x, int y){ mygame->mouseMove(x,y); }
+void mouseClick(int button,int state,int x,int y){ mygame->mouseClick(button,state,x,y);}
 
 //small func to shift the console window, I hate not being able to see it;
 void moveConsole(){
@@ -27,6 +28,7 @@ int main(int argc, char* argv[])
 		mygame = new Game(argc,argv);	//call constructor for main GLUT setup;
 		glutReshapeFunc(reshape);		//feed in the callbacks;
 		glutDisplayFunc(display);
+		glutMouseFunc(mouseClick);
 		glutPassiveMotionFunc(mouseMove);
 		glutKeyboardFunc(keyboard);
 		glutKeyboardUpFunc(keyup);
