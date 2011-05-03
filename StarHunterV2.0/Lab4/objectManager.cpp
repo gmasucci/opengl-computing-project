@@ -42,20 +42,16 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	p[0] = p[2] = 50.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smHouse->setPos(p);
-	smHouse->setViewCollBox();
 	p[0] = p[2] = 30.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smKey->setPos(p);
-	smKey->setViewCollBox();
 	p[0] = p[2] = 40.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smStump->setPos(p);
-	smStump->setViewCollBox();
 	p[0] = 30.0f;
 	p[2] = 40.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smLogs->setPos(p);
-	smLogs->setViewCollBox();
 
 	int numtrees = 200;
 	t = new Tree(numtrees,treetex,map,pGLGT,camIn);
@@ -159,7 +155,8 @@ void ObjectManager::updateAllObjects(){
 	if (thePlayer->isColliding(smKey)){
 		float newpos[] = {0.0f, -20.0f, 0.0f};
 		smKey->setPos(newpos);
-		std::cout << "GOT A KEY!!!\n";
+		smKey->computeColInfo(&smKey->max,&smKey->min);
+		thePlayer->addKey();
 	}
 
 

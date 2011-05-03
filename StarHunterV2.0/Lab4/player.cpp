@@ -13,6 +13,7 @@ Player::Player(GLuint *tex,GLGeometryTransform *pGLGTin,Terrain *mapIn,Camera *c
 	this->theCam = camIn;
 	sm=smIn;
 	myFrame = new GLFrame();
+	this->numKeys = 0;
 	
 	//	me=new md2model("tris.md2",sm);
 	//me = new DA::DA_MD5Model();
@@ -158,8 +159,6 @@ bool Player::isColliding(StaticModel *m){
 	m->getPos(Bpos);
 	Vec3 max,min;
 	m->getColInfo(&max,&min); 
-	Vec3 k;
-	k = max-min;
 	//get the max, min points in space.
 	//Make sure its WORLD coords (i.e add the position to the max/min)
 	

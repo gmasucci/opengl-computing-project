@@ -41,6 +41,7 @@ public:
 
 	void addKey(){numKeys++;}
 	void removeKey() {numKeys--;}
+	int getNumKeys() {return numKeys;}
 
 	void removeHealth(){health--;}
 	int getStars()	{return stars;}

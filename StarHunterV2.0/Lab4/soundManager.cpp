@@ -5,7 +5,7 @@ SoundManager::SoundManager(void)
 {
 	if (!BASS_Init(-1, 44100, BASS_DEVICE_NOTHREAD, NULL))
 	{
-		MessageBox(NULL,"Couldn't initialize Bass.dll.","Bugger!",MB_OK|MB_ICONEXCLAMATION);
+		MessageBox(NULL,"Couldn't initialize Bass.dll.","Error!",MB_OK|MB_ICONEXCLAMATION);
 	}else{
 		std::cout << "Bass.dll loaded correctly!" << std::endl;
 	}
@@ -24,19 +24,42 @@ SoundManager::SoundManager(void)
 	if (!menuselect)
 		MessageBox(NULL, "Couldn't load sound file.", m, MB_OK|MB_ICONEXCLAMATION);
 	
+	m = ".\\Sounds\\gameambient.mp3\0";
+	ambientGame = BASS_SampleLoad(false,m,0,0,1,0);
+	if (!ambientGame)
+		MessageBox(NULL, "Couldn't load sound file.", m, MB_OK|MB_ICONEXCLAMATION);
 	
+	m = ".\\Sounds\\gameMusic.mp3\0";
+	musicGame = BASS_SampleLoad(false,m,0,0,1,0);
+	if (!musicGame)
+		MessageBox(NULL, "Couldn't load sound file.", m, MB_OK|MB_ICONEXCLAMATION);
+
+	m = ".\\Sounds\\feet.mp3\0";
+	gameFeet = BASS_SampleLoad(false,m,0,0,1,0);
+	if (!gameFeet)
+		MessageBox(NULL, "Couldn't load sound file.", m, MB_OK|MB_ICONEXCLAMATION);
 	BASS_Start();
 	
 }
 
 void SoundManager::play(int sound,int loop){
 	switch(sound){
-	case 0:
+	case MUSIC_MENU:
 		BASS_SamplePlayEx(menumusic,(DWORD)0,-1,50,-1,loop);
 		break;
-	case 1:
+	case FX_MENU_SELECT:
 		BASS_SamplePlayEx(menuselect,(DWORD)0,-1,50,-1,loop);
-	break;
+		break;
+	case FX_GAME_AMBIENT:
+		BASS_SamplePlayEx(ambientGame,(DWORD)0,-1,50,-1,loop);
+		break;
+	case MUSIC_GAME:
+		BASS_SamplePlayEx(musicGame,(DWORD)0,-1,35,-1,loop);
+		break;
+	case FX_WALK:
+		BASS_SamplePlayEx(gameFeet,(DWORD)0,-1,50,-1,loop);
+		break;
+
 
 
 
@@ -47,8 +70,20 @@ void SoundManager::play(int sound,int loop){
 void SoundManager::stop(int sound){
 
 switch(sound){
-	case 0:
+	case MUSIC_MENU:
 		BASS_SampleStop(menumusic);
+		break;
+	case FX_MENU_SELECT:
+		BASS_SampleStop(menuselect);
+		break;
+	case FX_GAME_AMBIENT:
+		BASS_SampleStop(ambientGame);
+		break;
+	case MUSIC_GAME:
+		BASS_SampleStop(musicGame);
+		break;
+	case FX_WALK:
+		BASS_SampleStop(gameFeet);
 		break;
 
 	default:
@@ -58,10 +93,8 @@ switch(sound){
 }
 SoundManager::~SoundManager(void)
 {
-	BASS_SampleStop(menumusic);
-	
 	BASS_Stop();
-	std::cout << "Sound Stopped..." << std::endl;
+	std::cout << "All Sound Stopped" << std::endl;
 	BASS_Free();
 	std::cout << "Sound Memory Freed" << std::endl;
 }

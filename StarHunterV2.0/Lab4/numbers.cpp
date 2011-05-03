@@ -58,7 +58,7 @@ void Numbers::render(int numberToRender,int x,int y){
 	glBindTexture(GL_TEXTURE_RECTANGLE, tex[0]);
 	int n = numberToRender;
 	if(numberToRender<0||numberToRender>99){
- 		//MessageBox(NULL, "I can't display a number less than 0!\nFix it!", "Fail!", MB_OK | MB_ICONERROR);
+ 		MessageBox(NULL, "Cant render this number\nFix it!", "Fail!", MB_OK | MB_ICONERROR);
 	}else{
 		
 		if(n>9){

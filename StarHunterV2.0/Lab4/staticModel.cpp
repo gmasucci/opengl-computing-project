@@ -16,7 +16,7 @@ StaticModel::StaticModel	(
 	myTex=tex;
 	scaleValue = 1;
 	Vec3 tmax,tmin;
-	drawBounds = true;
+	drawBounds = false;
 	spinning = false;
 	if(multi){
 		numParts = Loaders::uwsmMultiCheck(fname);
@@ -45,6 +45,7 @@ StaticModel::StaticModel	(
 
 }
 void StaticModel::setAngle(float degrees){myFrame->RotateLocalY(1.570795*degrees);}
+
 void StaticModel::setViewCollBox(){
 	computeColInfo(&max,&min);
 	gltMakeSphere(tbmax,0.1,6,6);
@@ -112,6 +113,13 @@ StaticModel::~StaticModel(void){
 
 void StaticModel::computeColInfo(Vec3 *cmax,Vec3 *cmin){
 
+	
+
+
+}
+
+void StaticModel::getColInfo(Vec3 *cmax,Vec3 *cmin){
+	
 	M3DVector3f m;
 	this->myFrame->GetOrigin(m);
 
@@ -122,16 +130,5 @@ void StaticModel::computeColInfo(Vec3 *cmax,Vec3 *cmin){
 	cmin->x = (min.x*scaleValue) + m[0];
 	cmin->y = (min.y*scaleValue) + m[1];
 	cmin->z = (min.z*scaleValue) + m[2];
-}
-
-void StaticModel::getColInfo(Vec3 *cmax,Vec3 *cmin){
-	
-	cmax->x = max.x;
-	cmax->y = max.y;
-	cmax->z = max.z;
-
-	cmin->x = min.x;
-	cmin->y = min.y;
-	cmin->z = min.z;
 		
 }
