@@ -1,5 +1,6 @@
 #pragma once
 #include "tree.h"
+#include "Hedges.h"
 #include "terrain.h"
 #include "player.h"
 #include "numbers.h"
@@ -8,10 +9,12 @@
 #include "soundManager.h"
 #include "Controls.h"
 
+
 class ObjectManager
 {
 private:
 	Tree *t;
+	Hedges *h;
 	SoundManager	*psndMan;
 	GLGeometryTransform *pGLGT;
 
@@ -19,6 +22,7 @@ private:
 	StaticModel		*smKey;
 	StaticModel		*smStump;
 	StaticModel		*smLogs;
+
 
 	Player			*thePlayer;
 	Terrain			*theTerrain;
@@ -42,6 +46,7 @@ public:
 				GLuint *housetex,
 				GLuint *keytex,
 				GLuint *stumpTex,
+				GLuint *hedgeTex,
 				Camera *camIn,
 				Camerak *camK,
 				Controls *ctrl,

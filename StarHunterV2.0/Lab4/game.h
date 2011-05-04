@@ -28,6 +28,7 @@ private:
 	GLuint				treetex[2];
 	GLuint				house[4];
 	GLuint				stumpTex[2];
+	GLuint				hedgeTex[3];
 
 	CStopWatch			updater;
 	Camera				*myCam;

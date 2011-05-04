@@ -76,6 +76,10 @@ void Game::init(){
 	Loaders::tex("stump.tga",&stumpTex[1]);
 	stumpTex[0] = treetex[0];//already loaded so copy uint so GL uses that texture
 
+	glGenTextures(3,hedgeTex);
+	Loaders::tex("hedge3.tga",&hedgeTex[0]);
+	Loaders::tex("hedge1.tga",&hedgeTex[1]);
+	Loaders::tex("hedge2.tga",&hedgeTex[2]);
 
 	hud = new Overlay(&textures[8],800,600,0,600);
 	eHint = new Overlay(&textures[7],200,100,600,200);
@@ -98,6 +102,7 @@ void Game::init(){
 		house,
 		&textures[4],
 		stumpTex,
+		hedgeTex,
 		myCam,
 		theRealCam,
 		&input,

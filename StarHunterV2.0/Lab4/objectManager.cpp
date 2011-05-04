@@ -8,6 +8,7 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 				GLuint *housetex,
 				GLuint *keytex,
 				GLuint *stumpTex,
+				GLuint *hedgeTex,
 				Camera *camIn,
 				Camerak *camKin,
 				Controls *pInputIn,
@@ -42,6 +43,7 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	p[0] = p[2] = 50.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smHouse->setPos(p);
+
 	p[0] = p[2] = 30.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smKey->setPos(p);
@@ -56,6 +58,8 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 
 	int numtrees = 200;
 	t = new Tree(numtrees,treetex,map,pGLGT,camIn);
+	h = new Hedges(10,hedgeTex,map,pGLGT,camIn);
+
 	
 }
 
@@ -110,14 +114,14 @@ void ObjectManager::renderAllObjects(GLMatrixStack *pMVM){
 	smStump->render(pMVM);
 	smLogs->render(pMVM);
 	t->render(pMVM);
-
+	h->render(pMVM);
 }
 
 int ObjectManager::getStars(){return numStars;}
 
 void ObjectManager::updateAllObjects(){
 
-	thePlayer->keyboardUpdater();
+	
 	M3DVector3f tmp,ang;
 	thePlayer->getPos(tmp,ang);
 	tmp[1]=1.0+theTerrain->getHeightAt(tmp[0],tmp[2]);
