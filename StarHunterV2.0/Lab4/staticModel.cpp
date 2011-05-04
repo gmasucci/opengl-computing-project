@@ -44,7 +44,7 @@ StaticModel::StaticModel	(
 	
 
 }
-void StaticModel::setAngle(float degrees){myFrame->RotateLocalY(1.570795*degrees);}
+void StaticModel::setAngle(float degrees){myFrame->RotateLocalY(0.0174532*degrees);}
 
 void StaticModel::setViewCollBox(){
 	computeColInfo(&max,&min);
