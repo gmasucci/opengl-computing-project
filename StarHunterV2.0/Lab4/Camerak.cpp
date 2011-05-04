@@ -3,11 +3,11 @@
 Camerak::Camerak(GLMatrixStack *pMVMin)
 {
 	this->pMVM = pMVMin;
-	movement_rate = 0.10f;
+	movement_rate = 0.05f;
 	rotation_rate = float(m3dDegToRad(1.0f));
 	cam.SetOrigin(0,0,0);
 	camMx = new M3DMatrix44f[1];
-	cam.RotateLocalY(1.57075);
+	//cam.RotateLocalY(1.57075);
 }
 
 Camerak::~Camerak(void)
@@ -18,45 +18,59 @@ Camerak::~Camerak(void)
 void Camerak::moveForward()
 {
 	M3DVector3f temp;
+	Vec3 thisMove;
 	cam.GetOrigin(temp);
 	lastPos.fromM3D(temp);
 	cam.GetForwardVector(temp);
 	temp[1] = 0;
 	m3dNormalizeVector3(temp);
-	float x = cam.GetOriginX() + (temp[0] * movement_rate);
-	float y = cam.GetOriginY();
-	float z = cam.GetOriginZ() + (temp[2] * movement_rate);
-	cam.SetOrigin(x,y,z);
+	thisMove.fromM3D(temp);
+	thisMove*= movement_rate;
+	move+=thisMove;
+
+	//cam.SetOrigin(x,y,z);
 	
 }
 void Camerak::strafeRight(){
 	
-	M3DVector3f temp;
+	M3DVector3f temp,fwd,up,right;
+	Vec3 thisMove;
 	cam.GetOrigin(temp);
 	lastPos.fromM3D(temp);
-	cam.MoveRight(-movement_rate);
+	cam.GetForwardVector(fwd);
+	cam.GetUpVector(up);
+	m3dCrossProduct3(right,fwd,up);
+	thisMove.fromM3D(right);
+	thisMove*= movement_rate;
+	move+=thisMove;
 }
 void Camerak::strafeLeft(){
 	
-	M3DVector3f temp;
+	M3DVector3f temp,fwd,up,right;
+	Vec3 thisMove;
 	cam.GetOrigin(temp);
 	lastPos.fromM3D(temp);
-	cam.MoveRight(movement_rate);
+	cam.GetForwardVector(fwd);
+	cam.GetUpVector(up);
+	m3dCrossProduct3(right,fwd,up);
+	thisMove.fromM3D(right);
+	thisMove*= movement_rate;
+	move-=thisMove;
 
 }
 void Camerak::moveBackward()
 {
 	
 	M3DVector3f temp;
+	Vec3 thisMove;
 	cam.GetOrigin(temp);
 	lastPos.fromM3D(temp);
 	cam.GetForwardVector(temp);
 	temp[1] = 0;
 	m3dNormalizeVector3(temp);
-	float x = cam.GetOriginX() + (temp[0] * -movement_rate);
-	float y = cam.GetOriginY();
-	float z = cam.GetOriginZ() + (temp[2] * -movement_rate);
-	cam.SetOrigin(x,y,z);
+	thisMove.fromM3D(temp);
+	thisMove*= movement_rate;
+	move-=thisMove;
 	
 }
 
@@ -75,17 +89,22 @@ void Camerak::PushMatrix(bool sky){
 }
 
 
-// This function is used to switch between the camera modes and realign the camera in relation to each mode.
+void Camerak::update(){
+	M3DVector3f o;
+	Vec3 vo;
+	cam.GetOrigin(o);
+	vo.fromM3D(o);
+	vo+=move;
+	vo.toM3D(o);
+	cam.SetOrigin(o);
+	move*=0.5;
 
-void Camerak::update(Vec3 iorigin){
-		cam.SetOrigin(iorigin.x , iorigin.y + 0.75f, iorigin.z);	
+
 }
 
 void Camerak::collisionResponse(){
 	
-	M3DVector3f m;
-	lastPos.toM3D(m);
-	cam.SetOrigin(m);
+	move*=-1;
 }
 
 M3DMatrix44f *Camerak::getMx(bool sky){

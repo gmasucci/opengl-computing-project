@@ -123,6 +123,7 @@ void Game::init(){
 }
 
 void Game::update(){
+
 	int xcentre = glutGet(GLUT_WINDOW_WIDTH) / 2;		// stores the current horizontal centre iof the screen
 	int ycentre = glutGet(GLUT_WINDOW_HEIGHT) / 2;		// stores the current vertical centre of the screen
 	
@@ -176,6 +177,7 @@ void Game::update(){
 
 			mySM->updateAllObjects();
 			M3DVector3f v,fv;
+			theRealCam->update();
 			theRealCam->getFrame().GetOrigin(v);
 			theRealCam->getFrame().GetForwardVector(fv);
 			v[1] = hm->getHeightAt(v[0],v[2]) + 1.3;
@@ -186,8 +188,8 @@ void Game::update(){
 
 			if(input.getKeyState(27)){glutLeaveMainLoop();}
 			if(input.getKeyState('q')){
-				grabMouse=false;
-				glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);
+				//grabMouse=false;
+				//glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);
 				M3DVector3f p,a;
 				hayden->getPos(p,a);
 				std::cout << "pos = " << p[0] << ", " << p[1] << ", " << p[2] << std::endl;

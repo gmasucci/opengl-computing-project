@@ -20,9 +20,12 @@ public:
 	const Vec3 operator-(const Vec3 &rhs) const;
 	const Vec3& operator=(const Vec3 &rhs);
 	const Vec3& operator+=(const Vec3 &rhs);
+	const Vec3& operator-=(const Vec3 &rhs);
+	const Vec3& operator*=(const double &rhs);
 	const Vec3 operator*(const double rhs) const;
 	void fromM3D(M3DVector3f m);
 	void toM3D(float *m);
+	void clear(){x=0;y=0;z=0;}
 };
 
 #endif
