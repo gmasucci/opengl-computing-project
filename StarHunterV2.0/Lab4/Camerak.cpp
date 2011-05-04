@@ -3,7 +3,7 @@
 Camerak::Camerak(GLMatrixStack *pMVMin)
 {
 	this->pMVM = pMVMin;
-	movement_rate = 0.05f;
+	movement_rate = 0.02f;
 	rotation_rate = float(m3dDegToRad(1.0f));
 	cam.SetOrigin(0,0,0);
 	camMx = new M3DMatrix44f[1];
@@ -97,14 +97,14 @@ void Camerak::update(){
 	vo+=move;
 	vo.toM3D(o);
 	cam.SetOrigin(o);
-	move*=0.5;
+	move*=0.7;
 
 
 }
 
 void Camerak::collisionResponse(){
 	
-	move*=-1;
+	move*=-2.0;
 }
 
 M3DMatrix44f *Camerak::getMx(bool sky){
