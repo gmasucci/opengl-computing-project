@@ -24,9 +24,9 @@ Player::Player(GLuint *tex,GLGeometryTransform *pGLGTin,Terrain *mapIn,Camera *c
 
 
 	this->rev =false;
-	velocity=0.154;
+	velocity=0.164;
 	this->scaleValue=0.005f;
-	this->radius=0.3;
+	this->radius=0.5;
 	pain = false;
 	winner=false;
 	
@@ -156,6 +156,7 @@ bool Player::isColliding(StaticModel *m){
 
 	M3DVector3f Apos,Aang,Bpos;
 	this->getPos(Apos,Aang);
+	
 	m->getPos(Bpos);
 	Vec3 max,min;
 	m->getColInfo(&max,&min); 
@@ -164,9 +165,14 @@ bool Player::isColliding(StaticModel *m){
 	
 	//TODO: do more detailed collisions only if close.
 	// this so far may be quite cpu hungry.
-	if(	Apos[0] < max.x && Apos[0] > min.x ){	
-		if( Apos[2] < max.z && Apos[2] > min.z){
+
+	float r = this->radius;
+
+	if(	Apos[0] - r < max.x && Apos[0] + r > min.x ){	
+		if( Apos[2] - r < max.z && Apos[2] + r > min.z){
 			retVal=true;
+			//about to collide, prevent movement.
+
 		}
 	}
 	return retVal; 	

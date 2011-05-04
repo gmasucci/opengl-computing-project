@@ -24,13 +24,9 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	this->camK = camKin;
 	M3DVector3f tmp,ang;
 	
-	tmp[0] = tmp[2] = 20.0f;
+	tmp[0] = tmp[2] = 40.0f;
 	tmp[1]=theTerrain->getHeightAt(tmp[0],tmp[2]);
-	Vec3 pos;
-	pos.fromM3D(tmp);
-	camK->update(pos);
-
-	//thePlayer->setAngle(235.0f);
+	camK->setOrigin(tmp);
 
 	smHouse = new StaticModel("house",housetex,pGLGT,camIn);
 	smKey = new StaticModel("key",keytex,pGLGT,camIn,false);
@@ -129,31 +125,45 @@ void ObjectManager::updateAllObjects(){
 
 	if(thePlayer->isColliding(smHouse)){
 		camK->collisionResponse();
+		
+		//if(pInput->getKeyState('w')){ camK->moveBackward();camK->moveBackward();}
+		//if(pInput->getKeyState('s')){ camK->moveForward();camK->moveForward(); }
+		//if(pInput->getKeyState('a')){ camK->strafeRight();camK->strafeRight(); }
+		//if(pInput->getKeyState('d')){ camK->strafeLeft();camK->strafeLeft(); }
+		//
+		
+		//M3DVector3f last,cur;
+		//Vec3 current,dist;
+		//camK->getOrigin(cur);
+		//dist = camK->lastPos;
+		//current.fromM3D(cur);
+		//dist -= current;
+		//dist = dist * 5;
+		//current+=dist;
+		//current.toM3D(cur);
+		//camK->setOrigin(cur);
 
-		if(pInput->getKeyState('w')){ camK->moveBackward();}
-		if(pInput->getKeyState('s')){ camK->moveForward(); }
-		if(pInput->getKeyState('a')){ camK->strafeRight(); }
-		if(pInput->getKeyState('d')){ camK->strafeLeft(); }
+
 	
 	}
 
 	if(thePlayer->isColliding(smStump)){
-		camK->collisionResponse();
+		//camK->collisionResponse();
 
-		if(pInput->getKeyState('w')){ camK->moveBackward();}
-		if(pInput->getKeyState('s')){ camK->moveForward(); }
-		if(pInput->getKeyState('a')){ camK->strafeRight(); }
-		if(pInput->getKeyState('d')){ camK->strafeLeft(); }
+
 	
 	}
 
 	if(thePlayer->isColliding(smLogs)){
 		
-		camK->collisionResponse();
+		//camK->collisionResponse();
+
+
+				/*
 		if(pInput->getKeyState('w')){ camK->moveBackward();}
 		if(pInput->getKeyState('s')){ camK->moveForward(); }
 		if(pInput->getKeyState('a')){ camK->strafeRight(); }
-		if(pInput->getKeyState('d')){ camK->strafeLeft(); }
+		if(pInput->getKeyState('d')){ camK->strafeLeft(); }*/
 
 	}
 
