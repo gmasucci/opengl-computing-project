@@ -27,7 +27,7 @@ Hedges::Hedges(int numhedges,GLuint *tex,Terrain *map,GLGeometryTransform *pGLGT
 void Hedges::setup(){
 	for(int i = 0;i<clones;i++){
 		M3DVector3f a;
-		a[0] = 30 + (i*3);
+		a[0] = 30 + (i*3.07);
 		a[2] = 30;
 		a[1] = theTerrain->getHeightAt(a[0],a[2]);
 		hedgeFrame[i].SetOrigin(a);

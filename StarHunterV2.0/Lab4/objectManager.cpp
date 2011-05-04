@@ -125,30 +125,11 @@ void ObjectManager::updateAllObjects(){
 
 	if(thePlayer->isColliding(smHouse)){
 		camK->collisionResponse();
-		
-		//if(pInput->getKeyState('w')){ camK->moveBackward();camK->moveBackward();}
-		//if(pInput->getKeyState('s')){ camK->moveForward();camK->moveForward(); }
-		//if(pInput->getKeyState('a')){ camK->strafeRight();camK->strafeRight(); }
-		//if(pInput->getKeyState('d')){ camK->strafeLeft();camK->strafeLeft(); }
-		//
-		
-		//M3DVector3f last,cur;
-		//Vec3 current,dist;
-		//camK->getOrigin(cur);
-		//dist = camK->lastPos;
-		//current.fromM3D(cur);
-		//dist -= current;
-		//dist = dist * 5;
-		//current+=dist;
-		//current.toM3D(cur);
-		//camK->setOrigin(cur);
 
-
-	
 	}
 
 	if(thePlayer->isColliding(smStump)){
-		//camK->collisionResponse();
+		camK->collisionResponse();
 
 
 	
@@ -156,7 +137,7 @@ void ObjectManager::updateAllObjects(){
 
 	if(thePlayer->isColliding(smLogs)){
 		
-		//camK->collisionResponse();
+		camK->collisionResponse();
 
 
 				/*

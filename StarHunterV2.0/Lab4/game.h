@@ -17,12 +17,12 @@ class Game{
 private:
 
 	SoundManager		*sndMan;
+
 	GLMatrixStack		projectionMatrix;
 	GLFrustum			viewFrustum;
 	GLMatrixStack		modelViewMatrix;
 	GLGeometryTransform	transformPipeline;
-	GLfloat				vLightPos[3];
-	GLfloat				vWhite[4];
+
 	
 	GLuint				textures[15];
 	GLuint				treetex[2];
@@ -37,12 +37,16 @@ private:
 	GLuint				skyTex[6];
 	Terrain				*hm;
 	Player				*hayden;
+
 	Overlay				*loading;
 	Overlay				*loaded;
 	Overlay				*hud;
 	Overlay				*eHint;
 	Overlay				*startHelp;
 	Overlay				*menu;
+	Overlay				*pause;
+	Overlay				*about;
+
 	Numbers				*counters;
 	HSAMPLE				music;
 	HCHANNEL			musicChannel;
@@ -53,7 +57,7 @@ private:
 	int mouseX;
 	int mouseY;
 	bool grabMouse;
-	unsigned int CURRENT_STATE;
+	unsigned int CURRENT_STATE,PREV_STATE;
 	enum state {MENU=0,QUICKHELP,PLAYING,ABOUT,PAUSED};
 
 public:
@@ -63,10 +67,10 @@ public:
 	void update();
 	void reshape(int w,int h);
 	void gameMain();
-	void mouseMove(int x,int y)						{input.mouseMotion(x,y);}
-	void keysUp(unsigned char key, int x, int y)	{input.keyboardRelease(key,x,y);}
-	void keysDn(unsigned char key, int x, int y)	{input.keyboardPress(key,x,y);}
-	void mouseClick(int button,int state,int x,int y){ input.mouseClick(button,state,x,y);}
+	void mouseMove(int x,int y)							{input.mouseMotion(x,y);}
+	void keysUp(unsigned char key, int x, int y)		{input.keyboardRelease(key,x,y);}
+	void keysDn(unsigned char key, int x, int y)		{input.keyboardPress(key,x,y);}
+	void mouseClick(int button,int state,int x,int y)	{input.mouseClick(button,state,x,y);}
 	~Game();
 
 };

@@ -7,14 +7,7 @@
 
 
 Game::Game(int argc,char* argv[]){
-	vWhite[0]=1.0f;
-	vWhite[1]=1.0f;
-	vWhite[2]=1.0f;
-	vWhite[3]=1.0f;
 
-	vLightPos[0] = 128.0f;
-	vLightPos[1] = 30.0f;
-	vLightPos[2] = 0.0f;
 	gltSetWorkingDirectory(argv[0]);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
@@ -41,27 +34,32 @@ Game::Game(int argc,char* argv[]){
 	glGenTextures(15,textures);
 	Loaders::overlay("start.tga",&textures[11]);
 	Loaders::overlay("load.tga",&textures[9]);
+	Loaders::overlay("about.tga",&textures[4]);
+	about = new Overlay(&textures[4],800,600,0,600);
 	loading = new Overlay(&textures[9],800,600,0,600);
+	menu = new Overlay(&textures[11],800,600,0,600);
 	
 	sndMan->play(MUSIC_MENU,1);
-	menu = new Overlay(&textures[11],800,600,0,600);
+	
+
 
 	CURRENT_STATE = MENU;
 }
 
 void Game::init(){
 	
+	//Spare textures
 	Loaders::tex("skin.tga",&textures[0]);
 	Loaders::tex("star.tga" ,&textures[1]);
 	Loaders::tex("grass.tga",&textures[3]);
-	Loaders::tex("beast.tga",&textures[4]);
-	Loaders::tex("heart.tga",&textures[5]);
+	
+	//overlays
+	Loaders::overlay("pause.tga",&textures[5]);
 	Loaders::overlay("font.tga",&textures[6]);
 	Loaders::overlay("hint.tga",&textures[7]);
 	Loaders::overlay("overlay.tga",&textures[8]);
 	Loaders::overlay("start help.tga",&textures[10]);
-	
-	
+	Loaders::overlay("about.tga",&textures[4]);
 
 	glGenTextures(2,treetex);
 	Loaders::tex("trunk.tga",&treetex[0]);
@@ -74,7 +72,8 @@ void Game::init(){
 
 	glGenTextures(1,stumpTex);
 	Loaders::tex("stump.tga",&stumpTex[1]);
-	stumpTex[0] = treetex[0];//already loaded so copy uint so GL uses that texture
+	/*already loaded so copy uint so GL uses that texture*/
+	stumpTex[0] = treetex[0];	
 
 	glGenTextures(3,hedgeTex);
 	Loaders::tex("hedge3.tga",&hedgeTex[0]);
@@ -86,6 +85,9 @@ void Game::init(){
 	startHelp = new Overlay(&textures[10],800,600,0,600);
 	menu = new Overlay(&textures[11],800,600,0,600);
 	counters = new Numbers(&textures[6]);
+	pause = new Overlay(&textures[5],800,600,0,600);
+	
+
 	myCam = new Camera(&modelViewMatrix);
 	theRealCam = new Camerak(&modelViewMatrix);
 	hm = new Terrain ("h4.pgm",3,&textures[3],&transformPipeline);
@@ -146,7 +148,9 @@ void Game::update(){
 					sndMan->stop(MUSIC_MENU);
 					grabMouse = true;
 					glutSetCursor(GLUT_CURSOR_NONE);
+					glutWarpPointer((int)xcentre, (int)ycentre);
 					CURRENT_STATE = QUICKHELP;
+					PREV_STATE = MENU;
 					
 				}
 			}
@@ -155,6 +159,7 @@ void Game::update(){
 				if(tempy > 458 && tempy < 488){
 					sndMan->play(FX_MENU_SELECT);
 					CURRENT_STATE = ABOUT;
+					PREV_STATE = MENU;
 				}
 			}
 			if(tempx > 688 && tempx < 770){
@@ -168,7 +173,12 @@ void Game::update(){
 		break;
 	case QUICKHELP:
 		if(input.getKeyState('e')){
+			
 			CURRENT_STATE = PLAYING;
+			PREV_STATE = MENU;
+			glutWarpPointer((int)xcentre, (int)ycentre);
+			grabMouse=true;
+			glutSetCursor(GLUT_CURSOR_NONE);
 			sndMan->play(FX_GAME_AMBIENT,1);
 			sndMan->play(MUSIC_GAME,1);
 		}
@@ -186,7 +196,13 @@ void Game::update(){
 			hayden->setAng(fv);
 			myCam->update(v,fv);
 
-			if(input.getKeyState(27)){glutLeaveMainLoop();}
+			if(input.getKeyState(27)){
+				CURRENT_STATE = PAUSED;
+				PREV_STATE = PLAYING;
+				grabMouse=false;
+				glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);
+				
+			}
 			if(input.getKeyState('q')){
 				//grabMouse=false;
 				//glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);
@@ -219,10 +235,59 @@ void Game::update(){
 
 		break;
 	case ABOUT:
-		if(input.getMouseActive() || input.getMouseRightActive()){
-			CURRENT_STATE = MENU;
+		if(input.getMouseActive()){
+			if(tempx > 0 && tempx < 80){
+				if(tempy > 0 && tempy < 40){
+					CURRENT_STATE = PREV_STATE;
+					PREV_STATE = ABOUT;
+				}
+			}
 		}
 		break;
+
+	case PAUSED:
+	
+
+		if(input.getMouseActive()){
+
+			if(tempx > 30 && tempx < 58){
+				if(tempy > 33 && tempy < 72){
+					sndMan->play(FX_MENU_SELECT);
+					CURRENT_STATE = QUICKHELP;
+					PREV_STATE = PAUSED;
+					glutWarpPointer((int)xcentre, (int)ycentre);
+					grabMouse=true;
+					glutSetCursor(GLUT_CURSOR_NONE);
+				}
+			}
+
+			if(tempx > 317 && tempx < 480){
+				if(tempy > 169 && tempy < 204){
+					sndMan->play(FX_MENU_SELECT);
+					CURRENT_STATE = PLAYING;
+					PREV_STATE = PAUSED;
+					glutWarpPointer((int)xcentre, (int)ycentre);
+					grabMouse=true;
+					glutSetCursor(GLUT_CURSOR_NONE);
+				}
+			}
+			
+			if(tempx > 333 && tempx < 469){
+				if(tempy > 271 && tempy < 315){
+					sndMan->play(FX_MENU_SELECT);
+					CURRENT_STATE = ABOUT;
+					PREV_STATE = PAUSED;
+				}
+			}
+			if(tempx > 355 && tempx < 448){
+				if(tempy > 377 && tempy < 417){
+					glutLeaveMainLoop();
+				}
+			}
+
+		}
+		break;
+		
 	}
 
 
@@ -284,6 +349,27 @@ void Game::display(){
 
 		break;
 	case ABOUT:
+		about->render();
+		break;
+	case PAUSED:
+			// Skybox
+		//***********
+		theRealCam->PushMatrix(true);	//true for skybox only
+		mySky->draw(&transformPipeline);
+		theRealCam->PopMatrix();	//pop off the rotation only transform for the camera
+		//***********
+
+		theRealCam->PushMatrix();//no params, means standard transforms (ie not rotation only)
+
+			hm->drawMe(theRealCam);
+			mySM->renderAllObjects(&modelViewMatrix);
+	
+		theRealCam->PopMatrix();		//last pop. for cam matrix
+
+		hud->render();
+		counters->render(hayden->getNumKeys(),-110,-410);
+
+		pause->render();	
 		break;
 	}
 
