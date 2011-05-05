@@ -281,7 +281,11 @@ void Game::update(){
 			}
 			if(tempx > 355 && tempx < 448){
 				if(tempy > 377 && tempy < 417){
-					glutLeaveMainLoop();
+					CURRENT_STATE = MENU;
+					PREV_STATE = PLAYING;
+					sndMan->stop(FX_GAME_AMBIENT);
+					sndMan->stop(MUSIC_GAME);
+					sndMan->play(MUSIC_MENU,1);
 				}
 			}
 
