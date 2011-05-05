@@ -3,7 +3,7 @@
 Camerak::Camerak(GLMatrixStack *pMVMin)
 {
 	this->pMVM = pMVMin;
-	movement_rate = 0.06f;
+	movement_rate = 0.08f;//change this
 	rotation_rate = float(m3dDegToRad(1.0f));
 	cam.SetOrigin(0,0,0);
 	camMx = new M3DMatrix44f[1];
@@ -94,10 +94,12 @@ void Camerak::update(){
 	Vec3 vo;
 	cam.GetOrigin(o);
 	vo.fromM3D(o);
+
 	vo+=move;
 	vo.toM3D(o);
+	
 	cam.SetOrigin(o);
-	move*=0.7;
+	move*=0.8;
 
 
 }

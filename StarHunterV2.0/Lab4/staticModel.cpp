@@ -62,7 +62,7 @@ void StaticModel::render(GLMatrixStack *pMVM, bool spcblnd){
 	}
 
 	if(spinning){
-		myFrame->RotateLocalY(0.02f);
+		myFrame->RotateLocalY(0.01f);
 	}
 
 	pMVM->PushMatrix();
