@@ -32,6 +32,8 @@ private:
 	GLuint				house[4];
 	GLuint				stumpTex[2];
 	GLuint				hedgeTex[3];
+	GLuint				graveTex[3];
+	GLuint				ruinsTex[2];
 
 	CStopWatch			updater;
 	Camera				*myCam;

@@ -68,6 +68,7 @@
     <ClCompile Include="DA_MD5Model.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="Graves.cpp" />
     <ClCompile Include="Hedges.cpp" />
     <ClCompile Include="House.cpp" />
     <ClCompile Include="loaders.cpp" />
@@ -98,6 +99,7 @@
     <ClInclude Include="DA_Utils.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
+    <ClInclude Include="Graves.h" />
     <ClInclude Include="Hedges.h" />
     <ClInclude Include="House.h" />
     <ClInclude Include="SGLVSync.h" />

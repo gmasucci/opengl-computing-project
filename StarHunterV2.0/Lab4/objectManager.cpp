@@ -1,4 +1,5 @@
 #include "objectManager.h"
+
 using namespace std;
 
 ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
@@ -9,6 +10,8 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 				GLuint *keytex,
 				GLuint *stumpTex,
 				GLuint *hedgeTex,
+				GLuint *graveTex,
+				GLuint *ruinsTex,
 				Camera *camIn,
 				Camerak *camKin,
 				Controls *pInputIn,
@@ -25,13 +28,14 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	this->pInput = pInputIn;
 	this->camK = camKin;
 	M3DVector3f tmp,ang;
-	renderhint = false;
+	renderhint[0] = renderhint[1] = false;
 	tmp[0] = tmp[2] = 40.0f;
 	tmp[1]=theTerrain->getHeightAt(tmp[0],tmp[2]);
 	camK->setOrigin(tmp);
 
 	
 	smHouse = new StaticModel("house",housetex,pGLGT,camIn);
+	ruins = new StaticModel("ruins",ruinsTex,pGLGT,camIn);
 
 	smKeyOne = new StaticModel("key",keytex,pGLGT,camIn,false);
 	smKeyTwo = new StaticModel("key",keytex,pGLGT,camIn,false);
@@ -45,18 +49,30 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 
 	smGateOne = new StaticModel("gate",keytex,pGLGT,camIn,false);
 	smGateTwo = new StaticModel("gate",keytex,pGLGT,camIn,false);
-	
+	smGateTwo->rotateCollisionPoints();
+	smGateTwo->setAngle(90);
 
 	M3DVector3f p;
 	p[0] = p[2] = 50.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smHouse->setPos(p);
 
+	p[0] = 146;
+	p[2] = 38.0f;
+	p[1] = theTerrain->getHeightAt(p[0],p[2]);
+	ruins->setPos(p);
+
 	p[0] = 30;
 	p[2] = 60;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smKeyOne->setPos(p);
 	smKeyOne->setScale(0.2);
+
+	p[0] = 132;
+	p[2] = 46;
+	p[1] = theTerrain->getHeightAt(p[0],p[2]);
+	smKeyTwo->setPos(p);
+	smKeyTwo->setScale(0.2);
 
 	p[0] = p[2] = 40.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
@@ -72,6 +88,10 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smGateOne->setPos(p);
 	
+	p[0] = 198.69;
+	p[2] = 117.66;
+	p[1] = theTerrain->getHeightAt(p[0],p[2]);
+	smGateTwo->setPos(p);
 
 	int numtrees = 200;
 	t = new Tree(numtrees,treetex,map,pGLGT,camIn);
@@ -79,66 +99,31 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	h2 = new Hedges(1,HEDGE02,hedgeTex,map,pGLGT,camIn);
 	houses1 = new House(1,HOUSE1,housetex,theTerrain,pGLGT,camIn);
 	houses2 = new House(0,HOUSE2,housetex,theTerrain,pGLGT,camIn);
-
+	graves1 = new Graves(0,GRAVES01,graveTex,theTerrain,pGLGT,camIn);
 }
 
 void ObjectManager::loadPositions(char *fname){
-
-	ifstream::pos_type size;
-	char * memblock;
-
-	ifstream file (fname, ios::in|ios::binary|ios::ate);
-	if (file.is_open())
-	{
-		size = file.tellg();
-		memblock = new char [size];
-		file.seekg (0, ios::beg);
-		file.read (memblock, size);
-		file.close();
-	}
-	else
-	{	
-		cerr << "Unable to open file: " << fname << endl;
-	}
-	
-	stringstream strstream(memblock);
-
-	string check;
-	strstream >> check;
-	if (check.compare(0,7,"OPDFile")!=0)
-	{	
-		cerr << "File: " << fname << ", is not an Object Position Data file." << endl;
-	}else{
-
-			//load object position data.
-
-	}
-	
-	M3DVector3f p,a;
-	thePlayer->getPos(p,a);
-	p[0]=48;p[2]=48;p[1]=theTerrain->getHeightAt(48,48);
-	thePlayer->setPos(p);
-	cout << "Object Position Data File " << fname << " loaded." << endl;
-	delete[] memblock;
-
-	//generate trees!
-
-
-
+	//no longer used;
 }
+
 void ObjectManager::renderAllObjects(GLMatrixStack *pMVM){
 	
 	smHouse ->render(pMVM);
+	ruins->render(pMVM);
 	smKeyOne->render(pMVM);
+	smKeyTwo->render(pMVM);
 	smStump->render(pMVM);
 	smLogs->render(pMVM);
 	smGateOne->render(pMVM);
+	smGateTwo->render(pMVM);
 	t->render(pMVM);
 	h1->render(pMVM);
 	h2->render(pMVM);
 	houses1->render(pMVM);
 	houses2->render(pMVM);
-	if(renderhint)
+	graves1->render(pMVM);
+
+	if(renderhint[0] || renderhint[1])
 		eHint->render();
 }
 
@@ -155,6 +140,9 @@ void ObjectManager::updateAllObjects(){
 	if(thePlayer->isColliding(smHouse)){
 		camK->collisionResponse();
 	}
+	if(thePlayer->isColliding(ruins)){
+		camK->collisionResponse();
+	}
 
 	if(thePlayer->isColliding(smStump)){
 		camK->collisionResponse();
@@ -165,8 +153,13 @@ void ObjectManager::updateAllObjects(){
 	}
 
 	if (thePlayer->isColliding(smKeyOne)){
-		float newpos[] = {0.0f, -20.0f, 0.0f};
-		smKeyOne->setPos(newpos);
+		float p[] = {0.0f, -20.0f, 0.0f};
+		smKeyOne->setPos(p);
+		thePlayer->addKey();
+	}
+	if (thePlayer->isColliding(smKeyTwo)){
+		float p[] = {0.0f, -20.0f, 0.0f};
+		smKeyTwo->setPos(p);
 		thePlayer->addKey();
 	}
 
@@ -187,11 +180,15 @@ void ObjectManager::updateAllObjects(){
 	if(thePlayer->isColliding(smGateOne)){
 		camK->collisionResponse();
 	}
+	if(thePlayer->isColliding(smGateTwo)){
+		camK->collisionResponse();
+	}
 
-	this->checkRenderHint(smGateOne);
+	this->checkRenderHint(smGateOne,0);
+	this->checkRenderHint(smGateTwo,1);
 
 }
-void ObjectManager::checkRenderHint(StaticModel *gate){
+void ObjectManager::checkRenderHint(StaticModel *gate,int gn){
 	M3DVector3f a,b;
 	Vec3 va,vb;
 	camK->getOrigin(a);
@@ -202,10 +199,10 @@ void ObjectManager::checkRenderHint(StaticModel *gate){
 	vb-=va;
 	float dist = vb.length();
 	if (dist < 3){
-		renderhint = true;
+		renderhint[gn] = true;
 		currentGate = gate;
 	}else{
-		renderhint = false;
+		renderhint[gn] = false;
 	}
 }
 

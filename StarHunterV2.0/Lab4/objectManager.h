@@ -1,5 +1,6 @@
 #pragma once
 #include "tree.h"
+#include "Graves.h"
 #include "Hedges.h"
 #include "House.h"
 #include "terrain.h"
@@ -20,6 +21,7 @@ private:
 	Hedges *h3;
 	House *houses1;
 	House *houses2;
+	Graves *graves1;
 	Overlay *eHint;
 	
 	SoundManager	*psndMan;
@@ -27,6 +29,7 @@ private:
 
 	StaticModel		*smGateOne;
 	StaticModel		*smGateTwo;
+	StaticModel		*ruins;
 	
 	StaticModel		*smHouse;
 	StaticModel		*houses;
@@ -48,7 +51,7 @@ private:
 	bool			*needNewPoint;
 	Controls		*pInput;
 	Camerak			*camK;
-	bool			renderhint;
+	bool			renderhint[2];
 	StaticModel * currentGate;
 	int numStars,numHearts,numBaddies;
 	float verticalPos;
@@ -63,6 +66,8 @@ public:
 				GLuint *keytex,
 				GLuint *stumpTex,
 				GLuint *hedgeTex,
+				GLuint *graveTex,
+				GLuint *ruinsTex,
 				Camera *camIn,
 				Camerak *camK,
 				Controls *ctrl,
@@ -75,7 +80,7 @@ public:
 	void colliding(int type,GLFrame *obj);
 	int getStars();
 	void ePressed();
-	void checkRenderHint(StaticModel *gate);
+	void checkRenderHint(StaticModel *gate,int gn);
 
 	~ObjectManager(void);
 };
