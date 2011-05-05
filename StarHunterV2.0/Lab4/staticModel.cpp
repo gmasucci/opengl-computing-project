@@ -47,7 +47,7 @@ StaticModel::StaticModel	(
 void StaticModel::setAngle(float degrees){myFrame->RotateLocalY(0.0174532*degrees);}
 
 void StaticModel::setViewCollBox(){
-	computeColInfo(&max,&min);
+
 	gltMakeSphere(tbmax,0.1,6,6);
 	tbmaxframe.TranslateLocal(max.x,0.5f,max.z);
 	gltMakeSphere(tbmin,0.1,6,6);
@@ -110,12 +110,12 @@ StaticModel::~StaticModel(void){
 	delete myFrame;
 	//other objects reference only, do not delete!
 }
-
-void StaticModel::computeColInfo(Vec3 *cmax,Vec3 *cmin){
-
+//Caution, cant recover collision info.
+void StaticModel::deleteColInfo(){
 	
-
-
+	max.clear();
+	min.clear();
+	
 }
 
 void StaticModel::getColInfo(Vec3 *cmax,Vec3 *cmin){

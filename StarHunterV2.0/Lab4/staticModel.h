@@ -25,7 +25,7 @@ public:
 		bool multi = true);
 	void setViewCollBox();
 	void render(GLMatrixStack *pMVM, bool spcblnd = false);
-	void computeColInfo(Vec3 *max,Vec3 *min);
+	void deleteColInfo();
 	void getColInfo(Vec3 *max,Vec3 *min);
 
 	void setDrawBounds(bool b = false){drawBounds = b;}

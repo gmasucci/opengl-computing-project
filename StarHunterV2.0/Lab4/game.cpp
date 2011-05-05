@@ -1,5 +1,6 @@
 #pragma once
 #include "game.h"
+
 #include "Toolbox.h"
 #include <GLFrame.h>
 #include "loaders.h"
@@ -102,12 +103,13 @@ void Game::init(){
 		hm,
 		treetex,
 		house,
-		&textures[4],
+		&textures[1],
 		stumpTex,
 		hedgeTex,
 		myCam,
 		theRealCam,
 		&input,
+		eHint,
 		sndMan
 	);
 	
@@ -215,7 +217,7 @@ void Game::update(){
 			if(input.getKeyState('a')){theRealCam->strafeLeft();sndMan->play(FX_WALK);}
 			if(input.getKeyState('s')){theRealCam->moveBackward();sndMan->play(FX_WALK);}
 			if(input.getKeyState('d')){theRealCam->strafeRight();sndMan->play(FX_WALK);}
-			if(input.getKeyState('e')){/*use button*/}
+			if(input.getKeyState('e')){mySM->ePressed();}
 
 
 			if(tempx < xcentre - 1 || tempx > xcentre + 1)				// provides a dead zone in the centre of the screen

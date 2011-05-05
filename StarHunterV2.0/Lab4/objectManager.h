@@ -16,10 +16,11 @@ private:
 	Tree *t;
 	Hedges *h1;
 	Hedges *h2;
-
+	Overlay *eHint;
 	SoundManager	*psndMan;
 	GLGeometryTransform *pGLGT;
 
+	StaticModel		*smGate;
 	StaticModel		*smHouse;
 	StaticModel		*smKey;
 	StaticModel		*smStump;
@@ -35,7 +36,8 @@ private:
 	bool			*needNewPoint;
 	Controls		*pInput;
 	Camerak			*camK;
-
+	bool			renderhint;
+	StaticModel * currentGate;
 	int numStars,numHearts,numBaddies;
 	float verticalPos;
 
@@ -52,6 +54,7 @@ public:
 				Camera *camIn,
 				Camerak *camK,
 				Controls *ctrl,
+				Overlay * hint,
 				SoundManager *sndManPtr);
 
 	void loadPositions(char *fname);
@@ -59,6 +62,8 @@ public:
 	void updateAllObjects();
 	void colliding(int type,GLFrame *obj);
 	int getStars();
+	void ePressed();
+	void checkRenderHint(StaticModel *gate);
 
 	~ObjectManager(void);
 };
