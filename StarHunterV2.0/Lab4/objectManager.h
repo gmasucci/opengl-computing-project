@@ -1,6 +1,7 @@
 #pragma once
 #include "tree.h"
 #include "Hedges.h"
+#include "House.h"
 #include "terrain.h"
 #include "player.h"
 #include "numbers.h"
@@ -16,14 +17,25 @@ private:
 	Tree *t;
 	Hedges *h1;
 	Hedges *h2;
+	Hedges *h3;
+	House *houses1;
+	House *houses2;
 	Overlay *eHint;
+	
 	SoundManager	*psndMan;
 	GLGeometryTransform *pGLGT;
 
-	StaticModel		*smGate;
+	StaticModel		*smGateOne;
+	StaticModel		*smGateTwo;
+	StaticModel		*smGateThree;
 	StaticModel		*smHouse;
-	StaticModel		*smKey;
+	StaticModel		*houses;
+
+	StaticModel		*smKeyOne;
+	StaticModel		*smKeyTwo;
+
 	StaticModel		*smStump;
+	
 	StaticModel		*smLogs;
 
 

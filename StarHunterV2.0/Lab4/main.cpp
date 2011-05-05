@@ -19,6 +19,9 @@ void moveConsole(){
  HWND windowHandle = GetConsoleWindow();
  MoveWindow(windowHandle,815,0,420, 600, true);
 }
+
+
+
 //main function
 int main(int argc, char* argv[])
 {	
