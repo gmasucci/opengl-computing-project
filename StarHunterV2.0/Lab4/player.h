@@ -1,5 +1,5 @@
 #pragma once
-#include "staticModel.h"
+#include "Hedges.h"
 #include "DA_MD5Model.h"
 #include "terrain.h"
 #include "soundManager.h"
@@ -54,6 +54,7 @@ public:
 	~Player();
 
 	bool isColliding(StaticModel *m);
+	bool isColliding(int obj,Hedges *h);
 
 };
 

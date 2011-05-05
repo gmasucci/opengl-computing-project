@@ -14,7 +14,9 @@ class ObjectManager
 {
 private:
 	Tree *t;
-	Hedges *h;
+	Hedges *h1;
+	Hedges *h2;
+
 	SoundManager	*psndMan;
 	GLGeometryTransform *pGLGT;
 

@@ -30,7 +30,7 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 
 	smHouse = new StaticModel("house",housetex,pGLGT,camIn);
 	smKey = new StaticModel("key",keytex,pGLGT,camIn,false);
-	smStump = new StaticModel("gate",stumpTex,pGLGT,camIn,false);
+	smStump = new StaticModel("stump",stumpTex,pGLGT,camIn);
 	smStump->setAngle(180.0f);
 	smLogs = new StaticModel("logs",stumpTex,pGLGT,camIn);
 	smKey->setSpinning(true);
@@ -54,8 +54,8 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 
 	int numtrees = 200;
 	t = new Tree(numtrees,treetex,map,pGLGT,camIn);
-	h = new Hedges(10,hedgeTex,map,pGLGT,camIn);
-
+	h1 = new Hedges(0,HEDGE01,hedgeTex,map,pGLGT,camIn);
+	h2 = new Hedges(1,HEDGE02,hedgeTex,map,pGLGT,camIn);
 	
 }
 
@@ -110,7 +110,8 @@ void ObjectManager::renderAllObjects(GLMatrixStack *pMVM){
 	smStump->render(pMVM);
 	smLogs->render(pMVM);
 	t->render(pMVM);
-	h->render(pMVM);
+	h1->render(pMVM);
+	h2->render(pMVM);
 }
 
 int ObjectManager::getStars(){return numStars;}
@@ -125,27 +126,14 @@ void ObjectManager::updateAllObjects(){
 
 	if(thePlayer->isColliding(smHouse)){
 		camK->collisionResponse();
-
 	}
 
 	if(thePlayer->isColliding(smStump)){
 		camK->collisionResponse();
-
-
-	
 	}
 
 	if(thePlayer->isColliding(smLogs)){
-		
 		camK->collisionResponse();
-
-
-				/*
-		if(pInput->getKeyState('w')){ camK->moveBackward();}
-		if(pInput->getKeyState('s')){ camK->moveForward(); }
-		if(pInput->getKeyState('a')){ camK->strafeRight(); }
-		if(pInput->getKeyState('d')){ camK->strafeLeft(); }*/
-
 	}
 
 	if (thePlayer->isColliding(smKey)){
@@ -155,6 +143,12 @@ void ObjectManager::updateAllObjects(){
 		thePlayer->addKey();
 	}
 
+	if(thePlayer->isColliding(HEDGE01,h1)){
+		camK->collisionResponse();
+	}
+	if(thePlayer->isColliding(HEDGE02,h2)){
+		camK->collisionResponse();
+	}
 
 }
 
