@@ -27,7 +27,7 @@ private:
 
 	StaticModel		*smGateOne;
 	StaticModel		*smGateTwo;
-	StaticModel		*smGateThree;
+	
 	StaticModel		*smHouse;
 	StaticModel		*houses;
 

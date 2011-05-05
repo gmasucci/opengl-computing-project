@@ -29,15 +29,20 @@ Game::Game(int argc,char* argv[]){
 	
 	glAlphaFunc(GL_GREATER, 0.5);
 	glEnable(GL_ALPHA_TEST);
-	
-	if(vs.init()){
-		std::cout << "Initialising OpenGL... Success!" << std::endl;
-		vs.disable();
-	}else{
-		std::cout << "ERROR: Can't modify vsync setting" << std::endl;
-	}
-	
+#ifdef GL_VERSION_3_0
+	if (GLEW_VERSION_3_0)
+	{
 
+		if(vs->init()){
+			std::cout << "Initialising OpenGL... v-Sync Disabled" << std::endl;
+			vs->disable();
+		}else{
+			std::cout << "ERROR: Can't modify v-sync setting" << std::endl;
+		}
+	}else{
+		std::cout << "OpenGL 3.0 Not detected, skipping certain features." << std::endl;
+	}
+#endif
 	this->sndMan = new SoundManager();
 
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_GLUTMAINLOOP_RETURNS);

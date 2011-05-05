@@ -34,11 +34,15 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	smHouse = new StaticModel("house",housetex,pGLGT,camIn);
 
 	smKeyOne = new StaticModel("key",keytex,pGLGT,camIn,false);
+	smKeyTwo = new StaticModel("key",keytex,pGLGT,camIn,false);
+
 	smStump = new StaticModel("stump",stumpTex,pGLGT,camIn);
 	smStump->setAngle(180.0f);
 	smLogs = new StaticModel("logs",stumpTex,pGLGT,camIn);
 	smKeyOne->setSpinning(true);
+	smKeyTwo->setSpinning(true);
 	smGateOne = new StaticModel("gate",keytex,pGLGT,camIn,false);
+	smGateTwo = new StaticModel("gate",keytex,pGLGT,camIn,false);
 	
 
 	M3DVector3f p;
@@ -46,7 +50,8 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smHouse->setPos(p);
 
-	p[0] = p[2] = 30.0f;
+	p[0] = 30;
+	p[2] = 60;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smKeyOne->setPos(p);
 	smKeyOne->setScale(0.2);

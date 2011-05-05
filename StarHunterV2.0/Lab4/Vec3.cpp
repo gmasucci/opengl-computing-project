@@ -59,3 +59,14 @@ void Vec3::toM3D(float *m){
 	m[1] = y;
 	m[2] = z;
 }
+void Vec3::normalize(){
+	if(fabs(x) > 0.0001){
+		x/=this->length();
+	}
+	if(fabs(y) > 0.0001){
+		y/=this->length();
+	}
+	if(fabs(z) > 0.0001){
+		z/=this->length();
+	}
+}

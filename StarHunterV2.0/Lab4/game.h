@@ -1,5 +1,5 @@
 #pragma once
-#include "SGLVSync.h"
+
 #include "Camera.h"
 #include "md2model.h"
 #include "skybox.h"
@@ -9,13 +9,16 @@
 #include <StopWatch.h>
 #include "Controls.h"
 #include "Camerak.h"
-
-
+#include "SGLVSync.h"
 
 
 class Game{
 private:
-	SGLVSync	vs;
+
+#ifdef GL_VERSION_3_0
+	SGLVSync*vs;
+#endif
+
 	SoundManager		*sndMan;
 
 	GLMatrixStack		projectionMatrix;
