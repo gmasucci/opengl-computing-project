@@ -23,12 +23,13 @@ Game::Game(int argc,char* argv[]){
 	{
 		//failed, something blew up
 		std::cerr << "Error: " << glewGetErrorString(err) << std::endl;
-		exit(9001); //This exit code is OVER 9000!!!!!!
+		glutLeaveMainLoop();
 	}
 
 	
 	glAlphaFunc(GL_GREATER, 0.5);
 	glEnable(GL_ALPHA_TEST);
+
 #ifdef GL_VERSION_3_0
 	vs = new SGLVSync();
 	if (GLEW_VERSION_3_0)
@@ -40,10 +41,9 @@ Game::Game(int argc,char* argv[]){
 		}else{
 			std::cout << "ERROR: Can't modify v-sync setting" << std::endl;
 		}
-	}else{
-		std::cout << "OpenGL 3.0 Not detected, skipping certain features." << std::endl;
 	}
 #endif
+
 	this->sndMan = new SoundManager();
 
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_GLUTMAINLOOP_RETURNS);
@@ -66,7 +66,11 @@ void Game::init(){
 	
 	//Spare textures
 	Loaders::tex("skin.tga",&textures[0]);
+	
+	//key + gate
 	Loaders::tex("star.tga" ,&textures[1]);
+	
+	//grass
 	Loaders::tex("grass.tga",&textures[3]);
 	
 	//overlays
@@ -96,6 +100,15 @@ void Game::init(){
 	Loaders::tex("hedge1.tga",&hedgeTex[1]);
 	Loaders::tex("hedge2.tga",&hedgeTex[2]);
 
+	glGenTextures(1,graveTex);
+	Loaders::tex("grave.tga",&graveTex[0]);
+	graveTex[1] = graveTex[2] = graveTex[0];
+
+	glGenTextures(2,ruinsTex);
+	Loaders::tex("ruins2.tga",&ruinsTex[0]);
+	Loaders::tex("ruins1.tga",&ruinsTex[1]);
+
+
 	hud = new Overlay(&textures[8],800,600,0,600);
 	eHint = new Overlay(&textures[7],200,100,600,100);
 	startHelp = new Overlay(&textures[10],800,600,0,600);
@@ -121,6 +134,8 @@ void Game::init(){
 		&textures[1],
 		stumpTex,
 		hedgeTex,
+		graveTex,
+		ruinsTex,
 		myCam,
 		theRealCam,
 		&input,

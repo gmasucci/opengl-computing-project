@@ -14,8 +14,7 @@ private:
 	int mode;
 	GLFrame *hedgeFrame;
 	Terrain* theTerrain;
-	M3DMatrix44f mx4;
-	M3DMatrix33f mx3;
+
 
 public:
 	Hedges(int mode,int numhedges,GLuint *tex,Terrain *theTerrain,GLGeometryTransform *pGLGT,	Camera *camIn);

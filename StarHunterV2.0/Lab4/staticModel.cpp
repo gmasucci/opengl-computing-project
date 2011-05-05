@@ -35,6 +35,8 @@ StaticModel::StaticModel	(
 	min.y = tmin.y;
 	min.z = tmin.z;
 
+	m3dRotationMatrix44(mx4,D2R*90,0.0,1.0,0.0);
+	m3dExtractRotationMatrix33(mx3,mx4);
 
 	scaleValue=1;
 	this->radius = 0.4f;
@@ -131,4 +133,19 @@ void StaticModel::getColInfo(Vec3 *cmax,Vec3 *cmin){
 	cmin->y = (min.y*scaleValue) + m[1];
 	cmin->z = (min.z*scaleValue) + m[2];
 		
+}
+
+void StaticModel::rotateCollisionPoints(){
+		float tmp;
+		M3DVector3f vmax,vmin,outmax,outmin;
+		max.toM3D(vmax);
+		min.toM3D(vmin);
+		m3dRotateVector(outmax,vmax,mx3);
+		m3dRotateVector(outmin,vmin,mx3);
+		max.fromM3D(outmax);
+		min.fromM3D(outmin);
+		//and then correct them.
+		tmp = max.z;
+		max.z = min.z;
+		min.z = tmp;
 }
