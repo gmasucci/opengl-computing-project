@@ -196,5 +196,6 @@
     <None Include="Shaders\texonly.vert">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="ClassDiagram3.cd" />
   </ItemGroup>
 </Project>

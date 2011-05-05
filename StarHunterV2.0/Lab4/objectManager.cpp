@@ -12,10 +12,12 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 				Camera *camIn,
 				Camerak *camKin,
 				Controls *pInputIn,
+				Overlay * hint,
 				SoundManager *sndManPtr)
 
 {
 	psndMan = sndManPtr;
+	this->eHint = hint;
 	this->pGLGT=pGLGTin;
 	this->theTerrain= map;
 	this->thePlayer=playerIn;
@@ -23,7 +25,7 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	this->pInput = pInputIn;
 	this->camK = camKin;
 	M3DVector3f tmp,ang;
-	
+	renderhint = false;
 	tmp[0] = tmp[2] = 40.0f;
 	tmp[1]=theTerrain->getHeightAt(tmp[0],tmp[2]);
 	camK->setOrigin(tmp);
@@ -34,7 +36,8 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	smStump->setAngle(180.0f);
 	smLogs = new StaticModel("logs",stumpTex,pGLGT,camIn);
 	smKey->setSpinning(true);
-	
+	smGate = new StaticModel("gate",keytex,pGLGT,camIn,false);
+
 	M3DVector3f p;
 	p[0] = p[2] = 50.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
@@ -44,13 +47,21 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smKey->setPos(p);
 	smKey->setScale(0.2);
+
 	p[0] = p[2] = 40.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smStump->setPos(p);
+
 	p[0] = 30.0f;
 	p[2] = 40.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smLogs->setPos(p);
+
+	p[0] = 125.45;
+	p[2] = 70.2;
+	p[1] = theTerrain->getHeightAt(p[0],p[2]);
+	smGate->setPos(p);
+	
 
 	int numtrees = 200;
 	t = new Tree(numtrees,treetex,map,pGLGT,camIn);
@@ -109,9 +120,12 @@ void ObjectManager::renderAllObjects(GLMatrixStack *pMVM){
 	smKey->render(pMVM);
 	smStump->render(pMVM);
 	smLogs->render(pMVM);
+	smGate->render(pMVM);
 	t->render(pMVM);
 	h1->render(pMVM);
 	h2->render(pMVM);
+	if(renderhint)
+		eHint->render();
 }
 
 int ObjectManager::getStars(){return numStars;}
@@ -139,7 +153,6 @@ void ObjectManager::updateAllObjects(){
 	if (thePlayer->isColliding(smKey)){
 		float newpos[] = {0.0f, -20.0f, 0.0f};
 		smKey->setPos(newpos);
-		smKey->computeColInfo(&smKey->max,&smKey->min);
 		thePlayer->addKey();
 	}
 
@@ -149,16 +162,50 @@ void ObjectManager::updateAllObjects(){
 	if(thePlayer->isColliding(HEDGE02,h2)){
 		camK->collisionResponse();
 	}
+	if(thePlayer->isColliding(smGate)){
+		camK->collisionResponse();
+	}
+
+	this->checkRenderHint(smGate);
 
 }
-
+void ObjectManager::checkRenderHint(StaticModel *gate){
+	M3DVector3f a,b;
+	Vec3 va,vb;
+	camK->getOrigin(a);
+	gate->getPos(b);
+	
+	va.fromM3D(a);
+	vb.fromM3D(b);
+	vb-=va;
+	float dist = vb.length();
+	if (dist < 3){
+		renderhint = true;
+		currentGate = gate;
+	}else{
+		renderhint = false;
+	}
+}
 
 void ObjectManager::colliding(int type,GLFrame *obj){
 	
 
 }
 
+void ObjectManager::ePressed(){
 
+	if(renderhint){
+		if(thePlayer->getNumKeys() > 0){
+			M3DVector3f v;
+			v[0] = v[2] = 0;
+			v[1] = -20;
+			currentGate->setPos(v);
+			//currentGate->deleteColInfo();
+			thePlayer->removeKey();
+		}
+	}
+
+}
 ObjectManager::~ObjectManager(void)
 {
 	//delete[] starpositions;
