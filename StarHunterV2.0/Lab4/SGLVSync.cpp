@@ -70,17 +70,21 @@ bool SGLVSync::init()
 	isOK = false;
 	const char*ext = 0;
 	std::string s;
-	s.append((char*)glGetStringi(GL_EXTENSIONS, 221));
+	GLint i,n;
+	glGetIntegerv(GL_NUM_EXTENSIONS, &n);
+	
+	for (i = 0; i < n; i++) {
+		s = (char *)glGetStringi(GL_EXTENSIONS, i);
+		if(s.compare("WGL_EXT_swap_control")== 0){
+			break;
+		}
+	}
 	ext = s.c_str();
 
 	if(ext != NULL){
-		if (strstr(ext,"WGL_EXT_swap_control"))
-		{
-			wglSwapIntervalEXT = (PFNWGLEXTSWAPCONTROLPROC)wglGetProcAddress("wglSwapIntervalEXT");
-			wglGetSwapIntervalEXT = (PFNWGLEXTGETSWAPINTERVALPROC)wglGetProcAddress("wglGetSwapIntervalEXT");
-
-			isOK = true;
-		}
+		wglSwapIntervalEXT = (PFNWGLEXTSWAPCONTROLPROC)wglGetProcAddress("wglSwapIntervalEXT");
+		wglGetSwapIntervalEXT = (PFNWGLEXTGETSWAPINTERVALPROC)wglGetProcAddress("wglGetSwapIntervalEXT");
+		isOK = true;
 	}
 	return isOK;
 }

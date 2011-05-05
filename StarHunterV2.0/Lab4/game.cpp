@@ -30,6 +30,7 @@ Game::Game(int argc,char* argv[]){
 	glAlphaFunc(GL_GREATER, 0.5);
 	glEnable(GL_ALPHA_TEST);
 #ifdef GL_VERSION_3_0
+	vs = new SGLVSync();
 	if (GLEW_VERSION_3_0)
 	{
 
