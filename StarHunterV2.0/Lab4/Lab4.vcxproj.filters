@@ -81,6 +81,12 @@
     <ClCompile Include="Hedges.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="House.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SGLVSync.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -153,6 +159,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Hedges.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="House.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SGLVSync.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

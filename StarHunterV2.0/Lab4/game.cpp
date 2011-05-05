@@ -1,13 +1,14 @@
 #pragma once
 #include "game.h"
-
-#include "Toolbox.h"
+#include "SGLVSync.h"
 #include <GLFrame.h>
 #include "loaders.h"
 
 
-
 Game::Game(int argc,char* argv[]){
+
+
+
 
 	gltSetWorkingDirectory(argv[0]);
 	glutInit(&argc, argv);
@@ -15,7 +16,7 @@ Game::Game(int argc,char* argv[]){
 	
 	glutInitWindowPosition(0,0);
 	glutInitWindowSize(800	,	600);
-	glutCreateWindow("Relic Hunter - V1.0");
+	glutCreateWindow("Relic Hunter - V1.1");
 
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
@@ -25,9 +26,17 @@ Game::Game(int argc,char* argv[]){
 		exit(9001); //This exit code is OVER 9000!!!!!!
 	}
 
-
+	
 	glAlphaFunc(GL_GREATER, 0.5);
 	glEnable(GL_ALPHA_TEST);
+	
+	if(vs.init()){
+		std::cout << "Initialising OpenGL... Success!" << std::endl;
+		vs.disable();
+	}else{
+		std::cout << "ERROR: Can't modify vsync setting" << std::endl;
+	}
+	
 
 	this->sndMan = new SoundManager();
 
@@ -82,7 +91,7 @@ void Game::init(){
 	Loaders::tex("hedge2.tga",&hedgeTex[2]);
 
 	hud = new Overlay(&textures[8],800,600,0,600);
-	eHint = new Overlay(&textures[7],200,100,600,200);
+	eHint = new Overlay(&textures[7],200,100,600,100);
 	startHelp = new Overlay(&textures[10],800,600,0,600);
 	menu = new Overlay(&textures[11],800,600,0,600);
 	counters = new Numbers(&textures[6]);
@@ -124,6 +133,8 @@ void Game::init(){
 	transformPipeline.SetMatrixStacks(modelViewMatrix, projectionMatrix);
 	modelViewMatrix.LoadIdentity();
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
+
+	
 }
 
 void Game::update(){
@@ -222,12 +233,12 @@ void Game::update(){
 
 			if(tempx < xcentre - 1 || tempx > xcentre + 1)				// provides a dead zone in the centre of the screen
 			{
-				offset = (xcentre - tempx) * 0.003f;
+				offset = (xcentre - tempx) * 0.002f;
 				theRealCam->rotateAntiClockWise(offset);
 			}
 			if(tempy < ycentre - 1 || tempy > ycentre + 1)				// provides a dead zone in the centre of the screen
 			{
-				offset = (ycentre - tempy) * 0.003f;
+				offset = (ycentre - tempy) * 0.002f;
 				theRealCam->rotateUp(offset);
 			}
 			if(offset != 0 && grabMouse)
@@ -328,7 +339,7 @@ void Game::display(){
 	
 		theRealCam->PopMatrix();		//last pop. for cam matrix
 
-		hud->render();
+		//hud->render();
 
 		startHelp->render();
 		eHint->render();

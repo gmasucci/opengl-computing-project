@@ -13,6 +13,7 @@
 #include <GLBatch.h>
 #include <GLMatrixStack.h>
 #include <GLGeometryTransform.h>
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>

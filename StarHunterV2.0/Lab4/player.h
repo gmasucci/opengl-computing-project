@@ -1,4 +1,5 @@
 #pragma once
+#include "House.h"
 #include "Hedges.h"
 #include "DA_MD5Model.h"
 #include "terrain.h"
@@ -54,7 +55,8 @@ public:
 	~Player();
 
 	bool isColliding(StaticModel *m);
-	bool isColliding(int obj,Hedges *h);
+	bool isColliding(int obj,Hedges	*h);
+	bool isColliding(int obj,House	*h);
 
 };
 

@@ -204,3 +204,30 @@ bool Player::isColliding(int objects,Hedges *h){
 	}
 	return retVal; 	
 }
+
+bool Player::isColliding(int objects,House *h){
+
+	bool retVal = false;
+	
+	M3DVector3f Apos,Aang,Bpos;
+	this->getPos(Apos,Aang);
+
+	Vec3 max,min,pos;
+	h->getColInfo(&max,&min);
+
+	for(int i=0;i<objects;i++){
+		
+		pos = h->getColBox(i);
+	
+		float r = this->radius;
+
+		if(	Apos[0] - r < (max.x+pos.x) && Apos[0] + r > (min.x+pos.x) ){	
+			if( Apos[2] - r < (max.z+pos.z) && Apos[2] + r > (min.z+pos.z)){
+				retVal=true;
+				//about to collide, prevent movement.
+
+			}
+		}
+	}
+	return retVal; 	
+}

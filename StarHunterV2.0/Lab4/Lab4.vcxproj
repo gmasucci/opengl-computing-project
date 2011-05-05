@@ -69,6 +69,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="Hedges.cpp" />
+    <ClCompile Include="House.cpp" />
     <ClCompile Include="loaders.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyTBatch.cpp" />
@@ -79,6 +80,7 @@
     <ClCompile Include="overlay.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="SGLVSync.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="skybox.cpp" />
     <ClCompile Include="soundManager.cpp" />
@@ -97,6 +99,8 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="Hedges.h" />
+    <ClInclude Include="House.h" />
+    <ClInclude Include="SGLVSync.h" />
     <ClInclude Include="Toolbox.h" />
     <ClInclude Include="loaders.h" />
     <ClInclude Include="MyTBatch.h" />

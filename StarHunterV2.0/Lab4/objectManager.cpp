@@ -30,13 +30,16 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	tmp[1]=theTerrain->getHeightAt(tmp[0],tmp[2]);
 	camK->setOrigin(tmp);
 
+	
 	smHouse = new StaticModel("house",housetex,pGLGT,camIn);
-	smKey = new StaticModel("key",keytex,pGLGT,camIn,false);
+
+	smKeyOne = new StaticModel("key",keytex,pGLGT,camIn,false);
 	smStump = new StaticModel("stump",stumpTex,pGLGT,camIn);
 	smStump->setAngle(180.0f);
 	smLogs = new StaticModel("logs",stumpTex,pGLGT,camIn);
-	smKey->setSpinning(true);
-	smGate = new StaticModel("gate",keytex,pGLGT,camIn,false);
+	smKeyOne->setSpinning(true);
+	smGateOne = new StaticModel("gate",keytex,pGLGT,camIn,false);
+	
 
 	M3DVector3f p;
 	p[0] = p[2] = 50.0f;
@@ -45,8 +48,8 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 
 	p[0] = p[2] = 30.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
-	smKey->setPos(p);
-	smKey->setScale(0.2);
+	smKeyOne->setPos(p);
+	smKeyOne->setScale(0.2);
 
 	p[0] = p[2] = 40.0f;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
@@ -60,14 +63,16 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	p[0] = 125.45;
 	p[2] = 70.2;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
-	smGate->setPos(p);
+	smGateOne->setPos(p);
 	
 
 	int numtrees = 200;
 	t = new Tree(numtrees,treetex,map,pGLGT,camIn);
 	h1 = new Hedges(0,HEDGE01,hedgeTex,map,pGLGT,camIn);
 	h2 = new Hedges(1,HEDGE02,hedgeTex,map,pGLGT,camIn);
-	
+	houses1 = new House(1,HOUSE1,housetex,theTerrain,pGLGT,camIn);
+	houses2 = new House(0,HOUSE2,housetex,theTerrain,pGLGT,camIn);
+
 }
 
 void ObjectManager::loadPositions(char *fname){
@@ -117,13 +122,15 @@ void ObjectManager::loadPositions(char *fname){
 void ObjectManager::renderAllObjects(GLMatrixStack *pMVM){
 	
 	smHouse ->render(pMVM);
-	smKey->render(pMVM);
+	smKeyOne->render(pMVM);
 	smStump->render(pMVM);
 	smLogs->render(pMVM);
-	smGate->render(pMVM);
+	smGateOne->render(pMVM);
 	t->render(pMVM);
 	h1->render(pMVM);
 	h2->render(pMVM);
+	houses1->render(pMVM);
+	houses2->render(pMVM);
 	if(renderhint)
 		eHint->render();
 }
@@ -150,9 +157,9 @@ void ObjectManager::updateAllObjects(){
 		camK->collisionResponse();
 	}
 
-	if (thePlayer->isColliding(smKey)){
+	if (thePlayer->isColliding(smKeyOne)){
 		float newpos[] = {0.0f, -20.0f, 0.0f};
-		smKey->setPos(newpos);
+		smKeyOne->setPos(newpos);
 		thePlayer->addKey();
 	}
 
@@ -162,11 +169,19 @@ void ObjectManager::updateAllObjects(){
 	if(thePlayer->isColliding(HEDGE02,h2)){
 		camK->collisionResponse();
 	}
-	if(thePlayer->isColliding(smGate)){
+
+	if(thePlayer->isColliding(HOUSE1,houses1)){
 		camK->collisionResponse();
 	}
 
-	this->checkRenderHint(smGate);
+	if(thePlayer->isColliding(HOUSE2,houses2)){
+		camK->collisionResponse();
+	}
+	if(thePlayer->isColliding(smGateOne)){
+		camK->collisionResponse();
+	}
+
+	this->checkRenderHint(smGateOne);
 
 }
 void ObjectManager::checkRenderHint(StaticModel *gate){
