@@ -182,8 +182,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Bass.dll" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="Shaders\noSpec.frag">
       <Filter>Resource Files</Filter>
     </None>
@@ -214,6 +212,6 @@
     <None Include="Shaders\texonly.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="ClassDiagram3.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>

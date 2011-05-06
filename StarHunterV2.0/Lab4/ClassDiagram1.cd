@@ -1,108 +1,66 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Class Name="gameObject" Collapsed="true">
-    <Position X="18.5" Y="9.75" Width="1.5" />
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GameObject" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAgECIDAABAEEAAUIAAAAAkQAIAAAQAgABAAAQhQA=</HashCode>
+      <HashCode>AhAAgECIDAABAEEAgVIAAAAAgQApAAASAAABAAIQhQA=</HashCode>
       <FileName>gameObject.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="health" Collapsed="true">
-    <Position X="20.75" Y="12.75" Width="1.5" />
-    <Members>
-      <Method Name="~health" Hidden="true" />
-    </Members>
+  <Class Name="Graves" Collapsed="true">
+    <Position X="5.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
-      <FileName>health.h</FileName>
+      <HashCode>ABAAAAAAAAAAAAiAAAAAIAQAAAAAAAAAAAAEEEAQCAA=</HashCode>
+      <FileName>Graves.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="star" Collapsed="true">
-    <Position X="20.75" Y="11.75" Width="1.5" />
-    <Members>
-      <Method Name="~star" Hidden="true" />
-      <Field Name="tb" Hidden="true" />
-    </Members>
+  <Class Name="Hedges" Collapsed="true">
+    <Position X="7.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAIAAAAAAQBAAAAAAAAAAAACAAAAAAAAAAAAQAAA=</HashCode>
-      <FileName>star.h</FileName>
+      <HashCode>CBAAAAAAAAAAAAiABAAAIAAAAgAAAAAAAAAAEEAQAAA=</HashCode>
+      <FileName>Hedges.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Camera" Collapsed="true">
-    <Position X="25.75" Y="8.25" Width="1.25" />
+  <Class Name="House" Collapsed="true">
+    <Position X="9.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgACBAAAAAAAAAAAQACAAAACAAAAAAgQAQAAAIAEAAA=</HashCode>
-      <FileName>Camera.h</FileName>
+      <HashCode>ABAAAAAAAAAAAAiAAIAAMAAAAAAAAAAAAAIAEEAQAAI=</HashCode>
+      <FileName>House.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="baddie" Collapsed="true">
-    <Position X="20.75" Y="10.75" Width="1.5" />
+  <Class Name="Numbers" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAgAgAAAEAAAAAAAAIAAAEAAAAAQBAA=</HashCode>
-      <FileName>baddie.h</FileName>
+      <HashCode>AAAAAAAAAIAAAAAgAAAAAAAAAAAAAAAEAABgAQAQBAA=</HashCode>
+      <FileName>numbers.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="player" Collapsed="true">
-    <Position X="20.75" Y="9.75" Width="1.5" />
+  <Class Name="Overlay" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAREADAAAAOAIAQAIoAAQEACBAIAAQBYASAAABQAAg=</HashCode>
-      <FileName>player.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="game" Collapsed="true">
-    <Position X="22" Y="7.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>YAAAAAAAAnAJSAADQAAAAMAAQAGCgAKspMgAAQQEDEM=</HashCode>
-      <FileName>game.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="objectManager" Collapsed="true">
-    <Position X="23.25" Y="9" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAAAACAAAQABAgCgAAIAAhgwUCAgQEAARQAACEAgAQA=</HashCode>
-      <FileName>objectManager.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="soundManager" Collapsed="true">
-    <Position X="25.75" Y="9" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAABQCAAAICAAQAAACChAAAAQAAAIAAAAAQ=</HashCode>
-      <FileName>soundManager.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="skybox" Collapsed="true">
-    <Position X="25.75" Y="9.75" Width="1.25" />
-    <TypeIdentifier>
-      <HashCode>ACCAAABAgECAAAEAAAIAAAIAAAAAAAAAAAAAAAAgAAA=</HashCode>
-      <FileName>skybox.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="md2model" Collapsed="true">
-    <Position X="25.75" Y="12.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAAIQAAAgABEgAAAAABAAQQEgABACIAAAAAIAAAgACA=</HashCode>
-      <FileName>md2model.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="terrain" Collapsed="true">
-    <Position X="25.75" Y="7.5" Width="1.25" />
-    <TypeIdentifier>
-      <HashCode>AgAAiAAAgAEBAEEoAYIAAAICAAACwAAQAAAAgABAhQQ=</HashCode>
-      <FileName>terrain.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="overlay" Collapsed="true">
-    <Position X="25.75" Y="10.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AACAEAACAAEAAAYAQIAAIBAAAAAAAAAAAAABAAASAAA=</HashCode>
+      <HashCode>AACAAAACAAEAAAYAUIAAMAAAAAAAAAAAAAABAAASAAA=</HashCode>
       <FileName>overlay.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="numbers" Collapsed="true">
-    <Position X="25.75" Y="11.5" Width="1.5" />
+  <Class Name="Player" Collapsed="true">
+    <Position X="0.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAEAAAAIAAAAAAAAAAAAABgAQAQBAA=</HashCode>
-      <FileName>numbers.h</FileName>
+      <HashCode>UgAVEAjAAAAOAIAAAIoAARkACBAIAAQAYAQAAQBQABg=</HashCode>
+      <FileName>player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StaticModel" Collapsed="true">
+    <Position X="6.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EBAAGIgABAAUBABAAAQgAAAAAAIAgAAAAAAAAACQwAI=</HashCode>
+      <FileName>staticModel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tree" Collapsed="true">
+    <Position X="3" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAgAAAAAAAAAAIAAAAAAAAAAUEAQAAA=</HashCode>
+      <FileName>tree.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

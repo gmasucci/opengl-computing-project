@@ -29,8 +29,9 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	this->camK = camKin;
 	M3DVector3f tmp,ang;
 	renderhint[0] = renderhint[1] = false;
-	tmp[0] = tmp[2] = 40.0f;
-	tmp[1]=theTerrain->getHeightAt(tmp[0],tmp[2]);
+	tmp[0] = 49;
+	tmp[2] = 39;
+	tmp[1]=1.3;//theTerrain->getHeightAt(tmp[0],tmp[2]);
 	camK->setOrigin(tmp);
 
 	
@@ -62,8 +63,8 @@ ObjectManager::ObjectManager(GLGeometryTransform *pGLGTin,
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	ruins->setPos(p);
 
-	p[0] = 30;
-	p[2] = 60;
+	p[0] = 36;
+	p[2] = 29;
 	p[1] = theTerrain->getHeightAt(p[0],p[2]);
 	smKeyOne->setPos(p);
 	smKeyOne->setScale(0.2);
