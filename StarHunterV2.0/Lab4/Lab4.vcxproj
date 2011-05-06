@@ -128,8 +128,6 @@
   <ItemGroup>
     <None Include="Bass.dll" />
     <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
-    <None Include="ClassDiagram3.cd" />
     <None Include="Shaders\noSpec.frag" />
     <None Include="Shaders\noSpec.vert" />
     <None Include="Shaders\overlay.frag" />
